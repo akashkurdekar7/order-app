@@ -1,0 +1,15 @@
+What these do:
+
+express → server
+
+mongoose → MongoDB
+
+dotenv → environment variables
+
+cors → frontend connection
+
+bcryptjs → password hashing
+
+jsonwebtoken → authentication
+
+nodemon → auto restart server
