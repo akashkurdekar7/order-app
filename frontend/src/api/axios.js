@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:9858/api",
+    baseURL: "https://order-backend-c5em.onrender.com/",
 });
 
 API.interceptors.request.use((req) => {
