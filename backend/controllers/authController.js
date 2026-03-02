@@ -25,7 +25,13 @@ exports.registerUser = async (req, res) => {
 
     res.status(201).json({
       message: "User registered successfully",
-      user,
+      user: {
+        _id: user._id,
+        shopName: user.shopName,
+        personName: user.personName,
+        phone: user.phone,
+        role: user.role,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -57,10 +63,30 @@ exports.loginUser = async (req, res) => {
     res.json({
       message: "Login successful",
       token,
-      user,
+      user: {
+        _id: user._id,
+        shopName: user.shopName,
+        personName: user.personName,
+        phone: user.phone,
+        role: user.role,
+      },
     });
   } catch (error) {
-  console.log(error);
+    console.log(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.getUserDetails = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
 };
