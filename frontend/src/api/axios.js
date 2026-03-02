@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "https://order-backend-c5em.onrender.com/",
+    baseURL: import.meta.env.VITE_API_URL
+    // baseURL: "http://localhost:9858/api",
 });
 
 API.interceptors.request.use((req) => {

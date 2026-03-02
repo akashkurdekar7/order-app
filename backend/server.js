@@ -12,7 +12,12 @@ const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 
-app.use(cors());
+app.use(cors({
+  origin: "https://order-app-olive.vercel.app/",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);

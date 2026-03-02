@@ -20,11 +20,13 @@ function Register() {
 
     const handleRegister = async () => {
         try {
-            await API.post("/auth/register", form);
+            const res = await API.post("https://order-backend-c5em.onrender.com/api/auth/register", form);
+            console.log(res.data);
             alert("Registered successfully");
             navigate("/");
         } catch (error) {
-            alert("Error registering");
+            console.log(error.response.data);
+            alert(error.response.data.message);
         }
     };
 

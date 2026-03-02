@@ -13,3 +13,70 @@ bcryptjs → password hashing
 jsonwebtoken → authentication
 
 nodemon → auto restart server
+
+
+apis
+http://localhost:9858/api/auth/register
+
+{
+  "shopName": "Samarth Mane",
+  "personName": "Mane Traders",
+  "aadhaar": "808875647410",
+  "location": "Hubballi",
+  "phone": "9916390580",
+  "password": "123456"
+}
+
+http://localhost:9858/api/auth/login
+
+{
+  "phone": "9916390580",
+  "password": "123456"
+}
+
+http://localhost:9858/api/products
+
+bearer token- eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTJhZTI2MTdjMGUyNDFhZTdlMmRlYyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3MjI2OTE2NiwiZXhwIjoxNzcyODczOTY2fQ.2l4CHqAaWH8UxOD0L2Lax3PJXx2UpSUrK4UvsBGhD6U
+
+{
+  "title": "Gold Flake Cigarette",
+  "image": "https://example.com/image.jpg",
+  "price": 180,
+  "stock": 50
+}
+
+
+http://localhost:9858/api/orders
+ bearer token - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTJhZDM1YTI0NWZhNDU2OTQ2OWZhOCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzcyMjY5MzM4LCJleHAiOjE3NzI4NzQxMzh9.RGr7zS4kGsJm2TZ_lNbFfvVrEUk0TSQY90bmX3XiqBk
+
+ {
+  "items": [
+    {
+      "product": "69a2ae8a17c0e241ae7e2df0",
+      "quantity": 55
+    }
+  ]
+}
+
+
+http://localhost:9858/api/orders/my
+
+bearer token - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTJhZDM1YTI0NWZhNDU2OTQ2OWZhOCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzcyMjY5MzM4LCJleHAiOjE3NzI4NzQxMzh9.RGr7zS4kGsJm2TZ_lNbFfvVrEUk0TSQY90bmX3XiqBk
+
+{
+  "items": [
+    {
+      "product": "69a2ae8a17c0e241ae7e2df0",
+      "quantity": 2
+    }
+  ]
+}
+
+
+http://localhost:9858/api/orders
+
+bearer token - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTJhZTI2MTdjMGUyNDFhZTdlMmRlYyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3MjI2OTE2NiwiZXhwIjoxNzcyODczOTY2fQ.2l4CHqAaWH8UxOD0L2Lax3PJXx2UpSUrK4UvsBGhD6U
+
+http://localhost:9858/api/orders/dashboard
+
+bearer token - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTJhZTI2MTdjMGUyNDFhZTdlMmRlYyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3MjI2OTE2NiwiZXhwIjoxNzcyODczOTY2fQ.2l4CHqAaWH8UxOD0L2Lax3PJXx2UpSUrK4UvsBGhD6U
