@@ -14,7 +14,7 @@ const orderRoutes = require("./routes/orderRoutes");
 
 app.use(cors({
   origin: "https://order-app-olive.vercel.app/",
-  credentials: true,
+  credentials: true
 }));
 app.use(express.json());
 
