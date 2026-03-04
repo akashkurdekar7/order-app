@@ -12,12 +12,12 @@ const { protect, adminOnly } = require("../middleware/authMiddleware");
 const router = express.Router();
 
 // User routes
-router.post("/", protect, createOrder);
-router.get("/my", protect, getUserOrders);
+router.post("/createOrder", protect, createOrder);
+router.get("/getMyOrders", protect, getUserOrders);
 
 // Admin routes
-router.get("/", protect, adminOnly, getAllOrders);
-router.put("/:id", protect, adminOnly, updateOrderStatus);
-router.get("/dashboard", protect, adminOnly, getDashboardStats);
+router.get("/getAllOrders", protect, adminOnly, getAllOrders);
+router.put("/updateOrderStatus/:id", protect, adminOnly, updateOrderStatus);
+router.get("/getDashboardStats", protect, adminOnly, getDashboardStats);
 
 module.exports = router;

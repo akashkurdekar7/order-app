@@ -4,6 +4,8 @@ import API from "../api/axios";
 function AdminDashboard() {
     const [stats, setStats] = useState({});
     const [orders, setOrders] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [editingId, setEditingId] = useState(null);
 
     const [newProduct, setNewProduct] = useState({
         title: "",
@@ -15,8 +17,20 @@ function AdminDashboard() {
     useEffect(() => {
         fetchDashboard();
         fetchOrders();
+        fetchProducts();
     }, []);
-
+    const fetchProducts = async () => {
+        const res = await API.get("/products/getProducts");
+        setProducts(res.data);
+    };
+    const deleteProduct = async (id) => {
+        await API.delete(`/products/${id}`);
+        fetchProducts();
+    };
+    const editProduct = (product) => {
+        setNewProduct(product);
+        setEditingId(product._id);
+    };
     const fetchDashboard = async () => {
         const res = await API.get("/orders/dashboard");
         setStats(res.data);
@@ -33,10 +47,19 @@ function AdminDashboard() {
     };
 
     const addProduct = async () => {
-        await API.post("/products", newProduct);
-        alert("Product added");
+
+        if (editingId) {
+            await API.put(`/products/${editingId}`, newProduct);
+            alert("Product updated");
+            setEditingId(null);
+        } else {
+            await API.post("/products", newProduct);
+            alert("Product added");
+        }
+
         setNewProduct({ title: "", price: "", stock: "", image: "" });
-        fetchDashboard();
+
+        fetchProducts();
     };
 
     return (
@@ -125,6 +148,74 @@ function AdminDashboard() {
                 </div>
             </div>
 
+            <div className="bg-white p-6 rounded-xl shadow-sm mb-8">
+
+                <h2 className="text-lg font-semibold mb-4">Products</h2>
+
+                <table className="w-full text-sm border border-gray-300 border-collapse">
+
+                    <thead className="bg-gray-100">
+                        <tr>
+                            <th className="border p-2">Image</th>
+                            <th className="border p-2">Title</th>
+                            <th className="border p-2">Price</th>
+                            <th className="border p-2">Stock</th>
+                            <th className="border p-2">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {products.map((product) => (
+
+                            <tr key={product._id}>
+
+                                <td className="border p-2">
+                                    <img
+                                        src={product.image}
+                                        alt=""
+                                        className="h-10 w-10 object-cover rounded"
+                                    />
+                                </td>
+
+                                <td className="border p-2">
+                                    {product.title}
+                                </td>
+
+                                <td className="border p-2">
+                                    ₹{product.price}
+                                </td>
+
+                                <td className="border p-2">
+                                    {product.stock}
+                                </td>
+
+                                <td className="border p-2 flex gap-2">
+
+                                    <button
+                                        onClick={() => editProduct(product)}
+                                        className="bg-yellow-500 text-white px-3 py-1 rounded"
+                                    >
+                                        Edit
+                                    </button>
+
+                                    <button
+                                        onClick={() => deleteProduct(product._id)}
+                                        className="bg-red-500 text-white px-3 py-1 rounded"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                        ))}
+
+                    </tbody>
+                </table>
+
+            </div>
 
             {/* ORDERS */}
             <div className="bg-white p-6 rounded-xl shadow-sm">

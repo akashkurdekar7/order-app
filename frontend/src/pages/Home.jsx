@@ -6,58 +6,20 @@ function Home() {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState({});
 
-    // useEffect(() => {
-    //     fetchProducts();
-    // }, []);
     useEffect(() => {
-        setProducts(demoProducts);
+        fetchProducts();
     }, []);
-    // const fetchProducts = async () => {
-    //     try {
-    //         const res = await API.get("/products");
-    //         setProducts(res.data);
-    //     } catch (error) {
-    //         console.log("Using demo products");
-    //         setProducts(demoProducts);
-    //     }
-    // };
-    const demoProducts = [
-        {
-            _id: "1",
-            title: "Gold Flake Kings",
-            image: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Gold_Flake_Cigarettes_Pack.jpg",
-            price: 170,
-            stock: 60
-        },
-        {
-            _id: "2",
-            title: "Classic Milds",
-            image: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Wills_Classic_Cigarettes_Pack.jpg",
-            price: 330,
-            stock: 40
-        },
-        {
-            _id: "3",
-            title: "Classic Connect",
-            image: "https://upload.wikimedia.org/wikipedia/commons/4/45/Wills_Classic_Connect_Cigarettes.jpg",
-            price: 300,
-            stock: 35
-        },
-        {
-            _id: "4",
-            title: "Marlboro Red",
-            image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Marlboro_Red_pack.jpg",
-            price: 320,
-            stock: 50
-        },
-        {
-            _id: "5",
-            title: "Dunhill Switch",
-            image: "https://upload.wikimedia.org/wikipedia/commons/3/32/Dunhill_cigarettes_pack.jpg",
-            price: 350,
-            stock: 25
+
+    const fetchProducts = async () => {
+        try {
+            const res = await API.get("/products/getProducts");
+            setProducts(res.data);
+        } catch (error) {
+            console.log("Using demo products");
+            setProducts(demoProducts);
         }
-    ];
+    };
+
     const updateQuantity = (productId, change) => {
         setCart((prev) => {
             const newQty = (prev[productId] || 0) + change;
