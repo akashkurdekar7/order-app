@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../api/axios";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
@@ -29,61 +30,62 @@ function Login() {
     };
 
     return (
-        <div className="min-h-[100dvh] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center px-4">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
 
-            <div className="backdrop-blur-md bg-white/90 w-full max-w-sm p-8 rounded-3xl shadow-2xl transition-all duration-300 hover:scale-[1.02]">
+            <div className="w-full max-w-sm bg-white p-8 rounded-2xl shadow-sm">
 
-                <h2 className="text-3xl font-bold text-center text-gray-800">
-                    Welcome Back 👋
+                <h2 className="text-2xl font-semibold text-gray-800 text-center">
+                    Login
                 </h2>
 
-                <p className="text-center text-gray-500 text-sm mt-2 mb-6">
-                    Sign in to manage your wholesale orders
+                <p className="text-sm text-gray-500 text-center mt-1 mb-6">
+                    Access your account
                 </p>
 
                 <div className="mb-4">
-                    <label className="text-sm text-gray-600">Phone Number</label>
+                    <label className="text-sm text-gray-600">Phone</label>
                     <input
                         type="text"
-                        placeholder="Enter phone number"
+                        placeholder="Phone number"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="w-full mt-1 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                        className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500"
                     />
                 </div>
 
-                <div className="mb-6 relative">
+                <div className="mb-5 relative">
                     <label className="text-sm text-gray-600">Password</label>
                     <input
                         type={showPassword ? "text" : "password"}
-                        placeholder="Enter password"
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full mt-1 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                        className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500"
                     />
+
                     <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-9 text-sm text-indigo-600"
+                        className="absolute right-3  text-gray-500"
                     >
-                        {showPassword ? "Hide" : "Show"}
+                        {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
                     </button>
                 </div>
 
                 <button
                     onClick={handleLogin}
-                    className="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-all duration-200 shadow-md hover:shadow-lg"
+                    className="w-full bg-indigo-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
                 >
                     Login
                 </button>
 
-                <p className="text-sm text-center mt-6 text-gray-600">
+                <p className="text-sm text-center text-gray-500 mt-5">
                     New here?{" "}
                     <Link
                         to="/register"
-                        className="text-indigo-600 font-semibold hover:underline"
+                        className="text-indigo-600 hover:underline"
                     >
-                        Create Account
+                        Create account
                     </Link>
                 </p>
 

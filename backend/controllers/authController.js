@@ -7,7 +7,7 @@ exports.registerUser = async (req, res) => {
   try {
     const { shopName, personName, aadhaar, location, phone, password } = req.body;
 
-    const userExists = await User.findOne({ phone });
+    const userExists = await User.findOne({ phone }).select("+password");
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
     }
@@ -44,7 +44,7 @@ exports.loginUser = async (req, res) => {
   try {
     const { phone, password } = req.body;
 
-    const user = await User.findOne({ phone });
+    const user = await User.findOne({ phone }).select("+password");
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }

@@ -1,48 +1,61 @@
-function ProductCard({ product, quantity, onIncrease, onDecrease }) {
+function ProductRow({ product, quantity, onIncrease, onDecrease }) {
     return (
-        <div className="bg-white rounded-xl shadow p-4 mb-4 flex flex-col gap-2">
+        <tr className="border-b hover:bg-gray-50">
 
-            {product.image && (
-                <img
-                    src={product.image}
-                    alt={product.title}
-                    className="h-32 object-cover rounded-md"
-                />
-            )}
+            <td className="p-3 border border-gray-300">
+                {product.image && (
+                    <img
+                        src={product.image}
+                        alt={product.title}
+                        className="h-12 w-12 object-cover rounded"
+                    />
+                )}
+            </td>
 
-            <h3 className="font-semibold text-lg">{product.title}</h3>
+            <td className="p-3 font-medium text-gray-800 border border-gray-300">
+                {product.title}
+            </td>
 
-            <p className="text-gray-600">₹{product.price}</p>
+            <td className="p-3 text-indigo-600 font-semibold border border-gray-300">
+                ₹{product.price}
+            </td>
 
-            <p className="text-sm text-gray-500">
-                Stock: {product.stock}
-            </p>
+            <td className="p-3 text-gray-500 border border-gray-300">
+                {product.stock}
+            </td>
 
-            <div className="flex items-center gap-3 mt-2">
-                <button
-                    onClick={onDecrease}
-                    className="bg-gray-300 px-3 py-1 rounded-md"
-                >
-                    -
-                </button>
+            <td className="p-3 border border-gray-300">
 
-                <span className="font-semibold">{quantity}</span>
+                <div className="flex items-center border rounded-md w-fit">
 
-                <button
-                    onClick={onIncrease}
-                    className="bg-green-500 text-white px-3 py-1 rounded-md"
-                >
-                    +
-                </button>
-            </div>
+                    <button
+                        onClick={onDecrease}
+                        className="px-3 py-1 hover:bg-gray-100"
+                    >
+                        -
+                    </button>
 
-            {quantity > 0 && (
-                <p className="text-sm font-semibold text-blue-600">
-                    Total: ₹{quantity * product.price}
-                </p>
-            )}
-        </div>
+                    <span className="px-3">
+                        {quantity}
+                    </span>
+
+                    <button
+                        onClick={onIncrease}
+                        className="px-3 py-1 hover:bg-gray-100 text-indigo-600"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </td>
+
+            <td className="p-3 font-semibold border border-gray-300">
+                ₹{quantity * product.price}
+            </td>
+
+        </tr>
     );
 }
 
-export default ProductCard;
+export default ProductRow;
