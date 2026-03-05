@@ -1,63 +1,25 @@
-import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
+import React from "react";
 
-const ProductRow = ({ product, quantity, onIncrease, onDecrease }) => {
+const ProductCard = ({ product }) => {
     return (
-        <tr className="border-b hover:bg-gray-50">
+        <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 ">
+            <div className="flex justify-cnter rounded-xl overflow-hidden ">
+                <img
+                    src={import.meta.env.VITE_BASE_URL + product.image}
+                    alt={product.name}
+                    className="object-contain"
+                />
+            </div>
 
-            <td className="p-3 border border-gray-300">
-                {product.image && (
-                    <img
-                        src={import.meta.env.VITE_BASE_URL + product.image}
-                        alt={product.name}
-                        className="h-12 w-12 object-cover rounded"
-                    />
-                )}
-            </td>
+            <div className="card-body">
+                <h3 className="degular-semibold size20 mt-3">{product.name}</h3>
 
-            <td className="p-3 size18 degular-regular text-gray-800 border border-gray-300">
-                {product.name}
-            </td>
-
-            <td className="p-3 size18 degular-regular text-indigo-600 font-semibold border border-gray-300">
-                ₹{product.price}
-            </td>
-
-            <td className="p-3 size18 degular-regular text-gray-500 border border-gray-300">
-                {product.stock}
-            </td>
-
-            <td className="p-3 size18 degular-regular border border-gray-300">
-
-                <div className="flex items-center justify-between">
-
-                    <button
-                        onClick={onDecrease}
-                        className=" hover:bg-gray-100"
-                    >
-                        <CiSquareMinus />
-                    </button>
-
-                    <span className="">
-                        {quantity}
-                    </span>
-
-                    <button
-                        onClick={onIncrease}
-                        className=" hover:bg-gray-100 text-indigo-600"
-                    >
-                        <CiSquarePlus />
-                    </button>
-
-                </div>
-
-            </td>
-
-            <td className="p-3 size18 degular-regular font-semibold border border-gray-300">
-                ₹{quantity * product.price}
-            </td>
-
-        </tr>
+                <p className="text-gray-600 degular-regular size14">
+                    Price: <span className="font-medium text-black">₹{product.price}</span> /pack
+                </p>
+            </div>
+        </div>
     );
-}
+};
 
-export default ProductRow;
+export default ProductCard;

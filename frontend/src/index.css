@@ -41,6 +41,10 @@
     font-size: 30px;
 }
 
+.size40 {
+    font-size: 40px;
+}
+
 .size70 {
     font-size: 70px;
 
@@ -48,6 +52,7 @@
         font-size: 26px;
     }
 }
+
 
 @font-face {
     font-family: 'DegularDemo-Regular';

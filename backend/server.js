@@ -13,8 +13,7 @@ const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 
 app.use(cors({
-  origin: "https://order-app-olive.vercel.app",
-  // origin: "http://localhost:5173",
+  origin: process.env.FRONTEND_API,
   credentials: true
 }));
 // app.use(cors());

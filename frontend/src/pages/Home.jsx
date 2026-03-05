@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../api/axios";
-import ProductCard from "../components/ProductCard";
+import ProductTable from "../components/ProductTable";
 import toast from "react-hot-toast";
 function Home() {
     const [products, setProducts] = useState([]);
@@ -12,11 +12,10 @@ function Home() {
 
     const fetchProducts = async () => {
         try {
-            const res = await API.get("/products/getProducts");
+            const res = await API.get("/api/products/getProducts");
             setProducts(res.data);
         } catch (error) {
-            console.log("Using demo products");
-            setProducts(demoProducts);
+            toast.error(error.response?.data?.message || "Something went wrong");
         }
     };
 
@@ -60,7 +59,7 @@ function Home() {
 
         try {
             setOrdering(true);
-            await API.post("/orders/createOrder", { items });
+            await API.post("/api/orders/createOrder", { items });
             setOrdering(false);
             toast.success("Order placed successfully");
 
@@ -96,7 +95,7 @@ function Home() {
                         {products
                             .filter((product) => product.stock > 0)
                             .map((product) => (
-                                <ProductCard
+                                <ProductTable
                                     key={product._id}
                                     product={product}
                                     quantity={cart[product._id] || 0}
@@ -111,9 +110,15 @@ function Home() {
             </div>
 
             <div className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-4">
-                <h3 className="size24 degular-semibold">
-                    Total: ₹{calculateTotal()} ({Object.values(cart).reduce((a, b) => a + b, 0)} items)
-                </h3>
+                <div className="flex justify-between items-center">
+                    <h3 className="size24 degular-semibold">
+                        Total: ₹{calculateTotal()}
+                    </h3>
+                    <span className="size16 degular-regular">
+                        ({Object.values(cart).reduce((a, b) => a + b, 0)} items)
+                    </span>
+                </div>
+
                 <button
                     onClick={placeOrder}
                     disabled={Object.keys(cart).length === 0 || ordering}

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../api/axios";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login() {
     const [phone, setPhone] = useState("");
@@ -9,9 +10,19 @@ function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        const role = localStorage.getItem("role");
+
+        if (token) {
+            if (role === "admin") navigate("/admin");
+            else navigate("/home");
+        }
+    }, []);
+
     const handleLogin = async () => {
         try {
-            const res = await API.post("/auth/login", {
+            const res = await API.post("/api/auth/login", {
                 phone,
                 password,
             });
@@ -21,11 +32,13 @@ function Login() {
 
             if (res.data.user.role === "admin") {
                 navigate("/admin");
+                toast.success("Welcome admin");
             } else {
                 navigate("/home");
+                toast.success("Login successful");
             }
         } catch (error) {
-            alert("Invalid credentials");
+            toast.error(error.response?.data?.message || "Something went wrong");
         }
     };
 

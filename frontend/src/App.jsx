@@ -8,28 +8,46 @@ import UserLayout from "./components/UserLayout";
 import AdminLayout from "./components/AdminLayout";
 import { Toaster } from "react-hot-toast";
 import Users from "./pages/Users";
+import Products from "./pages/AdminProducts";
+import AdminOrders from "./pages/AdminOrders";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Toaster position="top-right" />
       <Routes>
+
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
         {/* User Routes */}
-        <Route element={<UserLayout />}>
+        <Route
+          element={
+            <ProtectedRoute role="user">
+              <UserLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path="/home" element={<Home />} />
-          <Route path="/orders" element={<MyOrders />} />
+          <Route path="/my-orders" element={<MyOrders />} />
         </Route>
 
         {/* Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<AdminDashboard />} />
           <Route path="users" element={<Users />} />
-          {/* <Route path="orders" element={<AdminOrders />} /> */}
-          {/* <Route path="products" element={<Products />} /> */}
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="products" element={<Products />} />
         </Route>
+
       </Routes>
     </BrowserRouter>
   );
