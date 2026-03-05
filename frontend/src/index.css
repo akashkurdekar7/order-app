@@ -1,1 +1,78 @@
 @import "tailwindcss";
+
+
+.size12 {
+    font-size: 12px;
+}
+
+.size14 {
+    font-size: 14px;
+}
+
+.size16 {
+    font-size: 16px;
+}
+
+.size18 {
+    font-size: 18px;
+}
+
+.size20 {
+    font-size: 20px;
+}
+
+.size22 {
+    font-size: 22px;
+}
+
+.size24 {
+    font-size: 24px;
+}
+
+.size26 {
+    font-size: 26px;
+}
+
+.size28 {
+    font-size: 28px;
+}
+
+.size30 {
+    font-size: 30px;
+}
+
+.size70 {
+    font-size: 70px;
+
+    @media (max-width: 575px) {
+        font-size: 26px;
+    }
+}
+
+@font-face {
+    font-family: 'DegularDemo-Regular';
+    src: url('/home/ipcs-l6/Desktop/order-app/frontend/src/assets/fonts/DegularDemo-Regular.otf');
+}
+
+@font-face {
+    font-family: 'DegularDemo-Semibold';
+    src: url('/home/ipcs-l6/Desktop/order-app/frontend/src/assets/fonts/DegularDemo-Semibold.otf');
+}
+
+@font-face {
+    font-family: 'RovaRegular-5yV0a';
+    src: url('/home/ipcs-l6/Desktop/order-app/frontend/src/assets/fonts/RovaRegular-5yV0a.ttf');
+}
+
+.degular-regular {
+    font-family: 'DegularDemo-Regular';
+}
+
+.degular-semibold {
+    font-family: 'DegularDemo-Semibold';
+}
+
+.rova-regular {
+    font-family: 'RovaRegular-5yV0a';
+    letter-spacing: 1px;
+}

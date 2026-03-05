@@ -56,7 +56,7 @@ exports.createOrder = async (req, res) => {
             // ✅ Prevent order if stock is less
             if (product.stock < item.quantity) {
                 return res.status(400).json({
-                    message: `Insufficient stock for ${product.title}`,
+                    message: `Insufficient stock for ${product.name}`,
                 });
             }
 

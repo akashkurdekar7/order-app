@@ -39,7 +39,7 @@ http://localhost:9858/api/products
 bearer token- eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTJhZTI2MTdjMGUyNDFhZTdlMmRlYyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3MjI2OTE2NiwiZXhwIjoxNzcyODczOTY2fQ.2l4CHqAaWH8UxOD0L2Lax3PJXx2UpSUrK4UvsBGhD6U
 
 {
-  "title": "Gold Flake Cigarette",
+  "name": "Gold Flake Cigarette",
   "image": "https://example.com/image.jpg",
   "price": 180,
   "stock": 50

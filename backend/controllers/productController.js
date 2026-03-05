@@ -3,14 +3,17 @@ const Product = require("../models/Product");
 // Add Product (Admin)
 exports.addProduct = async (req, res) => {
     try {
-        console.log(req.body);
-        const { title, image, price, stock } = req.body;
+        const { name, price, stock } = req.body;
 
+        const existingProduct = await Product.findOne({ name });
+        if (existingProduct) {
+            return res.status(400).json({ message: "Product already exists" });
+        }
         const product = await Product.create({
-            title,
-            image,
+            name,
             price,
             stock,
+            image: req.file ? `/uploads/${req.file.filename}` : null
         });
 
         res.status(201).json(product);
@@ -31,15 +34,31 @@ exports.getProducts = async (req, res) => {
     }
 };
 exports.deleteProduct = async (req, res) => {
-    await Product.findByIdAndDelete(req.params.id);
-    res.json({ message: "Product deleted" });
+    try {
+        await Product.findByIdAndDelete(req.params.id);
+        res.json({ message: "Product deleted" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
 exports.updateProduct = async (req, res) => {
-    const product = await Product.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-    );
-    res.json(product);
+    const updateData = {
+        name: req.body.name,
+        price: req.body.price,
+        stock: req.body.stock
+    };
+    if (req.file) {
+        updateData.image = `/uploads/${req.file.filename}`;
+    }
+    try {
+        const product = await Product.findByIdAndUpdate(
+            req.params.id,
+            updateData,
+            { new: true }
+        );
+        res.json(product);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
