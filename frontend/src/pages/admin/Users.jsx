@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import API from '../api/axios'
+import API from '../../api/axios'
 import { PiPhoneCallFill } from "react-icons/pi";
+import toast from 'react-hot-toast';
+
 const Users = () => {
     const [users, setUsers] = useState([]);
     useEffect(() => {

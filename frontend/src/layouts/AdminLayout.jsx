@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "./Navbar";
-import ProtectedRoute from "./ProtectedRoute";
+import AdminNavbar from "../components/AdminNavbar";
+import ProtectedRoute from "../components/ProtectedRoute";
 
-const UserLayout = () => {
+const AdminLayout = () => {
     return (
-        <ProtectedRoute role="user">
+        <ProtectedRoute role="admin">
             <div className="min-h-screen bg-gray-100">
-                <Navbar />
+                <AdminNavbar />
                 <main>
                     <Outlet />
                 </main>
@@ -15,4 +15,4 @@ const UserLayout = () => {
     );
 };
 
-export default UserLayout;
+export default AdminLayout;

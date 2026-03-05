@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../api/axios";
+import toast from 'react-hot-toast';
 
 function MyOrders() {
     const [orders, setOrders] = useState([]);

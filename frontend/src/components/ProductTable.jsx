@@ -32,9 +32,9 @@ const ProductTable = ({ product, quantity, onIncrease, onDecrease }) => {
 
                     <button
                         onClick={onDecrease}
-                        className=" hover:bg-gray-100"
+                        className=" hover:bg-gray-100 cursor-pointer"
                     >
-                        <CiSquareMinus />
+                        <CiSquareMinus size={40} />
                     </button>
 
                     <span className="">
@@ -43,9 +43,9 @@ const ProductTable = ({ product, quantity, onIncrease, onDecrease }) => {
 
                     <button
                         onClick={onIncrease}
-                        className=" hover:bg-gray-100 text-indigo-600"
+                        className=" hover:bg-gray-100 text-indigo-600 cursor-pointer"
                     >
-                        <CiSquarePlus />
+                        <CiSquarePlus size={40} />
                     </button>
 
                 </div>

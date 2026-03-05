@@ -3,12 +3,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import MyOrders from "./pages/MyOrders";
-import AdminDashboard from "./pages/AdminDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import UserLayout from "./components/UserLayout";
 import AdminLayout from "./components/AdminLayout";
 import { Toaster } from "react-hot-toast";
-import Users from "./pages/Users";
-import Products from "./pages/AdminProducts";
+import Users from "./pages/admin/Users";
+import Products from "./pages/admin/AdminProducts";
 import AdminOrders from "./pages/AdminOrders";
 import ProtectedRoute from "./components/ProtectedRoute";
 

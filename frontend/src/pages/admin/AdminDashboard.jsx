@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import API from "../api/axios";
+import API from "../../api/axios";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import toast from "react-hot-toast";

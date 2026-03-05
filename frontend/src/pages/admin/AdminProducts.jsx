@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import API from '../api/axios';
-import ProductCard from '../components/ProductCard';
+import API from '../../api/axios';
+import ProductCard from '../../components/ProductCard';
+import toast from 'react-hot-toast';
 
 const AdminProducts = () => {
     const [products, setProducts] = useState([])

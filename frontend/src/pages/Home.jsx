@@ -74,7 +74,6 @@ function Home() {
     return (
         <div className="min-h-[100dvh] bg-gray-100 p-4">
             <h2 className="size30 degular-semibold my-2 capitalize">Products</h2>
-
             <div className="bg-white shadow overflow-x-auto">
 
                 <table className="w-full text-sm border border-gray-300">
@@ -109,7 +108,7 @@ function Home() {
 
             </div>
 
-            <div className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-4">
+            <div className=" bg-white shadow-md p-4">
                 <div className="flex justify-between items-center">
                     <h3 className="size24 degular-semibold">
                         Total: ₹{calculateTotal()}
