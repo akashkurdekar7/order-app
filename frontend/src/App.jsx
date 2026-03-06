@@ -4,14 +4,14 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import MyOrders from "./pages/MyOrders";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import UserLayout from "./components/UserLayout";
-import AdminLayout from "./components/AdminLayout";
+import UserLayout from "./layouts/UserLayout";
+import AdminLayout from "./layouts/AdminLayout";
 import { Toaster } from "react-hot-toast";
 import Users from "./pages/admin/Users";
 import Products from "./pages/admin/AdminProducts";
-import AdminOrders from "./pages/AdminOrders";
-import ProtectedRoute from "./components/ProtectedRoute";
-
+import AdminOrders from "./pages/admin/AdminOrders";
+import ProtectedRoute from "./protectedRoute/ProtectedRoute";
+import ProfileEdit from "./pages/ProfileEdit";
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +31,7 @@ function App() {
         >
           <Route path="/home" element={<Home />} />
           <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/profile-edit" element={<ProfileEdit />} />
         </Route>
 
         {/* Admin Routes */}

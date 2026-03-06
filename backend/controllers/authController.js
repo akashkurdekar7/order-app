@@ -77,6 +77,41 @@ exports.loginUser = async (req, res) => {
   }
 };
 
+exports.updateProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.shopName = req.body.shopName || user.shopName;
+    user.personName = req.body.personName || user.personName;
+    user.phone = req.body.phone || user.phone;
+    user.location = req.body.location || user.location;
+
+    if (req.file) {
+      user.image = `/uploads/${req.file.filename}`;
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      shopName: updatedUser.shopName,
+      personName: updatedUser.personName,
+      phone: updatedUser.phone,
+      location: updatedUser.location,
+      role: updatedUser.role,
+      image: updatedUser.image
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 exports.getUserDetails = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");

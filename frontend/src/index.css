@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 
+.size10 {
+    font-size: 10px;
+}
+
 .size12 {
     font-size: 12px;
 }
