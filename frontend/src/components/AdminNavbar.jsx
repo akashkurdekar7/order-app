@@ -76,10 +76,10 @@ const AdminNavbar = () => {
             </div>
             <div className="flex flex-col gap-1 items-start">
               <span className="degular-semibold size16 sm:size18 text-slate-800 leading-none">
-                {adminUser ? adminUser.shopName : "Console"}
+                {adminUser ? adminUser.shopName : t("Console")}
               </span>
               <span className="degular-semibold size12 sm:size14 text-indigo-600 leading-none font-medium">
-                {adminUser ? adminUser.personName : "Merchant Admin"}
+                {adminUser ? adminUser.personName : t("Merchant Admin")}
               </span>
             </div>
           </Link>
@@ -173,10 +173,10 @@ const AdminNavbar = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="degular-semibold size18 text-slate-800 leading-none">
-                      {adminUser ? adminUser.shopName : "Admin Menu"}
+                      {adminUser ? adminUser.shopName : t("Admin Menu")}
                     </span>
                     <span className="degular-semibold size14 text-indigo-600 uppercase tracking-widest mt-1">
-                      {adminUser ? adminUser.personName : "Console"}
+                      {adminUser ? adminUser.personName : t("Console")}
                     </span>
                   </div>
                 </div>

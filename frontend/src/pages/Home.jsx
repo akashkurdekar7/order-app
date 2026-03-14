@@ -151,7 +151,7 @@ function Home() {
                         ? "bg-white text-indigo-600 shadow-sm border border-slate-100"
                         : "text-slate-500 hover:text-slate-700"
                     }`}>
-                    {method}
+                    {t(method)}
                   </button>
                 ))}
               </div>

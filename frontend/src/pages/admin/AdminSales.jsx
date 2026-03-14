@@ -11,10 +11,12 @@ import {
 } from "react-icons/fi";
 import {FaIndianRupeeSign} from "react-icons/fa6";
 import {IoCloudDoneOutline} from "react-icons/io5";
-import {motion, AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
-const StatCard = ({title, value, subtext, icon: Icon, color, delay = 0}) => {
+const StatCard = ({ title, value, subtext, icon: Icon, color, delay = 0 }) => {
+  const { t } = useTranslation();
   const colorMap = {
     emerald: {bg: "bg-amber-100", text: "text-amber-600"},
     indigo: {bg: "bg-indigo-100", text: "text-indigo-600"},
@@ -37,7 +39,7 @@ const StatCard = ({title, value, subtext, icon: Icon, color, delay = 0}) => {
         </div>
         <div className="flex items-center gap-1 text-emerald-500 bg-emerald-50 px-2 py-1 rounded-full">
           <FiArrowUpRight size={12} />
-          <span className="size11 degular-semibold">Live</span>
+          <span className="size11 degular-semibold">{t("Live")}</span>
         </div>
       </div>
       <div>
@@ -52,6 +54,7 @@ const StatCard = ({title, value, subtext, icon: Icon, color, delay = 0}) => {
 };
 
 const AdminSales = () => {
+  const { t } = useTranslation();
   const [sales, setSales] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
@@ -171,11 +174,11 @@ const AdminSales = () => {
               <div className="flex items-center gap-2 text-slate-400 mb-1">
                 <FiTrendingUp size={14} />
                 <span className="size12 degular-semibold uppercase tracking-widest">
-                  Revenue Intelligence
+                  {t("Revenue Intelligence")}
                 </span>
               </div>
               <h1 className="size32 degular-semibold text-slate-800">
-                Sales Dashboard
+                {t("Sales Dashboard")}
               </h1>
             </div>
             <div className="flex items-center gap-3">
@@ -185,11 +188,11 @@ const AdminSales = () => {
                 className={`bg-slate-900 text-white px-5 py-2.5 rounded-xl degular-semibold size14 flex items-center justify-center gap-2 shadow-lg shadow-slate-100 transition-all hover:bg-slate-800 cursor-pointer disabled:opacity-70 disabled:cursor-wait`}>
                 {isExporting ? (
                   <>
-                    <IoCloudDoneOutline size={18} /> Saving...
+                    <IoCloudDoneOutline size={18} /> {t("Saving...")}
                   </>
                 ) : (
                   <>
-                    <FiDownload size={18} /> Export CSV
+                    <FiDownload size={18} /> {t("Export CSV")}
                   </>
                 )}
               </button>
@@ -199,32 +202,32 @@ const AdminSales = () => {
           {/* Quick Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <StatCard
-              title="Total Revenue"
+              title={t("Total Revenue")}
               value={`₹${totalRevenue.toLocaleString()}`}
-              subtext="Cumulative gross sales"
+              subtext={t("Cumulative gross sales")}
               icon={FaIndianRupeeSign}
               color="emerald"
             />
             <StatCard
-              title="Average Order"
+              title={t("Average Order")}
               value={`₹${avgOrderValue}`}
-              subtext="Revenue per transaction"
+              subtext={t("Revenue per transaction")}
               icon={FiTrendingUp}
               color="indigo"
               delay={0.1}
             />
             <StatCard
-              title="Total Volume"
+              title={t("Total Volume")}
               value={totalOrdersCount}
-              subtext="Total orders processed"
+              subtext={t("Total orders processed")}
               icon={FiShoppingBag}
               color="orange"
               delay={0.2}
             />
             <StatCard
-              title="Balance Due"
+              title={t("Balance Due")}
               value={`₹${totalBalanceDue.toLocaleString()}`}
-              subtext="Outstanding payments"
+              subtext={t("Outstanding payments")}
               icon={FaIndianRupeeSign}
               color="red"
               delay={0.3}
@@ -241,7 +244,7 @@ const AdminSales = () => {
             />
             <input
               type="text"
-              placeholder="Search by vendor or shop name..."
+              placeholder={t("Search by vendor or shop name...")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-white border border-slate-200 rounded-2xl pl-12 pr-4 py-4 size15 degular-medium outline-none focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all shadow-sm"
@@ -255,7 +258,7 @@ const AdminSales = () => {
               className="bg-transparent border-none outline-none size14 degular-semibold text-slate-600 w-full cursor-pointer">
               {uniqueMonths.map((m) => (
                 <option key={m} value={m}>
-                  {m === "All" ? "All Months" : m}
+                  {m === "All" ? t("All Months") : m}
                 </option>
               ))}
             </select>
@@ -269,19 +272,19 @@ const AdminSales = () => {
               <thead>
                 <tr className="bg-slate-50/50 border-b border-slate-100">
                   <th className="px-8 py-5 size11 degular-semibold text-slate-400 uppercase tracking-widest">
-                    Shop Information
+                    {t("Shop Information")}
                   </th>
                   <th className="px-8 py-5 size11 degular-semibold text-slate-400 uppercase tracking-widest">
-                    Reporting Period
+                    {t("Reporting Period")}
                   </th>
                   <th className="px-8 py-5 size11 degular-semibold text-slate-400 uppercase tracking-widest text-center">
-                    Orders
+                    {t("Orders")}
                   </th>
                   <th className="px-8 py-5 size11 degular-semibold text-slate-400 uppercase tracking-widest text-right">
-                    Balance
+                    {t("Balance")}
                   </th>
                   <th className="px-8 py-5 size11 degular-semibold text-slate-400 uppercase tracking-widest text-right">
-                    Revenue
+                    {t("Revenue")}
                   </th>
                 </tr>
               </thead>
@@ -346,7 +349,7 @@ const AdminSales = () => {
                               ₹{item.totalSales.toLocaleString()}
                             </span>
                             <span className="size11 degular-semibold text-emerald-500 uppercase tracking-tighter mt-1">
-                              Settled
+                              {t("Settled")}
                             </span>
                           </div>
                         </td>
@@ -360,7 +363,7 @@ const AdminSales = () => {
                         <FiSearch size={32} />
                       </div>
                       <p className="size16 degular-semibold text-slate-400">
-                        No sales records found for this selection.
+                        {t("No sales records found for this selection.")}
                       </p>
                     </td>
                   </tr>

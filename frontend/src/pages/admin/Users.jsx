@@ -8,10 +8,12 @@ import {
   FiShoppingBag,
   FiUser,
 } from "react-icons/fi";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const Users = () => {
+  const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -46,10 +48,10 @@ const Users = () => {
       <div className="max-w-7xl mx-auto">
         <header className="md:mb-10 mb-4">
           <h1 className="size32 degular-semibold text-slate-800 mb-2">
-            User Directory
+            {t("User Directory")}
           </h1>
           <p className="size16 text-slate-500 degular-regular">
-            Manage and contact your registered wholesale partners.
+            {t("Manage and contact your registered wholesale partners.")}
           </p>
         </header>
 
@@ -116,7 +118,7 @@ const Users = () => {
                     <div className="flex items-center gap-1.5 text-slate-400 mb-1">
                       <FiShoppingBag size={12} />
                       <span className="size11 degular-semibold uppercase tracking-widest">
-                        Total Sales
+                        {t("Total Sales")}
                       </span>
                     </div>
                     <span className="size18 degular-semibold text-slate-800">
@@ -128,7 +130,7 @@ const Users = () => {
                     <div
                       className={`flex items-center gap-1.5 mb-1 ${!user.totalBalance ? "text-emerald-500" : "text-red-500"}`}>
                       <span className="size11 degular-semibold uppercase tracking-widest">
-                        Balance Due
+                        {t("Balance Due")}
                       </span>
                     </div>
                     <span
@@ -146,7 +148,7 @@ const Users = () => {
           <div className="py-24 text-center glass-effect rounded-[32px] border border-dashed border-slate-200">
             <FiUsers size={56} className="mx-auto text-slate-200 mb-4" />
             <p className="size18 degular-semibold text-slate-400">
-              No registered users found.
+              {t("No registered users found.")}
             </p>
           </div>
         )}

@@ -17,10 +17,11 @@ import {
   FiCamera,
   FiChevronDown,
 } from "react-icons/fi";
-import {MdClose} from "react-icons/md";
-import {motion, AnimatePresence} from "framer-motion";
+import { MdClose } from "react-icons/md";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
-const StatCard = ({icon: Icon, label, value, color, delay}) => (
+const StatCard = ({ icon: Icon, label, value, color, delay }) => (
   <motion.div
     initial={{opacity: 0, y: 20}}
     animate={{opacity: 1, y: 0}}
@@ -41,6 +42,7 @@ const StatCard = ({icon: Icon, label, value, color, delay}) => (
 );
 
 const AdminDashboard = () => {
+  const { t } = useTranslation();
   const [stats, setStats] = useState({
     totalProducts: 0,
     totalUsers: 0,
@@ -184,16 +186,16 @@ const AdminDashboard = () => {
   );
 
   return (
-    <div className="pb-20 pt-8 px-4 sm:px-6">
+    <div className="pb-20 pt-8 px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+        <header className="flex flex-col md:flex-row md:items-center justify-between md:gap-6 gap-4 md:mb-12 mb-6">
           <div>
-            <h2 className="size32 degular-semibold text-slate-800 mb-2">
-              Admin Dashboard
+            <h2 className="size32 degular-semibold text-slate-800 md:mb-2 mb-1">
+              {t("Admin Dashboard")}
             </h2>
             <p className="size16 text-slate-500 font-medium">
-              Monitor your business performance at a glance.
+              {t("Monitor your business performance at a glance.")}
             </p>
           </div>
           <motion.button
@@ -205,36 +207,35 @@ const AdminDashboard = () => {
               setIsProductModalOpen(true);
             }}
             className="bg-indigo-600 text-white px-6 py-3.5 rounded-2xl degular-semibold size14 flex items-center justify-center gap-2 shadow-xl shadow-indigo-100 transition-all hover:bg-indigo-700 w-full md:w-auto cursor-pointer">
-            <FiPlus size={20} /> Add New Product
+            <FiPlus size={20} /> {t("Add New Product")}
           </motion.button>
         </header>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <StatCard
             icon={FiTruck}
-            label="Total Orders"
+            label={t("Total Orders")}
             value={stats.totalOrders || 0}
             color="bg-blue-500"
             delay={0}
           />
           <StatCard
             icon={FiUsers}
-            label="Active Users"
+            label={t("Active Users")}
             value={stats.totalUsers || 0}
             color="bg-indigo-500"
             delay={0.1}
           />
           <StatCard
             icon={FiShoppingBag}
-            label="Inventory"
+            label={t("Inventory")}
             value={stats.totalProducts || 0}
             color="bg-orange-500"
             delay={0.2}
           />
           <StatCard
             icon={FiTrendingUp}
-            label="Total Sales"
+            label={t("Total Sales")}
             value={`₹${stats.totalSales || 0}`}
             color="bg-emerald-500"
             delay={0.3}
@@ -251,14 +252,14 @@ const AdminDashboard = () => {
                     <FiTrendingUp size={20} />
                   </div>
                   <h3 className="size20 degular-semibold text-slate-800">
-                    Inventory Status
+                    {t("Inventory Status")}
                   </h3>
                 </div>
                 <div className="relative group w-full sm:w-auto">
                   <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
                   <input
                     type="text"
-                    placeholder="Search products..."
+                    placeholder={t("Search products...")}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full sm:w-64 bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 size14 degular-regular focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
@@ -271,16 +272,16 @@ const AdminDashboard = () => {
                   <thead className="bg-slate-50/50 border-b border-slate-100">
                     <tr>
                       <th className="px-6 py-4 size12 degular-semibold text-slate-400 uppercase tracking-widest">
-                        Product
+                        {t("Product")}
                       </th>
                       <th className="px-6 py-4 size12 degular-semibold text-slate-400 uppercase tracking-widest">
-                        Stock Level
+                        {t("Stock Level")}
                       </th>
                       <th className="px-6 py-4 size12 degular-semibold text-slate-400 uppercase tracking-widest text-right">
-                        Price
+                        {t("Price")}
                       </th>
                       <th className="px-6 py-4 size12 degular-semibold text-slate-400 uppercase tracking-widest text-right">
-                        Actions
+                        {t("Actions")}
                       </th>
                     </tr>
                   </thead>
@@ -318,10 +319,10 @@ const AdminDashboard = () => {
                                       : "bg-emerald-50 text-emerald-600"
                                 }`}>
                                 {product.stock === 0
-                                  ? "Out of Stock"
+                                  ? t("Out of Stock")
                                   : product.stock <= 10
-                                    ? "Low Stock"
-                                    : "Healthy"}
+                                    ? t("Low Stock")
+                                    : t("Healthy")}
                               </span>
                               <span className="size12 degular-semibold text-slate-400">
                                 {product.stock}
@@ -374,8 +375,8 @@ const AdminDashboard = () => {
                     </div>
                     <p className="degular-semibold text-slate-400">
                       {searchTerm
-                        ? `No products found for "${searchTerm}"`
-                        : "No products found"}
+                        ? `${t("No products found")} "${searchTerm}"`
+                        : t("No products found")}
                     </p>
                   </div>
                 )}
@@ -392,7 +393,7 @@ const AdminDashboard = () => {
                     <FiClock size={20} />
                   </div>
                   <h3 className="size20 degular-semibold text-slate-800">
-                    Recent Transactions
+                    {t("Recent Transactions")}
                   </h3>
                 </div>
               </div>
@@ -446,7 +447,7 @@ const AdminDashboard = () => {
                                   ? "bg-indigo-50 text-indigo-600 border-indigo-100"
                                   : "bg-orange-50 text-orange-600 border-orange-100"
                           }`}>
-                          {order.status || "Processing"}
+                          {t(order.status || "Processing")}
                           <FiChevronDown
                             size={14}
                             className={`transition-transform duration-200 ${openStatusDropdown === order._id ? "rotate-180" : ""}`}
@@ -478,7 +479,7 @@ const AdminDashboard = () => {
                                       ? "bg-slate-50 text-indigo-600"
                                       : "text-slate-600 hover:bg-slate-50 hover:text-indigo-600"
                                   }`}>
-                                  {statusOption}
+                                  {t(statusOption)}
                                 </button>
                               ))}
                             </motion.div>
@@ -490,7 +491,7 @@ const AdminDashboard = () => {
                 ))}
                 {orders.length === 0 && (
                   <div className="py-12 text-center text-slate-400">
-                    <p className="degular-semibold">No transactions found</p>
+                    <p className="degular-semibold">{t("No transactions found")}</p>
                   </div>
                 )}
               </div>
@@ -518,10 +519,10 @@ const AdminDashboard = () => {
               <div className="p-8 border-b border-slate-100 flex items-center justify-between">
                 <div>
                   <h3 className="size24 degular-semibold text-slate-800">
-                    {editingId ? "Update Product" : "Add New Product"}
+                    {editingId ? t("Update Product") : t("Add New Product")}
                   </h3>
                   <p className="size14 text-slate-500">
-                    Manage your wholesale inventory items.
+                    {t("Manage your wholesale inventory items.")}
                   </p>
                 </div>
                 <button
@@ -547,7 +548,7 @@ const AdminDashboard = () => {
                         <>
                           <FiCamera size={28} className="mb-2" />
                           <span className="size12 degular-semibold">
-                            Upload Image
+                            {t("Upload Image")}
                           </span>
                         </>
                       )}
@@ -569,7 +570,7 @@ const AdminDashboard = () => {
 
                   <div>
                     <label className="block size14 degular-semibold text-slate-400 mb-2 ml-1">
-                      Product Name
+                      {t("Product Name")}
                     </label>
                     <input
                       type="text"
@@ -586,7 +587,7 @@ const AdminDashboard = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block size14 degular-semibold text-slate-400 mb-2 ml-1">
-                        Price (₹)
+                        {t("Price (₹)")}
                       </label>
                       <input
                         type="number"
@@ -601,7 +602,7 @@ const AdminDashboard = () => {
                     </div>
                     <div>
                       <label className="block size14 degular-semibold text-slate-400 mb-2 ml-1">
-                        Initial Stock
+                        {t("Initial Stock")}
                       </label>
                       <input
                         type="number"
@@ -622,13 +623,13 @@ const AdminDashboard = () => {
                     whileTap={{scale: 0.98}}
                     type="submit"
                     className=" cursor-pointer flex-1 bg-indigo-600 text-white py-4 rounded-2xl size16 degular-semibold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all flex items-center justify-center gap-2">
-                    {editingId ? "Update Item" : "Confirm Listing"}
+                    {editingId ? t("Update Item") : t("Confirm Listing")}
                   </motion.button>
                   <button
                     type="button"
                     onClick={() => setIsProductModalOpen(false)}
                     className=" cursor-pointer flex-1 bg-slate-50 text-slate-500 py-4 rounded-2xl size16 degular-semibold hover:bg-slate-100 transition-all">
-                    Discard
+                    {t("Discard")}
                   </button>
                 </div>
               </form>

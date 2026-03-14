@@ -19,8 +19,10 @@ import {
   FiPlus,
 } from "react-icons/fi";
 import {motion, AnimatePresence} from "framer-motion";
+import {useTranslation} from "react-i18next";
 
 const AdminOrders = () => {
+  const {t} = useTranslation();
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -142,10 +144,10 @@ const AdminOrders = () => {
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
           <div>
             <h2 className="size32 degular-semibold text-slate-800 mb-2">
-              Order Management
+              {t("Order Management")}
             </h2>
             <p className="size16 text-slate-500 font-medium">
-              Track and process your wholesale customer orders.
+              {t("Track and process your wholesale customer orders.")}
             </p>
           </div>
           <button
@@ -155,7 +157,7 @@ const AdminOrders = () => {
               size={16}
               className={isRefreshing || isLoading ? "animate-spin" : ""}
             />{" "}
-            Refresh Orders
+            {t("Refresh Orders")}
           </button>
         </header>
 
@@ -174,7 +176,7 @@ const AdminOrders = () => {
               <div className="flex justify-between items-start mb-3">
                 <div className="flex flex-col">
                   <span className="size12 degular-semibold text-slate-400 uppercase tracking-widest mb-1 leading-none">
-                    Order ID
+                    {t("Order ID")}
                   </span>
                   <span className="size18 degular-semibold text-slate-800">
                     #{order._id.slice(-6).toUpperCase()}
@@ -183,7 +185,7 @@ const AdminOrders = () => {
                 <div className="flex flex-col items-end gap-1.5">
                   <span
                     className={`px-3 py-1.5 rounded-full border text-[10px] degular-semibold uppercase tracking-wider ${getStatusStyle(order.status || "Processing")}`}>
-                    {order.status || "Processing"}
+                    {t(order.status || "Processing")}
                   </span>
                   <span
                     className={`px-3 py-1.5 rounded-full border text-[10px] degular-semibold uppercase tracking-wider ${
@@ -191,7 +193,7 @@ const AdminOrders = () => {
                         ? "bg-emerald-50 text-emerald-600 border-emerald-200"
                         : "bg-red-50 text-red-600 border-red-200"
                     }`}>
-                    payment {order.paymentStatus || "Pending"}
+                    {t("payment")} {t(order.paymentStatus || "Pending")}
                   </span>
                 </div>
               </div>
@@ -232,7 +234,7 @@ const AdminOrders = () => {
             <div className="p-20 text-center bg-slate-50/50 rounded-3xl border border-dashed border-slate-200">
               <FiPackage size={48} className="mx-auto text-slate-300 mb-4" />
               <p className="degular-semibold text-slate-400">
-                No orders found yet
+                {t("No orders yet")}
               </p>
             </div>
           )}
@@ -244,22 +246,22 @@ const AdminOrders = () => {
             <thead className="bg-slate-50/50 border-b border-slate-100">
               <tr>
                 <th className="px-8 py-5 size12 degular-semibold text-slate-400 uppercase tracking-widest">
-                  Order Details
+                  {t("Order Details")}
                 </th>
                 <th className="px-6 py-5 size12 degular-semibold text-slate-400 uppercase tracking-widest">
-                  Customer
+                  {t("Customer")}
                 </th>
                 <th className="px-6 py-5 size12 degular-semibold text-slate-400 uppercase tracking-widest">
-                  Date
+                  {t("Date")}
                 </th>
                 <th className="px-6 py-5 size12 degular-semibold text-slate-400 uppercase tracking-widest">
-                  Status
+                  {t("Status")}
                 </th>
                 <th className="px-6 py-5 size12 degular-semibold text-slate-400 uppercase tracking-widest">
-                  Payment
+                  {t("Payment")}
                 </th>
                 <th className="px-6 py-5 size12 degular-semibold text-slate-400 uppercase tracking-widest text-right">
-                  Total
+                  {t("Total")}
                 </th>
               </tr>
             </thead>
@@ -300,7 +302,7 @@ const AdminOrders = () => {
                   <td className="px-6 py-5">
                     <span
                       className={`px-3 py-1.5 rounded-full border text-[11px] degular-semibold uppercase tracking-wider whitespace-nowrap ${getStatusStyle(order.status || "Processing")}`}>
-                      {order.status || "Processing"}
+                      {t(order.status || "Processing")}
                     </span>
                   </td>
                   <td className="px-6 py-5">
@@ -311,7 +313,7 @@ const AdminOrders = () => {
                             ? "bg-emerald-50 text-emerald-600 border-emerald-200"
                             : "bg-red-50 text-red-600 border-red-200"
                         }`}>
-                        {order.paymentStatus || "Pending"}
+                        {t(order.paymentStatus || "Pending")}
                       </span>
                       <span
                         className={`px-2 py-0.5 rounded-md text-[9px] w-fit degular-semibold uppercase tracking-tight ${
@@ -339,7 +341,7 @@ const AdminOrders = () => {
             <div className="py-24 text-center">
               <FiPackage size={56} className="mx-auto text-slate-200 mb-4" />
               <p className="size18 degular-semibold text-slate-400">
-                Your order queue is currently empty.
+                {t("Your order queue is currently empty.")}
               </p>
             </div>
           )}
@@ -366,11 +368,12 @@ const AdminOrders = () => {
                   <div>
                     <div className="flex items-center gap-3 mb-1">
                       <h3 className="size24 degular-semibold text-slate-800">
-                        Order #{selectedOrder._id.slice(-6).toUpperCase()}
+                        {t("Order ID")} #
+                        {selectedOrder._id.slice(-6).toUpperCase()}
                       </h3>
                       <span
                         className={`px-2.5 py-1 rounded-full border text-[10px] degular-semibold uppercase tracking-wider ${getStatusStyle(selectedOrder.status || "Processing")}`}>
-                        {selectedOrder.status || "Processing"}
+                        {t(selectedOrder.status || "Processing")}
                       </span>
                     </div>
                     <p className="size14 text-slate-500 font-medium">
@@ -405,7 +408,7 @@ const AdminOrders = () => {
                         <div className="flex items-center gap-2">
                           <FiUser size={18} />
                           <h4 className="size14 degular-semibold uppercase tracking-widest">
-                            Customer Info
+                            {t("Customer Info")}
                           </h4>
                         </div>
                         <button className="p-1 rounded-full hover:bg-slate-200/50 transition-colors text-slate-400 hover:text-indigo-600">
@@ -429,7 +432,7 @@ const AdminOrders = () => {
                             className="space-y-3 overflow-hidden">
                             <div>
                               <p className="size12 text-slate-400 uppercase tracking-tighter mb-0.5 font-bold">
-                                Shop Name
+                                {t("Shop Name")}
                               </p>
                               <p className="size15 degular-semibold text-slate-800">
                                 {selectedOrder.user?.shopName}
@@ -437,7 +440,7 @@ const AdminOrders = () => {
                             </div>
                             <div>
                               <p className="size12 text-slate-400 uppercase tracking-tighter mb-0.5 font-bold">
-                                Contact Person
+                                {t("Contact Person")}
                               </p>
                               <p className="size14 degular-semibold text-slate-600">
                                 {selectedOrder.user?.personName}
@@ -458,14 +461,14 @@ const AdminOrders = () => {
                       <div className="flex items-center gap-2 mb-4 text-emerald-600">
                         <FiCheckCircle size={18} />
                         <h4 className="size14 degular-semibold uppercase tracking-widest">
-                          Payment Status
+                          {t("Payment Status")}
                         </h4>
                       </div>
                       <div className="space-y-4">
                         <div className="relative payment-dropdown-container w-full">
                           {selectedOrder.paymentStatus === "Paid" ? (
                             <div className="flex items-center justify-between w-full border rounded-xl px-4 py-2.5 size14 degular-semibold outline-none shadow-sm bg-emerald-50 text-emerald-700 border-emerald-100">
-                              <span>Payment: Completed</span>
+                              <span>{t("Payment: Completed")}</span>
                               <FiCheckCircle
                                 size={16}
                                 className="text-emerald-500"
@@ -481,7 +484,7 @@ const AdminOrders = () => {
                                   );
                                 }}
                                 className="flex items-center justify-between w-full border rounded-xl px-4 py-2.5 size14 degular-semibold outline-none transition-all shadow-sm cursor-pointer bg-red-50 text-red-600 border-red-200">
-                                <span>Payment: Pending</span>
+                                <span>{t("Payment: Pending")}</span>
                                 <FiChevronDown
                                   size={16}
                                   className={`transition-transform duration-200 ${isPaymentDropdownOpen ? "rotate-180" : ""}`}
@@ -498,11 +501,11 @@ const AdminOrders = () => {
                                     {[
                                       {
                                         value: "Pending",
-                                        label: "Payment: Pending",
+                                        label: t("Payment: Pending"),
                                       },
                                       {
                                         value: "Paid",
-                                        label: "Payment: Completed",
+                                        label: t("Payment: Completed"),
                                       },
                                     ].map((statusOption) => (
                                       <button
@@ -533,7 +536,7 @@ const AdminOrders = () => {
                         <div className="flex items-center justify-between pt-2">
                           <div>
                             <p className="size12 text-slate-400 uppercase tracking-tighter mb-1 font-bold">
-                              Total Amount Due
+                              {t("Total Amount Due")}
                             </p>
                             <p className="size24 degular-semibold text-indigo-600">
                               ₹{selectedOrder.totalAmount?.toLocaleString()}
@@ -541,7 +544,7 @@ const AdminOrders = () => {
                           </div>
                           <div className="text-right">
                             <p className="size12 text-slate-400 uppercase tracking-tighter mb-1 font-bold">
-                              Method
+                              {t("Method")}
                             </p>
                             <div className="relative method-dropdown-container flex flex-col items-end gap-2 text-left">
                               <button
@@ -598,7 +601,7 @@ const AdminOrders = () => {
                         {selectedOrder.paymentMethod === "UPI" && (
                           <div className="mt-4 pt-4 border-t border-slate-100">
                             <p className="size12 text-slate-400 uppercase tracking-tighter mb-2 font-bold">
-                              Payment Proof (UPI)
+                              {t("Payment Proof (UPI)")}
                             </p>
                             {selectedOrder.paymentScreenshot ? (
                               <div className="relative group rounded-xl overflow-hidden border border-slate-200 aspect-video bg-white">
@@ -621,7 +624,7 @@ const AdminOrders = () => {
                               <div className="bg-red-50/50 border border-dashed border-red-200 rounded-xl p-4 flex items-center justify-center gap-2">
                                 <FiImage className="text-red-400" size={18} />
                                 <span className="size13 degular-semibold text-red-600">
-                                  No proof uploaded yet
+                                  {t("No proof uploaded yet")}
                                 </span>
                               </div>
                             )}
@@ -636,10 +639,10 @@ const AdminOrders = () => {
                     <div className="flex items-center gap-2 mb-6">
                       <FiShoppingBag size={18} className="text-slate-400" />
                       <h4 className="size15 degular-semibold uppercase tracking-widest text-slate-800">
-                        Order Items
+                        {t("Order Items")}
                       </h4>
                       <span className="ml-auto size12 degular-semibold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">
-                        {selectedOrder.items?.length} items
+                        {selectedOrder.items?.length} {t("items")}
                       </span>
                     </div>
 
@@ -679,7 +682,7 @@ const AdminOrders = () => {
                 <div className="p-6 sm:p-8 border-t border-slate-100 bg-slate-50/30 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 sm:gap-6">
                   <div className="w-full sm:w-1/2">
                     <label className="block size12 degular-semibold text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                      Current Progress
+                      {t("Current Progress")}
                     </label>
                     <div className="relative status-dropdown-container w-full">
                       <button
@@ -702,12 +705,13 @@ const AdminOrders = () => {
                         <span className="flex items-center gap-2 ">
                           {(!selectedOrder.status ||
                             selectedOrder.status === "Processing") &&
-                            "📦 Processing"}
-                          {selectedOrder.status === "Ready" && "⚡ Ready"}
+                            `📦 ${t("Processing")}`}
+                          {selectedOrder.status === "Ready" &&
+                            `⚡ ${t("Ready")}`}
                           {selectedOrder.status === "Out for Delivery" &&
-                            "🚚 Out for Delivery"}
+                            `🚚 ${t("Out for Delivery")}`}
                           {selectedOrder.status === "Delivered" &&
-                            "✔️ Delivered"}
+                            `✔️ ${t("Delivered")}`}
                           {/* Fallback just in case */}
                           {selectedOrder.status &&
                             ![
@@ -733,13 +737,22 @@ const AdminOrders = () => {
                             transition={{duration: 0.15}}
                             className="absolute bottom-full left-0 right-0 mb-2 w-full bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-70 overflow-hidden">
                             {[
-                              {value: "Processing", label: "📦 Processing"},
-                              {value: "Ready", label: "⚡ Mark as Ready"},
+                              {
+                                value: "Processing",
+                                label: `📦 ${t("Processing")}`,
+                              },
+                              {
+                                value: "Ready",
+                                label: `⚡ ${t("Mark as Ready")}`,
+                              },
                               {
                                 value: "Out for Delivery",
-                                label: "🚚 Out for Delivery",
+                                label: `🚚 ${t("Out for Delivery")}`,
                               },
-                              {value: "Delivered", label: "✔️ Delivered"},
+                              {
+                                value: "Delivered",
+                                label: `✔️ ${t("Delivered")}`,
+                              },
                             ].map((statusOption) => (
                               <button
                                 key={statusOption.value}
@@ -767,7 +780,7 @@ const AdminOrders = () => {
                   <button
                     onClick={() => setSelectedOrder(null)}
                     className="w-full sm:w-auto px-6 sm:px-8 bg-slate-900 text-white rounded-xl size16 py-3.5 degular-semibold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 cursor-pointer border border-slate-900">
-                    Close Details
+                    {t("Close Details")}
                   </button>
                 </div>
               </motion.div>

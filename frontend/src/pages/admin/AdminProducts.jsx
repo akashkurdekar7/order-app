@@ -11,11 +11,13 @@ import {
   FiX,
   FiTrendingUp,
 } from "react-icons/fi";
-import {motion, AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
-import {useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-const AdminProductCard = ({product, onEdit, onDelete}) => {
+const AdminProductCard = ({ product, onEdit, onDelete }) => {
+  const { t } = useTranslation();
   const isOutOfStock = product.stock === 0;
   const isLowStock = product.stock > 0 && product.stock <= 10;
 
@@ -60,7 +62,7 @@ const AdminProductCard = ({product, onEdit, onDelete}) => {
         <div className="absolute md:top-3 top-1 md:right-3 right-1">
           <div className="bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest shadow-lg border border-white/10 flex items-center gap-1">
             <FiTrendingUp size={10} className="text-emerald-400" />
-            <span>{product.soldCount || 0} Sold</span>
+            <span>{product.soldCount || 0} {t("Sold")}</span>
           </div>
         </div>
 
@@ -96,7 +98,7 @@ const AdminProductCard = ({product, onEdit, onDelete}) => {
         </p>
         <div className="mt-auto flex items-center justify-between pt-3 border-t border-slate-50">
           <span className="size11 degular-semibold text-slate-400 uppercase tracking-widest">
-            InStock
+            {t("InStock")}
           </span>
           <div className="flex items-center gap-2">
             {/* <div className="w-16 h-1 bg-slate-100 rounded-full overflow-hidden">
@@ -119,6 +121,7 @@ const AdminProductCard = ({product, onEdit, onDelete}) => {
 };
 
 const AdminProducts = () => {
+  const { t } = useTranslation();
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -252,11 +255,11 @@ const AdminProducts = () => {
               <div className="flex items-center gap-2 text-slate-400 mb-1">
                 <FiPackage size={14} />
                 <span className="size12 degular-semibold uppercase tracking-widest">
-                  Inventory Control
+                  {t("Inventory Control")}
                 </span>
               </div>
               <h1 className="size32 degular-semibold text-slate-800">
-                Product Management
+                {t("Product Management")}
               </h1>
             </div>
             <div className="flex items-center gap-3">
@@ -269,7 +272,7 @@ const AdminProducts = () => {
                   setIsProductModalOpen(true);
                 }}
                 className="bg-indigo-600 text-white px-6 py-3 rounded-2xl degular-semibold size14 flex items-center justify-center gap-2 shadow-xl shadow-indigo-100 transition-all hover:bg-indigo-700 cursor-pointer">
-                <FiPlus size={20} /> Add New Product
+                <FiPlus size={20} /> {t("Add New Product")}
               </motion.button>
             </div>
           </div>
@@ -282,7 +285,7 @@ const AdminProducts = () => {
               />
               <input
                 type="text"
-                placeholder="Search inventory by name..."
+                placeholder={t("Search inventory by name...")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full bg-white border border-slate-200 rounded-2xl pl-12 pr-4 py-4 size15 degular-medium outline-none focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all shadow-sm"
@@ -298,14 +301,14 @@ const AdminProducts = () => {
             animate={{opacity: 1, y: 0}}
             className="premium-card p-6 flex flex-col gap-1 border-emerald-100 bg-emerald-50/30">
             <span className="size11 degular-semibold text-emerald-600 uppercase tracking-widest">
-              Total Products Sold
+              {t("Total Products Sold")}
             </span>
             <div className="flex items-baseline gap-2">
               <h3 className="size28 degular-semibold text-slate-800">
                 {stats.totalUnitsSold || 0}
               </h3>
               <span className="size14 text-slate-400 degular-medium">
-                Units
+                {t("Units")}
               </span>
             </div>
           </motion.div>
@@ -316,14 +319,14 @@ const AdminProducts = () => {
             transition={{delay: 0.1}}
             className="premium-card p-6 flex flex-col gap-1 border-indigo-100 bg-indigo-50/30">
             <span className="size11 degular-semibold text-indigo-600 uppercase tracking-widest">
-              Available In Stock
+              {t("Available In Stock")}
             </span>
             <div className="flex items-baseline gap-2">
               <h3 className="size28 degular-semibold text-slate-800">
                 {totalStock}
               </h3>
               <span className="size14 text-slate-400 degular-medium">
-                Items
+                {t("Items")}
               </span>
             </div>
           </motion.div>
@@ -356,7 +359,7 @@ const AdminProducts = () => {
             <p className="size18 degular-semibold text-slate-400">
               {searchTerm
                 ? `No products found for "${searchTerm}"`
-                : "No products found in your inventory."}
+                : t("No products found in your inventory.")}
             </p>
           </div>
         )}
@@ -380,10 +383,10 @@ const AdminProducts = () => {
                 <div className="p-8 pb-4 border-b border-slate-50 flex items-center justify-between">
                   <div>
                     <h3 className="size24 degular-semibold text-slate-800">
-                      {editingId ? "Update Product" : "Add New Product"}
+                      {editingId ? t("Update Product") : t("Add New Product")}
                     </h3>
                     <p className="size14 text-slate-500">
-                      Manage your wholesale inventory items.
+                      {t("Manage your wholesale inventory items.")}
                     </p>
                   </div>
                   <button
@@ -409,7 +412,7 @@ const AdminProducts = () => {
                           <>
                             <FiCamera size={24} className="mb-2" />
                             <span className="size11 degular-semibold">
-                              Upload Image
+                              {t("Upload Image")}
                             </span>
                           </>
                         )}
@@ -432,7 +435,7 @@ const AdminProducts = () => {
                     <div className="grid grid-cols-1 gap-5">
                       <div>
                         <label className="block size12 degular-semibold text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                          Product Details
+                          {t("Product Details")}
                         </label>
                         <input
                           type="text"
@@ -442,7 +445,7 @@ const AdminProducts = () => {
                             setNewProduct({...newProduct, name: e.target.value})
                           }
                           className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-4 size15 degular-medium focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
-                          placeholder="Product Name"
+                          placeholder={t("Product Name")}
                         />
                       </div>
 
@@ -457,14 +460,14 @@ const AdminProducts = () => {
                             })
                           }
                           className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-4 size15 degular-medium focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all resize-none"
-                          placeholder="Product Description"
+                          placeholder={t("Product Description")}
                         />
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <label className="block size12 degular-semibold text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                            Price (₹)
+                            {t("Price (₹)")}
                           </label>
                           <input
                             type="number"
@@ -482,7 +485,7 @@ const AdminProducts = () => {
                         </div>
                         <div>
                           <label className="block size12 degular-semibold text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                            Stock Qty
+                            {t("Stock Qty")}
                           </label>
                           <input
                             type="number"
@@ -507,13 +510,13 @@ const AdminProducts = () => {
                       whileTap={{scale: 0.98}}
                       type="submit"
                       className=" cursor-pointer flex-1 bg-slate-900 text-white py-4 rounded-3xl size16 degular-semibold shadow-xl shadow-slate-200 hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
-                      {editingId ? "Save Changes" : "List Product"}
+                      {editingId ? t("Save Changes") : t("List Product")}
                     </motion.button>
                     <button
                       type="button"
                       onClick={() => setIsProductModalOpen(false)}
                       className=" cursor-pointer flex-1 bg-slate-100 text-slate-500 py-4 rounded-3xl size16 degular-semibold hover:bg-slate-200 transition-all">
-                      Cancel
+                      {t("Cancel")}
                     </button>
                   </div>
                 </form>
