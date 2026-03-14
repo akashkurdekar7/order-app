@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {useEffect, useState} from "react";
+import {motion, AnimatePresence} from "framer-motion";
 import API from "../api/axios";
 import ProductCard from "../components/ProductCard";
 import toast from "react-hot-toast";
-import { FiShoppingBag, FiArrowRight } from "react-icons/fi";
+import {FiShoppingBag, FiArrowRight} from "react-icons/fi";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -35,12 +35,12 @@ function Home() {
       }
 
       if (newQty <= 0) {
-        const copy = { ...prev };
+        const copy = {...prev};
         delete copy[productId];
         return copy;
       }
 
-      return { ...prev, [productId]: newQty };
+      return {...prev, [productId]: newQty};
     });
   };
 
@@ -66,7 +66,7 @@ function Home() {
 
     try {
       setOrdering(true);
-      await API.post("/api/orders/createOrder", { items, paymentMethod });
+      await API.post("/api/orders/createOrder", {items, paymentMethod});
       setOrdering(false);
       toast.success("Order placed successfully");
       setCart({});
@@ -78,22 +78,20 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen pb-32 pt-6">
+    <div className="min-h-screen pb-32 md:pt-6 pt-2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="mb-10 text-center sm:text-left">
-          <motion.h2 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="size32 degular-semibold text-slate-800 mb-2"
-          >
+        <header className="md:mb-10 mb-5 text-center sm:text-left">
+          <motion.h2
+            initial={{opacity: 0, x: -20}}
+            animate={{opacity: 1, x: 0}}
+            className="size32 degular-semibold text-slate-800 mb-2">
             Exclusive Collection
           </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            className="size16 text-slate-500 max-w-lg"
-          >
+          <motion.p
+            initial={{opacity: 0, x: -20}}
+            animate={{opacity: 1, x: 0}}
+            transition={{delay: 0.1}}
+            className="size16 text-slate-500 max-w-lg">
             Premium wholesale selections tailored for your business needs.
           </motion.p>
         </header>
@@ -101,16 +99,15 @@ function Home() {
         {/* Product Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
           <AnimatePresence>
-            {products
-              .map((product) => (
-                <ProductCard
-                  key={product._id}
-                  product={product}
-                  quantity={cart[product._id] || 0}
-                  onIncrease={() => updateQuantity(product._id, 1)}
-                  onDecrease={() => updateQuantity(product._id, -1)}
-                />
-              ))}
+            {products.map((product) => (
+              <ProductCard
+                key={product._id}
+                product={product}
+                quantity={cart[product._id] || 0}
+                onIncrease={() => updateQuantity(product._id, 1)}
+                onDecrease={() => updateQuantity(product._id, -1)}
+              />
+            ))}
           </AnimatePresence>
         </div>
 
@@ -127,15 +124,18 @@ function Home() {
       <AnimatePresence>
         {cartItemCount > 0 && (
           <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[95%] max-w-2xl z-40"
-          >
+            initial={{y: 100, opacity: 0}}
+            animate={{y: 0, opacity: 1}}
+            exit={{y: 100, opacity: 0}}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[95%] max-w-2xl z-40">
             <div className="glass-effect rounded-4xl p-2 sm:p-3 flex items-center justify-between gap-3 sm:gap-6 overflow-hidden">
               <div className="flex flex-col pl-3 sm:pl-4">
-                <span className="size12 sm:size14 text-slate-500 font-medium whitespace-nowrap">Total ({cartItemCount})</span>
-                <span className="size20 sm:size24 degular-semibold text-slate-900 leading-tight">₹{calculateTotal()}</span>
+                <span className="size12 sm:size14 text-slate-500 font-medium whitespace-nowrap">
+                  Total ({cartItemCount})
+                </span>
+                <span className="size20 sm:size24 degular-semibold text-slate-900 leading-tight">
+                  ₹{calculateTotal()}
+                </span>
               </div>
 
               {/* Payment Method Selector */}
@@ -148,19 +148,17 @@ function Home() {
                       paymentMethod === method
                         ? "bg-white text-indigo-600 shadow-sm border border-slate-100"
                         : "text-slate-500 hover:text-slate-700"
-                    }`}
-                  >
+                    }`}>
                     {method}
                   </button>
                 ))}
               </div>
 
               <motion.button
-                whileTap={{ scale: 0.95 }}
+                whileTap={{scale: 0.95}}
                 onClick={placeOrder}
                 disabled={ordering}
-                className="bg-indigo-600 text-white px-5 sm:px-8 py-3 sm:py-3.5 rounded-full size14 sm:size16 degular-semibold flex items-center gap-2 sm:gap-3 shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all disabled:opacity-50"
-              >
+                className="bg-indigo-600 text-white px-5 sm:px-8 py-3 sm:py-3.5 rounded-full size14 sm:size16 degular-semibold flex items-center gap-2 sm:gap-3 shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all disabled:opacity-50">
                 {ordering ? (
                   "Placing..."
                 ) : (

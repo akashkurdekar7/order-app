@@ -45,7 +45,7 @@ const AdminNavbar = () => {
   const navItems = [
     {name: "Dashboard", path: "/admin", icon: FiLayout},
     {name: "Orders", path: "/admin/orders", icon: FiPackage},
-    {name: "Partners", path: "/admin/users", icon: FiUsers},
+    {name: "Shops", path: "/admin/users", icon: FiUsers},
     {name: "Inventory", path: "/admin/products", icon: FiShoppingBag},
     {name: "Sales", path: "/admin/sales", icon: FiTrendingUp},
   ];
@@ -63,15 +63,15 @@ const AdminNavbar = () => {
           {/* Admin Branding */}
           <Link to="/admin" className="flex items-center gap-3 group">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-100 transition-transform group-hover:scale-110">
-              <span className="text-white degular-bold size20 sm:size24">
+              <span className="text-white degular-semibold size20 sm:size24">
                 {adminUser?.personName?.charAt(0).toUpperCase()}
               </span>
             </div>
             <div className="flex flex-col gap-1 items-start">
-              <span className="degular-bold size16 sm:size18 text-slate-800 leading-none">
+              <span className="degular-semibold size16 sm:size18 text-slate-800 leading-none">
                 {adminUser ? adminUser.shopName : "Console"}
               </span>
-              <span className="degular-bold size12 sm:size14 text-indigo-600 leading-none font-medium">
+              <span className="degular-semibold size12 sm:size14 text-indigo-600 leading-none font-medium">
                 {adminUser ? adminUser.personName : "Merchant Admin"}
               </span>
             </div>
@@ -88,7 +88,7 @@ const AdminNavbar = () => {
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`relative px-5 py-2.5 rounded-xl size14 degular-bold transition-all ${
+                    className={`relative px-5 py-2.5 rounded-xl size14 degular-semibold transition-all ${
                       isActive
                         ? "text-slate-900"
                         : "text-slate-500 hover:text-slate-800"
@@ -115,8 +115,8 @@ const AdminNavbar = () => {
             <motion.button
               whileTap={{scale: 0.95}}
               onClick={handleLogout}
-              className="flex items-center gap-2 px-5 py-2.5 bg-red-50 text-red-600 rounded-xl size14 degular-bold hover:bg-red-100 transition-colors shadow-sm cursor-pointer">
-              <FiLogOut className="size16" /> End Session
+              className="flex items-center gap-2 px-5 py-2.5 bg-red-50 text-red-600 rounded-xl size14 degular-semibold hover:bg-red-100 transition-colors shadow-sm cursor-pointer">
+              <FiLogOut className="size16" /> Log out
             </motion.button>
           </nav>
 
@@ -151,13 +151,15 @@ const AdminNavbar = () => {
               <div className="p-8 pb-10 flex justify-between items-center border-b border-slate-50 bg-slate-50/30">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-indigo-600 rounded-[20px] flex items-center justify-center">
-                    <span className="text-white degular-bold size24">A</span>
+                    <span className="text-white degular-semibold size20 sm:size24">
+                      {adminUser?.personName?.charAt(0).toUpperCase()}
+                    </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="degular-bold size18 text-slate-800 leading-none">
+                    <span className="degular-semibold size18 text-slate-800 leading-none">
                       {adminUser ? adminUser.shopName : "Admin Menu"}
                     </span>
-                    <span className="degular-bold size14 text-indigo-600 uppercase tracking-widest mt-1">
+                    <span className="degular-semibold size14 text-indigo-600 uppercase tracking-widest mt-1">
                       {adminUser ? adminUser.personName : "Console"}
                     </span>
                   </div>
@@ -186,7 +188,7 @@ const AdminNavbar = () => {
                         <Link
                           to={item.path}
                           onClick={() => setMenuOpen(false)}
-                          className={`w-full flex items-center justify-between p-5 rounded-[24px] transition-all ${
+                          className={`w-full flex items-center justify-between md:p-5 p-3 rounded-[24px] transition-all ${
                             isActive
                               ? "bg-indigo-600 text-white shadow-lg shadow-indigo-100"
                               : "bg-slate-50/50 text-slate-600 hover:bg-slate-100"
@@ -196,7 +198,7 @@ const AdminNavbar = () => {
                               className={`w-10 h-10 rounded-xl flex items-center justify-center ${isActive ? "bg-white/20" : "bg-white border border-slate-200 shadow-sm text-slate-400"}`}>
                               <item.icon size={20} />
                             </div>
-                            <span className="size18 degular-bold">
+                            <span className="size18 degular-semibold">
                               {item.name}
                             </span>
                           </div>
@@ -215,8 +217,8 @@ const AdminNavbar = () => {
                     handleLogout();
                     setMenuOpen(false);
                   }}
-                  className="w-full py-5 bg-white text-red-600 rounded-[24px] degular-bold size18 flex items-center justify-center gap-3 border border-red-100 shadow-sm hover:bg-red-50 transition-colors">
-                  <FiLogOut size={22} /> End Session
+                  className="w-full py-5 bg-white text-red-600 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-red-100 shadow-sm hover:bg-red-50 transition-colors">
+                  <FiLogOut size={22} /> Log out
                 </motion.button>
               </div>
             </motion.div>

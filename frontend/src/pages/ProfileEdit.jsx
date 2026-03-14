@@ -8,6 +8,7 @@ import {
   FiShoppingBag,
   FiPhone,
   FiMapPin,
+  FiCreditCard,
 } from "react-icons/fi";
 
 const ProfileEdit = () => {
@@ -84,7 +85,7 @@ const ProfileEdit = () => {
     <motion.div
       initial={{opacity: 0}}
       animate={{opacity: 1}}
-      className="min-h-screen pb-20 pt-8 relative overflow-hidden">
+      className="min-h-screen pb-20 md:pt-6 pt-2 relative overflow-hidden">
       {/* Background Decorations */}
       <div className="absolute top-0 left-0 w-full h-full -z-10 pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-indigo-50/50 rounded-full blur-[120px]" />
@@ -92,14 +93,14 @@ const ProfileEdit = () => {
       </div>
 
       <div className="max-w-2xl mx-auto px-4 relative z-10">
-        <header className="mb-10 text-center sm:text-left">
+        <header className="md:mb-10 mb-6 text-center sm:text-left">
           <motion.div
             initial={{opacity: 0, y: 10}}
             animate={{opacity: 1, y: 0}}
             transition={{delay: 0.1}}
             className="flex items-center justify-center sm:justify-start gap-2 text-slate-400 mb-1">
             <FiUser size={14} />
-            <span className="size12 degular-bold uppercase tracking-widest">
+            <span className="size12 degular-semibold uppercase tracking-widest">
               Account Settings
             </span>
           </motion.div>
@@ -107,16 +108,16 @@ const ProfileEdit = () => {
             initial={{opacity: 0, y: 10}}
             animate={{opacity: 1, y: 0}}
             transition={{delay: 0.2}}
-            className="size32 degular-bold text-slate-800 mb-2">
-            Merchant Profile
+            className="size32 degular-semibold text-slate-800 mb-0">
+            {profile.personName}
           </motion.h2>
-          <motion.p
+          {/* <motion.p
             initial={{opacity: 0, y: 10}}
             animate={{opacity: 1, y: 0}}
             transition={{delay: 0.3}}
-            className="size16 text-slate-500 font-medium">
+            className="size16 text-slate-500 degular-regular">
             Manage your wholesale shop identity and credentials.
-          </motion.p>
+          </motion.p> */}
         </header>
 
         <motion.div
@@ -158,7 +159,7 @@ const ProfileEdit = () => {
             {/* Form Fields */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
               <div className="space-y-2">
-                <label className="flex items-center gap-2 degular-bold size12 text-slate-400 uppercase tracking-widest ml-1">
+                <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
                   <FiShoppingBag size={14} className="text-indigo-500" /> Shop
                   Name
                 </label>
@@ -172,7 +173,7 @@ const ProfileEdit = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 degular-bold size12 text-slate-400 uppercase tracking-widest ml-1">
+                <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
                   <FiUser size={14} className="text-indigo-500" /> Owner Name
                 </label>
                 <input
@@ -185,7 +186,7 @@ const ProfileEdit = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 degular-bold size12 text-slate-400 uppercase tracking-widest ml-1">
+                <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
                   <FiPhone size={14} className="text-indigo-500" /> Phone Number
                 </label>
                 <input
@@ -198,20 +199,21 @@ const ProfileEdit = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 degular-bold size12 text-slate-400 uppercase tracking-widest ml-1">
-                  Aadhaar Verification
+                <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
+                  <FiCreditCard size={14} className="text-indigo-500" />{" "}
+                  Merchant Aadhaar Card
                 </label>
-                <div className="w-full bg-slate-100/50 border border-slate-100 rounded-2xl px-5 py-4 size16 degular-bold text-slate-400 cursor-not-allowed flex items-center justify-between">
+                <div className="w-full bg-slate-100/50 border border-slate-100 rounded-2xl px-5 py-4 size16 degular-semibold text-slate-400 cursor-not-allowed flex items-center justify-between">
                   <span>{profile.aadhaar || "Pending"}</span>
                   <span className="size10 bg-slate-200 text-slate-500 px-2 py-0.5 rounded-full">
-                    RO
+                    {profile.aadhaar ? "Verified" : "Pending"}
                   </span>
                 </div>
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="flex items-center gap-2 degular-bold size12 text-slate-400 uppercase tracking-widest ml-1">
+              <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
                 <FiMapPin size={14} className="text-indigo-500" /> Merchant
                 Location
               </label>
@@ -219,18 +221,18 @@ const ProfileEdit = () => {
                 name="location"
                 value={profile.location}
                 onChange={handleChange}
-                rows="3"
+                rows="2"
                 placeholder="Warehouse or shop address..."
                 className="w-full bg-slate-50/50 border border-slate-200/60 rounded-2xl px-5 py-4 size16 degular-semibold text-slate-700 focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all outline-none resize-none"
               />
             </div>
 
-            <div className="pt-6">
+            <div className="md:pt-6 pt-0">
               <motion.button
                 whileHover={{y: -2}}
                 whileTap={{scale: 0.98}}
                 type="submit"
-                className="w-full bg-slate-900 text-white py-5 rounded-[20px] size18 degular-bold shadow-xl shadow-slate-200 hover:bg-slate-800 transition-all">
+                className="w-full bg-slate-900 text-white py-5 rounded-[20px] size18 degular-semibold shadow-xl shadow-slate-200 hover:bg-slate-800 transition-all">
                 Secure Update
               </motion.button>
             </div>

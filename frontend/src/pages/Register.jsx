@@ -74,7 +74,7 @@ const Register = () => {
   };
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat p-4 py-5"
+      className="md:min-h-screen min-h-auto flex items-center justify-center bg-cover bg-center bg-no-repeat p-4 py-5 relative"
       style={{backgroundImage: `url(${registerImg})`}}>
       <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-[3px]"></div>
 
@@ -86,7 +86,7 @@ const Register = () => {
           {/* <div className="w-14 h-14 bg-indigo-600 rounded-xl flex items-center justify-center shadow-xl shadow-indigo-500/30 mx-auto mb-6">
             <span className="text-white degular-semibold size24 mt-1">W</span>
           </div> */}
-          <h2 className="size32 degular-semibold text-slate-900 mb-2">
+          <h2 className="size32 degular-semibold text-slate-900 md:mb-2 mb-0">
             Create Account
           </h2>
           <p className="size16 text-slate-600 degular-regular tracking-wide">
@@ -94,8 +94,8 @@ const Register = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-10">
-          <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-y-6 gap-y-3 mb-8 md:mb-10">
+          <div className="space-y-2 md:space-y-4">
             <div>
               <label className="block size12 degular-semibold text-slate-500 uppercase tracking-widest mb-2 ml-1">
                 Shop Name
@@ -142,13 +142,13 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-2 md:space-y-4">
             <div>
               <label className="block size12 degular-semibold text-slate-500 uppercase tracking-widest mb-2 ml-1">
                 Aadhaar Number
               </label>
               <input
-                type="text"
+                type="tel"
                 placeholder="12 digit number"
                 maxLength={12}
                 pattern="\d{12}"

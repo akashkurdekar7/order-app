@@ -70,7 +70,7 @@ const Login = () => {
               Phone Number
             </label>
             <input
-              type="text"
+              type="tel"
               placeholder="e.g. 9876543210"
               className="w-full px-5 py-4 bg-white/50 border border-white/20 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all degular-regular text-slate-900"
               onChange={(e) => setForm({...form, phone: e.target.value})}
