@@ -39,6 +39,14 @@ const orderSchema = new mongoose.Schema(
             enum: ["Pending", "Paid"],
             default: "Pending",
         },
+        paymentMethod: {
+            type: String,
+            enum: ["Cash", "UPI"],
+            required: true,
+        },
+        paymentScreenshot: {
+            type: String,
+        },
     },
     { timestamps: true }
 );

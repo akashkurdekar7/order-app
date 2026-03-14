@@ -12,7 +12,9 @@ import {
     FiRotateCw,
     FiMapPin,
     FiShoppingBag,
-    FiChevronDown
+    FiChevronDown,
+    FiImage,
+    FiEye
 } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -46,7 +48,7 @@ const AdminOrders = () => {
         }
     };
 
-    const updateOrderStatus = async (orderId, status) => {
+    const handleUpdateOrderStatus = async (orderId, status) => {
         try {
             await API.put(`/api/orders/updateOrderStatus/${orderId}`, { status });
             toast.success(`Order marked as ${status}`);
@@ -59,13 +61,21 @@ const AdminOrders = () => {
         }
     };
 
-    const updatePaymentStatus = async (orderId, paymentStatus) => {
+    const handleUpdatePaymentStatus = async (orderId, paymentStatus, paymentMethod) => {
         try {
-            await API.put(`/api/orders/updatePaymentStatus/${orderId}`, { paymentStatus });
-            toast.success(`Payment marked as ${paymentStatus}`);
+            const data = {};
+            if (paymentStatus) data.paymentStatus = paymentStatus;
+            if (paymentMethod) data.paymentMethod = paymentMethod;
+
+            await API.put(`/api/orders/updatePaymentStatus/${orderId}`, data);
+            toast.success("Payment details updated");
             fetchOrders();
             if (selectedOrder?._id === orderId) {
-                setSelectedOrder(prev => ({ ...prev, paymentStatus }));
+                setSelectedOrder(prev => ({
+                    ...prev,
+                    ...(paymentStatus && { paymentStatus }),
+                    ...(paymentMethod && { paymentMethod })
+                }));
             }
         } catch (error) {
             toast.error("Failed to update payment status");
@@ -154,9 +164,17 @@ const AdminOrders = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-2 mb-4">
-                                <FiUser size={14} className="text-slate-400" />
-                                <span className="size15 degular-semibold text-slate-600 truncate">{order.user?.shopName || order.user?.personName}</span>
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center gap-2">
+                                    <FiUser size={14} className="text-slate-400" />
+                                    <span className="size15 degular-semibold text-slate-600 truncate">{order.user?.shopName || order.user?.personName}</span>
+                                </div>
+                                <span className={`px-2 py-0.5 rounded-md text-[9px] degular-bold uppercase tracking-tight ${order.paymentMethod === "UPI"
+                                    ? "bg-indigo-50 text-indigo-600 border border-indigo-100"
+                                    : "bg-amber-50 text-amber-600 border border-amber-100"
+                                    }`}>
+                                    {order.paymentMethod}
+                                </span>
                             </div>
 
                             <div className="flex justify-between items-center pt-3 border-t border-slate-50">
@@ -224,10 +242,18 @@ const AdminOrders = () => {
                                         </span>
                                     </td>
                                     <td className="px-6 py-5">
-                                        <span className={`px-3 py-1.5 rounded-full border text-[11px] degular-semibold uppercase tracking-wider whitespace-nowrap ${order.paymentStatus === "Paid" ? "bg-emerald-50 text-emerald-600 border-emerald-200" : "bg-red-50 text-red-600 border-red-200"
-                                            }`}>
-                                            {order.paymentStatus || "Pending"}
-                                        </span>
+                                        <div className="flex flex-col gap-1.5">
+                                            <span className={`px-3 py-1.5 rounded-full border text-[11px] degular-semibold uppercase tracking-wider whitespace-nowrap ${order.paymentStatus === "Paid" ? "bg-emerald-50 text-emerald-600 border-emerald-200" : "bg-red-50 text-red-600 border-red-200"
+                                                }`}>
+                                                {order.paymentStatus || "Pending"}
+                                            </span>
+                                            <span className={`px-2 py-0.5 rounded-md text-[9px] w-fit degular-bold uppercase tracking-tight ${order.paymentMethod === "UPI"
+                                                ? "bg-indigo-50 text-indigo-600 border border-indigo-100"
+                                                : "bg-amber-50 text-amber-600 border border-amber-100"
+                                                }`}>
+                                                {order.paymentMethod}
+                                            </span>
+                                        </div>
                                     </td>
                                     <td className="px-6 py-5 text-right">
                                         <div className="flex items-center justify-end gap-2 group-hover:translate-x-[-4px] transition-transform">
@@ -348,7 +374,7 @@ const AdminOrders = () => {
                                                                                 key={statusOption.value}
                                                                                 onClick={(e) => {
                                                                                     e.stopPropagation();
-                                                                                    updatePaymentStatus(selectedOrder._id, statusOption.value);
+                                                                                    handleUpdatePaymentStatus(selectedOrder._id, statusOption.value);
                                                                                     setIsPaymentDropdownOpen(false);
                                                                                 }}
                                                                                 className={`w-full text-left px-5 py-2.5 size14 degular-bold transition-colors ${selectedOrder.paymentStatus === statusOption.value
@@ -365,10 +391,56 @@ const AdminOrders = () => {
                                                         </>
                                                     )}
                                                 </div>
-                                                <div className="pt-2">
-                                                    <p className="size12 text-slate-400 uppercase tracking-tighter mb-1 font-bold">Total Amount Due</p>
-                                                    <p className="size24 degular-bold text-indigo-600">₹{selectedOrder.totalAmount?.toLocaleString()}</p>
+                                                <div className="flex items-center justify-between pt-2">
+                                                    <div>
+                                                        <p className="size12 text-slate-400 uppercase tracking-tighter mb-1 font-bold">Total Amount Due</p>
+                                                        <p className="size24 degular-bold text-indigo-600">₹{selectedOrder.totalAmount?.toLocaleString()}</p>
+                                                    </div>
+                                                    <div className="text-right">
+                                                        <p className="size12 text-slate-400 uppercase tracking-tighter mb-1 font-bold">Method</p>
+                                                        <div className="flex flex-col items-end gap-2">
+                                                            <select
+                                                                value={selectedOrder.paymentMethod}
+                                                                onChange={(e) => handleUpdatePaymentStatus(selectedOrder._id, selectedOrder.paymentStatus, e.target.value)}
+                                                                className="px-3 py-1.5 rounded-lg size11 degular-bold uppercase tracking-tight bg-slate-50 border border-slate-200 text-slate-700 outline-none cursor-pointer hover:border-indigo-300 transition-colors"
+                                                            >
+                                                                <option value="Cash">Cash</option>
+                                                                <option value="UPI">UPI</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
+                                                {/* Admin Payment Proof View */}
+                                                {selectedOrder.paymentMethod === "UPI" && (
+                                                    <div className="mt-4 pt-4 border-t border-slate-100">
+                                                        <p className="size12 text-slate-400 uppercase tracking-tighter mb-2 font-bold">Payment Proof (UPI)</p>
+                                                        {selectedOrder.paymentScreenshot ? (
+                                                            <div className="relative group rounded-xl overflow-hidden border border-slate-200 aspect-video bg-white">
+                                                                <img
+                                                                    src={`${import.meta.env.VITE_BASE_URL}${selectedOrder.paymentScreenshot}`}
+                                                                    alt="Payment Proof"
+                                                                    className="w-full h-full object-cover"
+                                                                />
+                                                                <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                                    <a
+                                                                        href={`${import.meta.env.VITE_BASE_URL}${selectedOrder.paymentScreenshot}`}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-800 shadow-xl hover:scale-110 transition-transform"
+                                                                    >
+                                                                        <FiEye size={20} />
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        ) : (
+                                                            <div className="bg-red-50/50 border border-dashed border-red-200 rounded-xl p-4 flex items-center justify-center gap-2">
+                                                                <FiImage className="text-red-400" size={18} />
+                                                                <span className="size13 degular-bold text-red-600">No proof uploaded yet</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -456,7 +528,7 @@ const AdminOrders = () => {
                                                                     key={statusOption.value}
                                                                     onClick={(e) => {
                                                                         e.stopPropagation();
-                                                                        updateOrderStatus(selectedOrder._id, statusOption.value);
+                                                                        handleUpdateOrderStatus(selectedOrder._id, statusOption.value);
                                                                         setIsStatusDropdownOpen(false);
                                                                     }}
                                                                     className={`w-full text-left px-5 py-3 size14 degular-bold transition-colors cursor-pointer ${selectedOrder.status === statusOption.value

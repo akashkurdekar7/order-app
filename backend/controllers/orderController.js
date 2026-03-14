@@ -5,10 +5,14 @@ const User = require("../models/User");
 // CREATE ORDER (User)
 exports.createOrder = async (req, res) => {
     try {
-        const { items } = req.body;
+        const { items, paymentMethod } = req.body;
 
         if (!items || items.length === 0) {
             return res.status(400).json({ message: "No items in order" });
+        }
+
+        if (!paymentMethod) {
+            return res.status(400).json({ message: "Please select a payment method" });
         }
 
         let totalAmount = 0;
@@ -40,6 +44,7 @@ exports.createOrder = async (req, res) => {
             user: req.user._id,
             items,
             totalAmount,
+            paymentMethod
         });
 
         res.status(201).json(order);
@@ -47,8 +52,8 @@ exports.createOrder = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-// GET USER ORDERS
-exports.getUserOrders = async (req, res) => {
+// GET MY ORDERS
+exports.getMyOrders = async (req, res) => {
     try {
         const orders = await Order.find({ user: req.user._id })
             .populate("items.product")
@@ -57,6 +62,35 @@ exports.getUserOrders = async (req, res) => {
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+};
+
+// UPLOAD PAYMENT SCREENSHOT (User)
+exports.uploadScreenshot = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded" });
+        }
+
+        const order = await Order.findById(req.params.id);
+        if (!order) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+
+        // Verify user owns the order (optional but good practice)
+        if (order.user.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ message: "Unauthorized" });
+        }
+
+        order.paymentScreenshot = `/uploads/${req.file.filename}`;
+        await order.save();
+
+        res.status(200).json({
+            message: "Screenshot uploaded successfully",
+            paymentScreenshot: order.paymentScreenshot
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Upload failed" });
     }
 };
 
@@ -117,15 +151,15 @@ exports.updateOrderStatus = async (req, res) => {
 // ADMIN - UPDATE PAYMENT STATUS
 exports.updatePaymentStatus = async (req, res) => {
     try {
-        const { paymentStatus } = req.body;
-
+        const { paymentStatus, paymentMethod } = req.body;
         const order = await Order.findById(req.params.id);
 
         if (!order) {
             return res.status(404).json({ message: "Order not found" });
         }
 
-        order.paymentStatus = paymentStatus;
+        if (paymentStatus) order.paymentStatus = paymentStatus;
+        if (paymentMethod) order.paymentMethod = paymentMethod;
 
         await order.save();
 

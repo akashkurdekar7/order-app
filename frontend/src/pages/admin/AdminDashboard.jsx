@@ -174,7 +174,7 @@ const AdminDashboard = () => {
     );
 
     return (
-        <div className=" pb-20 pt-8 px-4 sm:px-6">
+        <div className="pb-20 pt-8 px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
                 {/* Header Section */}
                 <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">

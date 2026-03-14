@@ -50,7 +50,7 @@ const AdminNavbar = () => {
                     {/* Admin Branding */}
                     <Link to="/admin" className="flex items-center gap-3 group">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-100 transition-transform group-hover:scale-110">
-                            <span className="text-white degular-bold size20 sm:size24">{adminUser.personName.charAt(0).toUpperCase()}</span>
+                            <span className="text-white degular-bold size20 sm:size24">{adminUser?.personName?.charAt(0).toUpperCase()}</span>
                         </div>
                         <div className="flex flex-col gap-1 items-start">
                             <span className="degular-bold size16 sm:size18 text-slate-800 leading-none">{adminUser ? adminUser.shopName : "Console"}</span>

@@ -9,6 +9,7 @@ function Home() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [ordering, setOrdering] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("Cash");
 
   useEffect(() => {
     fetchProducts();
@@ -65,7 +66,7 @@ function Home() {
 
     try {
       setOrdering(true);
-      await API.post("/api/orders/createOrder", { items });
+      await API.post("/api/orders/createOrder", { items, paymentMethod });
       setOrdering(false);
       toast.success("Order placed successfully");
       setCart({});
@@ -131,10 +132,27 @@ function Home() {
             exit={{ y: 100, opacity: 0 }}
             className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[95%] max-w-2xl z-40"
           >
-            <div className="glass-effect rounded-4xl p-3 sm:p-4 flex items-center justify-between gap-2 sm:gap-6 overflow-hidden">
-              <div className="flex flex-col pl-2 sm:pl-4">
-                <span className="size12 sm:size14 text-slate-500 font-medium whitespace-nowrap">Items: {cartItemCount}</span>
-                <span className="size20 sm:size24 degular-semibold text-slate-900">₹{calculateTotal()}</span>
+            <div className="glass-effect rounded-4xl p-2 sm:p-3 flex items-center justify-between gap-3 sm:gap-6 overflow-hidden">
+              <div className="flex flex-col pl-3 sm:pl-4">
+                <span className="size12 sm:size14 text-slate-500 font-medium whitespace-nowrap">Total ({cartItemCount})</span>
+                <span className="size20 sm:size24 degular-semibold text-slate-900 leading-tight">₹{calculateTotal()}</span>
+              </div>
+
+              {/* Payment Method Selector */}
+              <div className="flex bg-slate-100/80 p-1 rounded-2xl border border-slate-200/50">
+                {["Cash", "UPI"].map((method) => (
+                  <button
+                    key={method}
+                    onClick={() => setPaymentMethod(method)}
+                    className={`px-4 py-2 rounded-xl size13 degular-semibold transition-all ${
+                      paymentMethod === method
+                        ? "bg-white text-indigo-600 shadow-sm border border-slate-100"
+                        : "text-slate-500 hover:text-slate-700"
+                    }`}
+                  >
+                    {method}
+                  </button>
+                ))}
               </div>
 
               <motion.button

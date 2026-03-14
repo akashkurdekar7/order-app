@@ -1,21 +1,24 @@
 const express = require("express");
 const {
     createOrder,
-    getUserOrders,
+    getMyOrders, // Changed from getUserOrders
     getAllOrders,
     updateOrderStatus,
     getDashboardStats,
+    getSalesReports,
     updatePaymentStatus,
-    getSalesReports
+    uploadScreenshot // Added
 } = require("../controllers/orderController");
 
 const { protect, adminOnly } = require("../middleware/authMiddleware");
+const upload = require("../middleware/multerMiddleware"); // Added multer import
 
 const router = express.Router();
 
 // User routes
 router.post("/createOrder", protect, createOrder);
-router.get("/getMyOrders", protect, getUserOrders);
+router.get("/getMyOrders", protect, getMyOrders); // Updated to use getMyOrders
+router.put("/uploadScreenshot/:id", protect, upload.single("screenshot"), uploadScreenshot); // Added new route
 
 // Admin routes
 router.get("/getAllOrders", protect, adminOnly, getAllOrders);
