@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate, useLocation, Link} from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 import {motion, AnimatePresence} from "framer-motion";
 import {
   FiMenu,
@@ -19,6 +20,12 @@ const AdminNavbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [adminUser, setAdminUser] = useState(null);
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'kn' : 'en';
+    i18n.changeLanguage(newLang);
+  };
 
   useEffect(() => {
     const fetchAdminDetails = async () => {
@@ -43,11 +50,11 @@ const AdminNavbar = () => {
   };
 
   const navItems = [
-    {name: "Dashboard", path: "/admin", icon: FiLayout},
-    {name: "Orders", path: "/admin/orders", icon: FiPackage},
-    {name: "Shops", path: "/admin/users", icon: FiUsers},
-    {name: "Inventory", path: "/admin/products", icon: FiShoppingBag},
-    {name: "Sales", path: "/admin/sales", icon: FiTrendingUp},
+    {name: t("Dashboard"), path: "/admin", icon: FiLayout},
+    {name: t("Orders"), path: "/admin/orders", icon: FiPackage},
+    {name: t("Shops"), path: "/admin/users", icon: FiUsers},
+    {name: t("Inventory"), path: "/admin/products", icon: FiShoppingBag},
+    {name: t("Sales"), path: "/admin/sales", icon: FiTrendingUp},
   ];
 
   return (
@@ -112,11 +119,20 @@ const AdminNavbar = () => {
 
             <div className="h-8 w-px bg-slate-200 mx-4" />
 
+            {/* Language Toggle */}
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={toggleLanguage}
+              className="px-4 py-2.5 bg-slate-50 text-slate-700 rounded-xl size14 degular-semibold hover:bg-slate-100 transition-colors shadow-sm border border-slate-200 mr-2"
+            >
+              {i18n.language === 'en' ? 'ಕನ್ನಡ' : 'English'}
+            </motion.button>
+
             <motion.button
               whileTap={{scale: 0.95}}
               onClick={handleLogout}
               className="flex items-center gap-2 px-5 py-2.5 bg-red-50 text-red-600 rounded-xl size14 degular-semibold hover:bg-red-100 transition-colors shadow-sm cursor-pointer">
-              <FiLogOut className="size16" /> Log out
+              <FiLogOut className="size16" /> {t("Log out")}
             </motion.button>
           </nav>
 
@@ -210,7 +226,15 @@ const AdminNavbar = () => {
               </div>
 
               {/* Mobile Menu Footer */}
-              <div className="p-6 sm:p-8 bg-slate-50/30 border-t border-slate-50">
+              <div className="p-6 sm:p-8 bg-slate-50/30 border-t border-slate-50 space-y-3">
+                <motion.button
+                  whileTap={{ scale: 0.98 }}
+                  onClick={toggleLanguage}
+                  className="w-full py-4 bg-white text-slate-700 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors"
+                >
+                  {i18n.language === 'en' ? 'ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ' : 'Switch to English'}
+                </motion.button>
+
                 <motion.button
                   whileTap={{scale: 0.98}}
                   onClick={() => {
@@ -218,7 +242,7 @@ const AdminNavbar = () => {
                     setMenuOpen(false);
                   }}
                   className="w-full py-5 bg-white text-red-600 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-red-100 shadow-sm hover:bg-red-50 transition-colors">
-                  <FiLogOut size={22} /> Log out
+                  <FiLogOut size={22} /> {t("Log out")}
                 </motion.button>
               </div>
             </motion.div>

@@ -1,8 +1,10 @@
 import React from "react";
 import {motion, AnimatePresence} from "framer-motion";
 import {FiPlus, FiMinus} from "react-icons/fi";
+import {useTranslation} from "react-i18next";
 
 const ProductCard = ({product, quantity, onIncrease, onDecrease}) => {
+  const { t } = useTranslation();
   const isOutOfStock = product.stock === 0;
   const imageUrl = product.image
     ? `${import.meta.env.VITE_BASE_URL}${product.image}`
@@ -23,7 +25,7 @@ const ProductCard = ({product, quantity, onIncrease, onDecrease}) => {
         />
         {isOutOfStock ? (
           <div className="absolute top-2 right-2 bg-red-100 text-red-600 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-tighter">
-            Out of Stock
+            {t("Out of Stock")}
           </div>
         ) : null}
       </div>
@@ -69,7 +71,7 @@ const ProductCard = ({product, quantity, onIncrease, onDecrease}) => {
                 </span> */}
 
                 <span className="xs:hidden ">
-                  {isOutOfStock ? "Sold Out" : "Add"}
+                  {isOutOfStock ? t("Sold Out") : t("Add")}
                 </span>
               </motion.button>
             ) : (

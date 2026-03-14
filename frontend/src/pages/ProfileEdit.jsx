@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import API from "../api/axios";
 import toast from "react-hot-toast";
 import {motion} from "framer-motion";
+import {useTranslation} from "react-i18next";
 import {
   FiCamera,
   FiUser,
@@ -12,6 +13,7 @@ import {
 } from "react-icons/fi";
 
 const ProfileEdit = () => {
+  const { t } = useTranslation();
   const [profile, setProfile] = useState({
     shopName: "",
     personName: "",
@@ -41,7 +43,7 @@ const ProfileEdit = () => {
         setPreview(`${import.meta.env.VITE_BASE_URL}${res.data.image}`);
       }
     } catch (error) {
-      toast.error("Failed to load profile");
+      toast.error(t("Failed to load profile"));
     }
   };
 
@@ -75,9 +77,9 @@ const ProfileEdit = () => {
         headers: {"Content-Type": "multipart/form-data"},
       });
 
-      toast.success("Profile updated");
+      toast.success(t("Profile updated"));
     } catch (error) {
-      toast.error(error.response?.data?.message || "Update failed");
+      toast.error(error.response?.data?.message || t("Update failed"));
     }
   };
 
@@ -101,7 +103,7 @@ const ProfileEdit = () => {
             className="flex items-center justify-center sm:justify-start gap-2 text-slate-400 mb-1">
             <FiUser size={14} />
             <span className="size12 degular-semibold uppercase tracking-widest">
-              Account Settings
+              {t("Account Settings")}
             </span>
           </motion.div>
           <motion.h2
@@ -160,40 +162,39 @@ const ProfileEdit = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
               <div className="space-y-2">
                 <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
-                  <FiShoppingBag size={14} className="text-indigo-500" /> Shop
-                  Name
+                  <FiShoppingBag size={14} className="text-indigo-500" /> {t("Shop Name")}
                 </label>
                 <input
                   name="shopName"
                   value={profile.shopName}
                   onChange={handleChange}
-                  placeholder="Enter shop name"
+                  placeholder={t("Enter shop name")}
                   className="w-full bg-slate-50/50 border border-slate-200/60 rounded-2xl px-5 py-4 size16 degular-semibold text-slate-700 focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all outline-none"
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
-                  <FiUser size={14} className="text-indigo-500" /> Owner Name
+                  <FiUser size={14} className="text-indigo-500" /> {t("Owner Name")}
                 </label>
                 <input
                   name="personName"
                   value={profile.personName}
                   onChange={handleChange}
-                  placeholder="Enter owner name"
+                  placeholder={t("Enter owner name")}
                   className="w-full bg-slate-50/50 border border-slate-200/60 rounded-2xl px-5 py-4 size16 degular-semibold text-slate-700 focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all outline-none"
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
-                  <FiPhone size={14} className="text-indigo-500" /> Phone Number
+                  <FiPhone size={14} className="text-indigo-500" /> {t("Phone Number")}
                 </label>
                 <input
                   name="phone"
                   value={profile.phone}
                   onChange={handleChange}
-                  placeholder="Mobile number"
+                  placeholder={t("Mobile number")}
                   className="w-full bg-slate-50/50 border border-slate-200/60 rounded-2xl px-5 py-4 size16 degular-semibold text-slate-700 focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all outline-none"
                 />
               </div>
@@ -201,12 +202,12 @@ const ProfileEdit = () => {
               <div className="space-y-2">
                 <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
                   <FiCreditCard size={14} className="text-indigo-500" />{" "}
-                  Merchant Aadhaar Card
+                  {t("Merchant Aadhaar Card")}
                 </label>
                 <div className="w-full bg-slate-100/50 border border-slate-100 rounded-2xl px-5 py-4 size16 degular-semibold text-slate-400 cursor-not-allowed flex items-center justify-between">
-                  <span>{profile.aadhaar || "Pending"}</span>
+                  <span>{profile.aadhaar || t("Pending")}</span>
                   <span className="size10 bg-slate-200 text-slate-500 px-2 py-0.5 rounded-full">
-                    {profile.aadhaar ? "Verified" : "Pending"}
+                    {profile.aadhaar ? t("Verified") : t("Pending")}
                   </span>
                 </div>
               </div>
@@ -214,15 +215,14 @@ const ProfileEdit = () => {
 
             <div className="space-y-2">
               <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
-                <FiMapPin size={14} className="text-indigo-500" /> Merchant
-                Location
+                <FiMapPin size={14} className="text-indigo-500" /> {t("Merchant Location")}
               </label>
               <textarea
                 name="location"
                 value={profile.location}
                 onChange={handleChange}
                 rows="2"
-                placeholder="Warehouse or shop address..."
+                placeholder={t("Warehouse or shop address...")}
                 className="w-full bg-slate-50/50 border border-slate-200/60 rounded-2xl px-5 py-4 size16 degular-semibold text-slate-700 focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 transition-all outline-none resize-none"
               />
             </div>
@@ -233,7 +233,7 @@ const ProfileEdit = () => {
                 whileTap={{scale: 0.98}}
                 type="submit"
                 className="w-full bg-slate-900 text-white py-5 rounded-[20px] size18 degular-semibold shadow-xl shadow-slate-200 hover:bg-slate-800 transition-all">
-                Secure Update
+                {t("Secure Update")}
               </motion.button>
             </div>
           </form>

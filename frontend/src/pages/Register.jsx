@@ -3,10 +3,12 @@ import API from "../api/axios";
 import {useNavigate, Link} from "react-router-dom";
 import toast from "react-hot-toast";
 import {motion} from "framer-motion";
+import {useTranslation} from "react-i18next";
 import registerImg from "../assets/register.jpg";
 import {FiEye, FiEyeOff} from "react-icons/fi";
 
 const Register = () => {
+  const {t, i18n} = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
     shopName: "",
@@ -20,63 +22,78 @@ const Register = () => {
   const navigate = useNavigate();
   const handleRegister = async () => {
     if (!form.shopName.trim()) {
-      toast.error("Shop name is required");
+      toast.error(t("Shop name is required"));
       return;
     }
 
     if (!form.personName.trim()) {
-      toast.error("Owner name is required");
+      toast.error(t("Owner name is required"));
       return;
     }
 
     if (!form.phone) {
-      toast.error("Phone number is required");
+      toast.error(t("Phone number is required"));
       return;
     }
 
     if (!/^[6-9]\d{9}$/.test(form.phone)) {
-      toast.error("Enter a valid 10 digit phone number");
+      toast.error(t("Enter a valid 10 digit phone number"));
       return;
     }
 
     if (!form.aadhaar) {
-      toast.error("Aadhaar number is required");
+      toast.error(t("Aadhaar number is required"));
       return;
     }
 
     if (!/^\d{12}$/.test(form.aadhaar)) {
-      toast.error("Aadhaar must be exactly 12 digits");
+      toast.error(t("Aadhaar must be exactly 12 digits"));
       return;
     }
 
     if (!form.location.trim()) {
-      toast.error("Location is required");
+      toast.error(t("Location is required"));
       return;
     }
 
     if (!form.password) {
-      toast.error("Password is required");
+      toast.error(t("Password is required"));
       return;
     }
 
     if (form.password.length < 6) {
-      toast.error("Password must be at least 6 characters");
+      toast.error(t("Password must be at least 6 characters"));
       return;
     }
 
     try {
       const res = await API.post("/api/auth/register", form);
-      toast.success("Registered successfully");
+      toast.success(t("Registered successfully"));
       navigate("/");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Registration failed");
+      toast.error(error.response?.data?.message || t("Registration failed"));
     }
   };
   return (
     <div
-      className="md:min-h-screen min-h-auto flex items-center justify-center bg-cover bg-center bg-no-repeat p-4 py-5 relative"
+      className="md:min-h-screen min-h-auto flex items-center justify-center bg-cover bg-center bg-no-repeat p-4 md:py-5 py-20 relative"
       style={{backgroundImage: `url(${registerImg})`}}>
       <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-[3px]"></div>
+
+      {/* Language Toggle */}
+      <div className="absolute top-4 right-4 sm:top-8 sm:right-8 z-20 flex gap-2 items-center">
+        <p className="text-white degular-semibold size14">
+          {t("Change Language")}
+        </p>
+        <motion.button
+          whileTap={{scale: 0.95}}
+          onClick={() =>
+            i18n.changeLanguage(i18n.language === "en" ? "kn" : "en")
+          }
+          className="px-5 py-2.5 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-xl size14 degular-semibold hover:bg-white/20 transition-all shadow-lg cursor-pointer">
+          {i18n.language === "en" ? "ಕನ್ನಡ" : "English"}
+        </motion.button>
+      </div>
 
       <motion.div
         initial={{opacity: 0, scale: 0.95}}
@@ -87,10 +104,10 @@ const Register = () => {
             <span className="text-white degular-semibold size24 mt-1">W</span>
           </div> */}
           <h2 className="size32 degular-semibold text-slate-900 md:mb-2 mb-0">
-            Create Account
+            {t("Create Account")}
           </h2>
           <p className="size16 text-slate-600 degular-regular tracking-wide">
-            Join our premium wholesale network
+            {t("Join our premium wholesale network")}
           </p>
         </div>
 
@@ -98,11 +115,11 @@ const Register = () => {
           <div className="space-y-2 md:space-y-4">
             <div>
               <label className="block size12 degular-semibold text-slate-500 uppercase tracking-widest mb-2 ml-1">
-                Shop Name
+                {t("Shop Name")}
               </label>
               <input
                 type="text"
-                placeholder="Business name"
+                placeholder={t("Business name")}
                 autoComplete="on"
                 className="w-full px-5 py-3.5 bg-white/50 border border-white/20 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all degular-regular text-slate-900"
                 onChange={(e) => setForm({...form, shopName: e.target.value})}
@@ -110,18 +127,18 @@ const Register = () => {
             </div>
             <div>
               <label className="block size12 degular-semibold text-slate-500 uppercase tracking-widest mb-2 ml-1">
-                Owner Name
+                {t("Owner Name")}
               </label>
               <input
                 type="text"
-                placeholder="Full name"
+                placeholder={t("Full name")}
                 className="w-full px-5 py-3.5 bg-white/50 border border-white/20 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all degular-regular text-slate-900"
                 onChange={(e) => setForm({...form, personName: e.target.value})}
               />
             </div>
             <div>
               <label className="block size12 degular-semibold text-slate-500 uppercase tracking-widest mb-2 ml-1">
-                Phone Number
+                {t("Phone Number")}
               </label>
 
               <div className="relative">
@@ -131,7 +148,7 @@ const Register = () => {
 
                 <input
                   type="tel"
-                  placeholder="10 digit number"
+                  placeholder={t("10 digit number")}
                   maxLength={10}
                   className="w-full pl-14 pr-5 py-3.5 bg-white/50 border border-white/20 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all degular-regular text-slate-900"
                   onChange={(e) =>
@@ -145,11 +162,11 @@ const Register = () => {
           <div className="space-y-2 md:space-y-4">
             <div>
               <label className="block size12 degular-semibold text-slate-500 uppercase tracking-widest mb-2 ml-1">
-                Aadhaar Number
+                {t("Aadhaar Number")}
               </label>
               <input
                 type="tel"
-                placeholder="12 digit number"
+                placeholder={t("12 digit number")}
                 maxLength={12}
                 pattern="\d{12}"
                 className="w-full px-5 py-3.5 bg-white/50 border border-white/20 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all degular-regular text-slate-900"
@@ -158,18 +175,18 @@ const Register = () => {
             </div>
             <div>
               <label className="block size12 degular-semibold text-slate-500 uppercase tracking-widest mb-2 ml-1">
-                Location / Shop Address
+                {t("Location / Shop Address")}
               </label>
               <input
                 type="text"
-                placeholder="City, Area"
+                placeholder={t("City, Area")}
                 className="w-full px-5 py-3.5 bg-white/50 border border-white/20 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all degular-regular text-slate-900"
                 onChange={(e) => setForm({...form, location: e.target.value})}
               />
             </div>
             <div>
               <label className="block size12 degular-semibold text-slate-500 uppercase tracking-widest mb-2 ml-1">
-                Create Password
+                {t("Create Password")}
               </label>
               <div className="relative">
                 <input
@@ -197,16 +214,16 @@ const Register = () => {
         <button
           onClick={handleRegister}
           className="w-full py-4.5 cursor-pointer bg-indigo-600 text-white rounded-2xl size18 degular-semibold hover:bg-indigo-700 shadow-lg shadow-indigo-500/20 active:scale-[0.98] transition-all">
-          Create Wholesale Account
+          {t("Create Wholesale Account")}
         </button>
 
         <div className="mt-8 text-center">
           <p className="size14 text-slate-600 degular-regular">
-            Already registered?{" "}
+            {t("Already registered? ")}
             <Link
               to="/"
               className="text-indigo-600 hover:text-indigo-700 font-bold transition-colors cursor-pointer">
-              Sign In
+              {t("Sign In")}
             </Link>
           </p>
         </div>

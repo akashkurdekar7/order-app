@@ -1,5 +1,6 @@
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import {useState, useEffect} from "react";
+import {useTranslation} from 'react-i18next';
 import {motion, AnimatePresence} from "framer-motion";
 import API from "../api/axios";
 import toast from "react-hot-toast";
@@ -20,6 +21,12 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [profile, setProfile] = useState(null);
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'kn' : 'en';
+    i18n.changeLanguage(newLang);
+  };
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -55,14 +62,14 @@ const Navbar = () => {
   const menuItems =
     role === "user"
       ? [
-          {name: "Browse", path: "/home", icon: FiHome},
-          {name: "My Orders", path: "/my-orders", icon: FiPackage},
-          {name: "Profile", path: "/profile-edit", icon: FiUser},
+          {name: t("Browse"), path: "/home", icon: FiHome},
+          {name: t("My Orders"), path: "/my-orders", icon: FiPackage},
+          {name: t("Profile"), path: "/profile-edit", icon: FiUser},
         ]
       : [
-          {name: "Dashboard", path: "/admin", icon: FiHome},
-          {name: "Orders", path: "/admin/orders", icon: FiPackage},
-          {name: "Products", path: "/admin/products", icon: FiShoppingBag},
+          {name: t("Dashboard"), path: "/admin", icon: FiHome},
+          {name: t("Orders"), path: "/admin/orders", icon: FiPackage},
+          {name: t("Products"), path: "/admin/products", icon: FiShoppingBag},
         ];
 
   return (
@@ -130,11 +137,20 @@ const Navbar = () => {
 
             <div className="h-8 w-px bg-slate-200 mx-4" />
 
+            {/* Language Toggle */}
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={toggleLanguage}
+              className="px-4 py-2.5 bg-slate-50 text-slate-700 rounded-xl size14 degular-semibold hover:bg-slate-100 transition-colors shadow-sm border border-slate-200 cursor-pointer mr-2"
+            >
+              {i18n.language === 'en' ? 'ಕನ್ನಡ' : 'English'}
+            </motion.button>
+
             <motion.button
               whileTap={{scale: 0.95}}
               onClick={logout}
               className="flex items-center gap-2 px-5 py-2.5 bg-red-50 text-red-600 rounded-xl size14 degular-semibold hover:bg-red-100 transition-colors shadow-sm cursor-pointer">
-              <FiLogOut className="size16" /> Logout
+              <FiLogOut className="size16" /> {t("Log out")}
             </motion.button>
           </div>
 
@@ -183,10 +199,10 @@ const Navbar = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="degular-semibold size18 text-slate-800 leading-none">
-                      Menu
+                      {t("Menu")}
                     </span>
                     <span className="degular-semibold size14 text-indigo-600 uppercase tracking-widest mt-1">
-                      Wholesale
+                      {t("Wholesale")}
                     </span>
                   </div>
                 </div>
@@ -237,12 +253,20 @@ const Navbar = () => {
               </div>
 
               {/* Mobile Menu Footer */}
-              <div className="p-6 sm:p-8 bg-slate-50/30 border-t border-slate-50">
+              <div className="p-6 sm:p-8 bg-slate-50/30 border-t border-slate-50 space-y-3">
+                <motion.button
+                  whileTap={{ scale: 0.98 }}
+                  onClick={toggleLanguage}
+                  className="w-full py-4 bg-white text-slate-700 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors cursor-pointer"
+                >
+                  {i18n.language === 'en' ? 'ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ' : 'Switch to English'}
+                </motion.button>
+
                 <motion.button
                   whileTap={{scale: 0.98}}
                   onClick={logout}
-                  className="w-full py-5 bg-white text-red-600 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-red-100 shadow-sm hover:bg-red-50 transition-colors cursor-pointer">
-                  <FiLogOut size={22} /> Log out
+                  className="w-full py-4 bg-white text-red-600 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-red-100 shadow-sm hover:bg-red-50 transition-colors cursor-pointer">
+                  <FiLogOut size={22} /> {t("Log out")}
                 </motion.button>
               </div>
             </motion.div>

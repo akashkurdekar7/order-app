@@ -1,11 +1,13 @@
 import {useEffect, useState} from "react";
 import {motion, AnimatePresence} from "framer-motion";
+import {useTranslation} from "react-i18next";
 import API from "../api/axios";
 import ProductCard from "../components/ProductCard";
 import toast from "react-hot-toast";
 import {FiShoppingBag, FiArrowRight} from "react-icons/fi";
 
 function Home() {
+  const { t } = useTranslation();
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [ordering, setOrdering] = useState(false);
@@ -20,7 +22,7 @@ function Home() {
       const res = await API.get("/api/products/getProducts");
       setProducts(res.data);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong");
+      toast.error(error.response?.data?.message || t("Something went wrong"));
     }
   };
 
@@ -30,7 +32,7 @@ function Home() {
       const newQty = (prev[productId] || 0) + change;
 
       if (newQty > product.stock) {
-        toast.error("Low stock: Only " + product.stock + " available");
+        toast.error(t("Low stock: Only ") + product.stock + t(" available"));
         return prev;
       }
 
@@ -55,7 +57,7 @@ function Home() {
 
   const placeOrder = async () => {
     if (cartItemCount === 0) {
-      toast.error("Your cart is empty");
+      toast.error(t("Your cart is empty"));
       return;
     }
 
@@ -68,12 +70,12 @@ function Home() {
       setOrdering(true);
       await API.post("/api/orders/createOrder", {items, paymentMethod});
       setOrdering(false);
-      toast.success("Order placed successfully");
+      toast.success(t("Order placed successfully"));
       setCart({});
       fetchProducts();
     } catch (error) {
       setOrdering(false);
-      toast.error(error.response?.data?.message || "Order failed");
+      toast.error(error.response?.data?.message || t("Order failed"));
     }
   };
 
@@ -85,14 +87,14 @@ function Home() {
             initial={{opacity: 0, x: -20}}
             animate={{opacity: 1, x: 0}}
             className="size32 degular-semibold text-slate-800 mb-2">
-            Exclusive Collection
+            {t("Exclusive Collection")}
           </motion.h2>
           <motion.p
             initial={{opacity: 0, x: -20}}
             animate={{opacity: 1, x: 0}}
             transition={{delay: 0.1}}
             className="size16 text-slate-500 max-w-lg">
-            Premium wholesale selections tailored for your business needs.
+            {t("Premium wholesale selections tailored for your business needs.")}
           </motion.p>
         </header>
 
@@ -115,7 +117,7 @@ function Home() {
         {products.length === 0 && !ordering && (
           <div className="flex flex-col items-center justify-center py-20 opacity-40">
             <FiShoppingBag className="size40 mb-4" />
-            <p className="size18 degular-regular">No products available yet.</p>
+            <p className="size18 degular-regular">{t("No products available yet.")}</p>
           </div>
         )}
       </div>
@@ -131,7 +133,7 @@ function Home() {
             <div className="glass-effect rounded-4xl p-2 sm:p-3 flex items-center justify-between gap-3 sm:gap-6 overflow-hidden">
               <div className="flex flex-col pl-3 sm:pl-4">
                 <span className="size12 sm:size14 text-slate-500 font-medium whitespace-nowrap">
-                  Total ({cartItemCount})
+                  {t("Total")} ({cartItemCount})
                 </span>
                 <span className="size20 sm:size24 degular-semibold text-slate-900 leading-tight">
                   ₹{calculateTotal()}
@@ -160,10 +162,10 @@ function Home() {
                 disabled={ordering}
                 className="bg-indigo-600 text-white px-5 sm:px-8 py-3 sm:py-3.5 rounded-full size14 sm:size16 degular-semibold flex items-center gap-2 sm:gap-3 shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all disabled:opacity-50">
                 {ordering ? (
-                  "Placing..."
+                  t("Placing...")
                 ) : (
                   <>
-                    Checkout <FiArrowRight className="size18" />
+                    {t("Checkout")} <FiArrowRight className="size18" />
                   </>
                 )}
               </motion.button>
