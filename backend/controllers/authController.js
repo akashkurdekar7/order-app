@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Order = require("../models/Order");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -43,6 +44,44 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const { phone, password } = req.body;
+
+    // Hardcoded Admin Logic
+    if (phone === "9916390580" && password === "admin123") {
+      let adminUser = await User.findOne({ phone: "9916390580" }).select("+password");
+      if (!adminUser) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        adminUser = await User.create({
+          shopName: "Mane Traders",
+          personName: "Samarth Mane",
+          location: "Maratha Galli",
+          aadhaar: "123456789012",
+          phone: "9916390580",
+          password: hashedPassword,
+          role: "admin",
+        });
+      } else if (adminUser.role !== "admin") {
+        adminUser.role = "admin";
+        await adminUser.save();
+      }
+
+      const token = jwt.sign(
+        { id: adminUser._id, role: adminUser.role },
+        process.env.JWT_SECRET,
+        { expiresIn: "7d" }
+      );
+
+      return res.json({
+        message: "Admin login successful",
+        token,
+        user: {
+          _id: adminUser._id,
+          shopName: adminUser.shopName,
+          personName: adminUser.personName,
+          phone: adminUser.phone,
+          role: adminUser.role,
+        },
+      });
+    }
 
     const user = await User.findOne({ phone }).select("+password");
     if (!user) {
@@ -128,7 +167,52 @@ exports.getUserDetails = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().select("-password");
+    const users = await User.aggregate([
+      {
+        $match: { role: "user" }
+      },
+      {
+        $lookup: {
+          from: "orders",
+          localField: "_id",
+          foreignField: "user",
+          as: "userOrders"
+        }
+      },
+      {
+        $project: {
+          password: 0 // Exclude password
+        }
+      },
+      {
+        $addFields: {
+          totalSales: {
+            $sum: "$userOrders.totalAmount"
+          },
+          totalBalance: {
+            $sum: {
+              $map: {
+                input: {
+                  $filter: {
+                    input: "$userOrders",
+                    as: "order",
+                    cond: { $eq: ["$$order.paymentStatus", "Pending"] }
+                  }
+                },
+                as: "pendingOrder",
+                in: "$$pendingOrder.totalAmount"
+              }
+            }
+          },
+          orderCount: { $size: "$userOrders" }
+        }
+      },
+      {
+        $project: {
+          userOrders: 0 // Remove the full array after calculations to save bandwidth
+        }
+      }
+    ]);
     res.json(users);
   } catch (error) {
     console.log(error);

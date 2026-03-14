@@ -23,10 +23,34 @@ exports.addProduct = async (req, res) => {
     }
 };
 
-// Get All Products (Public)
+const Order = require("../models/Order");
+
+// Get All Products (Admin with Stats)
 exports.getProducts = async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.aggregate([
+            {
+                $lookup: {
+                    from: "orders",
+                    let: { productId: "$_id" },
+                    pipeline: [
+                        { $unwind: "$items" },
+                        { $match: { $expr: { $eq: ["$items.product", "$$productId"] } } },
+                        { $group: { _id: null, totalSold: { $sum: "$items.quantity" } } }
+                    ],
+                    as: "salesData"
+                }
+            },
+            {
+                $addFields: {
+                    soldCount: { $ifNull: [{ $arrayElemAt: ["$salesData.totalSold", 0] }, 0] }
+                }
+            },
+            {
+                $project: { salesData: 0 }
+            },
+            { $sort: { createdAt: -1 } }
+        ]);
         res.json(products);
     } catch (error) {
         console.log(error);

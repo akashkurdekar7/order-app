@@ -1,58 +1,136 @@
-import React, { useEffect, useState } from 'react'
-import API from '../../api/axios'
+import { useEffect, useState } from 'react';
+import API from '../../api/axios';
 import { PiPhoneCallFill } from "react-icons/pi";
+import { FiUsers, FiMapPin, FiCreditCard, FiShoppingBag, FiUser } from "react-icons/fi";
+import { motion } from "framer-motion";
 import toast from 'react-hot-toast';
 
 const Users = () => {
     const [users, setUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
-        getAllUsers()
-    }, [])
+        getAllUsers();
+    }, []);
+
     const getAllUsers = async () => {
+        setIsLoading(true);
         try {
             const res = await API.get("/api/auth/getUsers");
-            console.log(res.data)
-            setUsers(res.data.filter((user) => user.role === "user"));
+            setUsers(res.data);
         } catch (error) {
-            toast.error(error.response?.data?.message || "Something went wrong");
+            toast.error(error.response?.data?.message || "Failed to fetch users");
+        } finally {
+            setIsLoading(false);
         }
-    }
+    };
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 }
+    };
+
     return (
-        <section className='p-5'>
-            <h1 className='degular-semibold size40 mb-5'>Users</h1>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {users.map((user) => (
-                    <div key={user._id} className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 ">
-                        <div className="card-body">
-                            <img src={import.meta.env.VITE_BASE_URL + user.image} alt="" className="w-auto h-auto object-cover " />
-                            <h3 className="degular-semibold size24 capitalize my-2">{user.shopName}</h3>
-                            <h3 className="degular-regular size18 mb-1 capitalize">{user.personName}</h3>
-                            <h3 className="degular-regular size16 text-gray-500">{user.aadhaar?.match(/.{1,4}/g).join('-')}</h3>
-                            <hr className='my-2' />
-                            <div className="flex items-center justify-between ">
-                                <div className="">
-                                    <h3 className="degular-regular size16">{user.phone}</h3>
-                                    <h3 className="degular-regular size12  capitalize">{user.location}</h3>
+        <section className="min-h-screen pb-20 pt-8 px-4 sm:px-6">
+            <div className="max-w-7xl mx-auto">
+                <header className="mb-10">
+                    <h1 className="size32 degular-bold text-slate-800 mb-2">User Directory</h1>
+                    <p className="size16 text-slate-500 font-medium">Manage and contact your registered wholesale partners.</p>
+                </header>
+
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                >
+                    {users.map((user) => (
+                        <motion.div
+                            key={user._id}
+                            variants={itemVariants}
+                            className="premium-card bg-white overflow-hidden group hover:border-indigo-200 transition-all"
+                        >
+                            <div className="aspect-video relative overflow-hidden bg-slate-100">
+                                {user.image ? (
+                                    <img
+                                        src={import.meta.env.VITE_BASE_URL + user.image}
+                                        alt={user.shopName}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                        <FiUser size={48} />
+                                    </div>
+                                )}
+                                <div className="absolute top-3 right-3">
+                                    <a
+                                        href={`tel:${user.phone}`}
+                                        className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-emerald-500 shadow-lg hover:bg-emerald-500 hover:text-white transition-all transform hover:scale-110"
+                                    >
+                                        <PiPhoneCallFill size={20} />
+                                    </a>
                                 </div>
-                                <a href={`tel:${user.phone}`}>
-                                    <PiPhoneCallFill className='size30 text-green-500 cursor-pointer' />
-                                </a>
                             </div>
-                            <hr className='my-2' />
-                            <div className="flex items-center justify-between mb-1 ">
-                                <h3 className="degular-semibold size22">Balance:</h3>
-                                <h3 className="degular-semibold size26">₹250</h3>
+
+                            <div className="p-5">
+                                <div className="mb-4">
+                                    <h3 className="size20 degular-bold text-slate-800 capitalize mb-1 line-clamp-1 group-hover:text-indigo-600 transition-colors">{user.shopName}</h3>
+                                    <div className="flex items-center gap-1.5 text-slate-500">
+                                        <span className="size14 degular-medium capitalize">{user.personName}</span>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-3 mb-5">
+                                    <div className="flex items-center gap-2.5 text-slate-400">
+                                        <FiMapPin size={14} className="shrink-0" />
+                                        <span className="size13 degular-medium line-clamp-1">{user.location}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2.5 text-slate-400">
+                                        <FiCreditCard size={14} className="shrink-0" />
+                                        <span className="size13 degular-medium tracking-wider">
+                                            {user.aadhaar?.match(/.{1,4}/g)?.join('-') || 'N/A'}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-50">
+                                    <div className="bg-slate-50/80 p-3 rounded-2xl border border-slate-100">
+                                        <div className="flex items-center gap-1.5 text-slate-400 mb-1">
+                                            <FiShoppingBag size={12} />
+                                            <span className="size11 degular-bold uppercase tracking-widest">Total Sales</span>
+                                        </div>
+                                        <span className="size18 degular-bold text-slate-800">
+                                            ₹{(user.totalSales || 0).toLocaleString()}
+                                        </span>
+                                    </div>
+                                    <div className={`p-3 rounded-2xl border ${!user.totalBalance ? 'bg-emerald-50/50 border-emerald-100' : 'bg-red-50/50 border-red-100'}`}>
+                                        <div className={`flex items-center gap-1.5 mb-1 ${!user.totalBalance ? 'text-emerald-500' : 'text-red-500'}`}>
+                                            <span className="size11 degular-bold uppercase tracking-widest">Balance Due</span>
+                                        </div>
+                                        <span className={`size18 degular-bold ${!user.totalBalance ? 'text-emerald-600' : 'text-red-600'}`}>
+                                            ₹{(user.totalBalance || 0).toLocaleString()}
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex items-center justify-between ">
-                                <h3 className="degular-semibold size22">Orders:</h3>
-                                <h3 className="degular-semibold size26">20</h3>
-                            </div>
-                        </div>
+                        </motion.div>
+                    ))}
+                </motion.div>
+
+                {!isLoading && users.length === 0 && (
+                    <div className="py-24 text-center glass-effect rounded-[32px] border border-dashed border-slate-200">
+                        <FiUsers size={56} className="mx-auto text-slate-200 mb-4" />
+                        <p className="size18 degular-semibold text-slate-400">No registered users found.</p>
                     </div>
-                ))}
+                )}
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default Users
+export default Users;

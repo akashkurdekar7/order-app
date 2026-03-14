@@ -1,13 +1,31 @@
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation, Link, } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { RxHamburgerMenu } from "react-icons/rx";
+import { FiMenu, FiX, FiLogOut, FiLayout, FiPackage, FiUsers, FiShoppingBag, FiTrendingUp } from "react-icons/fi";
+import API from "../api/axios";
 
 const AdminNavbar = () => {
-
     const navigate = useNavigate();
     const location = useLocation();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const [adminUser, setAdminUser] = useState(null);
+
+    useEffect(() => {
+        const fetchAdminDetails = async () => {
+            try {
+                const res = await API.get("/api/auth/userDetails");
+                setAdminUser(res.data);
+            } catch (error) {
+                console.error("Failed to fetch admin details", error);
+            }
+        };
+        fetchAdminDetails();
+
+        const handleScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -16,103 +34,169 @@ const AdminNavbar = () => {
     };
 
     const navItems = [
-        { name: "Dashboard", path: "/admin" },
-        { name: "Orders", path: "/admin/orders" },
-        { name: "Users", path: "/admin/users" },
-        { name: "Products", path: "/admin/products" },
+        { name: "Dashboard", path: "/admin", icon: FiLayout },
+        { name: "Orders", path: "/admin/orders", icon: FiPackage },
+        { name: "Partners", path: "/admin/users", icon: FiUsers },
+        { name: "Inventory", path: "/admin/products", icon: FiShoppingBag },
+        { name: "Sales", path: "/admin/sales", icon: FiTrendingUp },
     ];
 
-    const navButtonStyle = (path) =>
-        `px-3 py-2 rounded-lg size16 degular-regular transition 
-     ${location.pathname === path
-            ? "bg-indigo-100 text-indigo-700"
-            : "text-gray-700 hover:bg-gray-100"}`;
-
     return (
-        <header className="bg-white shadow-sm border-b">
+        <>
+            <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-6 lg:px-8 py-4 ${scrolled ? "mt-0" : "mt-2"
+                }`}>
+                <div className={`max-w-7xl mx-auto h-16 sm:h-20 glass-effect rounded-[24px] sm:rounded-[32px] flex items-center justify-between px-6 sm:px-10 transition-all duration-500 border border-white/40 shadow-xl ${scrolled ? "shadow-slate-200/50" : "shadow-transparent"
+                    }`}>
+                    {/* Admin Branding */}
+                    <Link to="/admin" className="flex items-center gap-3 group">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-100 transition-transform group-hover:scale-110">
+                            <span className="text-white degular-bold size20 sm:size24">{adminUser.personName.charAt(0).toUpperCase()}</span>
+                        </div>
+                        <div className="flex flex-col gap-1 items-start">
+                            <span className="degular-bold size16 sm:size18 text-slate-800 leading-none">{adminUser ? adminUser.shopName : "Console"}</span>
+                            <span className="degular-bold size12 sm:size14 text-indigo-600 leading-none font-medium">{adminUser ? adminUser.personName : "Merchant Admin"}</span>
+                        </div>
+                    </Link>
 
-            {/* TOP BAR */}
+                    {/* Desktop Navigation */}
+                    <nav className="hidden lg:flex items-center gap-2">
+                        <div className="flex items-center gap-1 bg-slate-50/50 p-1 rounded-2xl border border-slate-100/50 backdrop-blur-sm">
+                            {navItems.map((item) => {
+                                const isActive = location.pathname === item.path || (item.path === "/admin" && location.pathname === "/admin/");
+                                return (
+                                    <Link
+                                        key={item.path}
+                                        to={item.path}
+                                        className={`relative px-5 py-2.5 rounded-xl size14 degular-bold transition-all ${isActive ? "text-slate-900" : "text-slate-500 hover:text-slate-800"
+                                            }`}
+                                    >
+                                        <span className="relative z-10 flex items-center gap-2">
+                                            <item.icon className={`size16 ${isActive ? "text-indigo-600" : "text-slate-400"}`} />
+                                            {item.name}
+                                        </span>
+                                        {isActive && (
+                                            <motion.div
+                                                layoutId="adminNavTab"
+                                                className="absolute inset-0 bg-white rounded-xl shadow-sm border border-slate-100"
+                                            />
+                                        )}
+                                    </Link>
+                                );
+                            })}
+                        </div>
 
-            <div className="flex justify-between items-center px-6 py-4">
+                        <div className="h-8 w-px bg-slate-200 mx-4" />
 
-                <h1 className="size26 degular-semibold">
-                    Admin Dashboard
-                </h1>
-
-                {/* Desktop Navigation */}
-
-                <nav className="hidden md:flex items-center gap-2">
-
-                    {navItems.map((item) => (
-                        <button
-                            key={item.path}
-                            onClick={() => navigate(item.path)}
-                            className={navButtonStyle(item.path)}
+                        <motion.button
+                            whileTap={{ scale: 0.95 }}
+                            onClick={handleLogout}
+                            className="flex items-center gap-2 px-5 py-2.5 bg-red-50 text-red-600 rounded-xl size14 degular-bold hover:bg-red-100 transition-colors shadow-sm cursor-pointer"
                         >
-                            {item.name}
-                        </button>
-                    ))}
+                            <FiLogOut className="size16" /> End Session
+                        </motion.button>
+                    </nav>
 
+                    {/* Mobile Menu Button */}
                     <button
-                        onClick={handleLogout}
-                        className="size16 degular-regular ml-3 px-3 py-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100"
+                        onClick={() => setMenuOpen(true)}
+                        className="lg:hidden w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all border border-slate-200"
                     >
-                        Logout
+                        <FiMenu size={24} />
                     </button>
+                </div>
+            </nav>
 
-                </nav>
-
-                {/* Mobile Burger */}
-
-                <button
-                    className="md:hidden cursor-pointer"
-                    onClick={() => setMenuOpen(!menuOpen)}
-                >
-                    <RxHamburgerMenu size={24} />
-                </button>
-
-            </div>
-
-            {/* Mobile Menu */}
-
+            {/* Mobile Menu Overlay */}
             <AnimatePresence>
                 {menuOpen && (
-                    <motion.nav
-                        initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-                        animate={{ clipPath: "inset(0 0 0 0)", opacity: 1 }}
-                        exit={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="md:hidden border-t bg-white flex flex-col "
-                    >
+                    <div className="fixed inset-0 z-60 overflow-hidden">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setMenuOpen(false)}
+                            className="absolute inset-0 bg-slate-900/40 backdrop-blur-md"
+                        />
 
-                        {navItems.map((item) => (
-                            <button
-                                key={item.path}
-                                onClick={() => {
-                                    navigate(item.path);
-                                    setMenuOpen(false);
-                                }}
-                                className="size16 degular-regular text-left px-6 py-3 hover:bg-gray-50 cursor-pointer"
-                            >
-                                {item.name}
-                            </button>
-                        ))}
-
-                        <button
-                            onClick={() => {
-                                handleLogout();
-                                setMenuOpen(false);
-                            }}
-                            className="size16 degular-regular text-left px-6 py-3 text-red-600 hover:bg-red-50 cursor-pointer"
+                        <motion.div
+                            initial={{ x: "100%", opacity: 0.5 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            exit={{ x: "100%", opacity: 0.5 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            className="absolute top-4 right-4 bottom-4 w-[calc(100%-32px)] sm:w-96 bg-white rounded-[40px] shadow-2xl flex flex-col overflow-hidden"
                         >
-                            Logout
-                        </button>
+                            {/* Mobile Menu Header */}
+                            <div className="p-8 pb-10 flex justify-between items-center border-b border-slate-50 bg-slate-50/30">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-12 h-12 bg-indigo-600 rounded-[20px] flex items-center justify-center">
+                                        <span className="text-white degular-bold size24">A</span>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="degular-bold size18 text-slate-800 leading-none">{adminUser ? adminUser.shopName : "Admin Menu"}</span>
+                                        <span className="degular-bold size14 text-indigo-600 uppercase tracking-widest mt-1">{adminUser ? adminUser.personName : "Console"}</span>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setMenuOpen(false)}
+                                    className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-slate-400 hover:text-slate-800 transition-all border border-slate-100 shadow-sm"
+                                >
+                                    <FiX size={24} />
+                                </button>
+                            </div>
 
-                    </motion.nav>
+                            {/* Mobile Menu Links */}
+                            <div className="p-4 sm:p-6 flex-1 overflow-y-auto">
+                                <div className="space-y-3">
+                                    {navItems.map((item, idx) => {
+                                        const isActive = location.pathname === item.path || (item.path === "/admin" && location.pathname === "/admin/");
+                                        return (
+                                            <motion.div
+                                                key={item.path}
+                                                initial={{ opacity: 0, x: 20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.1 + idx * 0.05 }}
+                                            >
+                                                <Link
+                                                    onClick={() => {
+                                                        navigate(item.path);
+                                                        setMenuOpen(false);
+                                                    }}
+                                                    className={`w-full flex items-center justify-between p-5 rounded-[24px] transition-all ${isActive
+                                                        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-100"
+                                                        : "bg-slate-50/50 text-slate-600 hover:bg-slate-100"
+                                                        }`}
+                                                >
+                                                    <div className="flex items-center gap-4">
+                                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isActive ? "bg-white/20" : "bg-white border border-slate-200 shadow-sm text-slate-400"}`}>
+                                                            <item.icon size={20} />
+                                                        </div>
+                                                        <span className="size18 degular-bold">{item.name}</span>
+                                                    </div>
+                                                </Link>
+                                            </motion.div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            {/* Mobile Menu Footer */}
+                            <div className="p-6 sm:p-8 bg-slate-50/30 border-t border-slate-50">
+                                <motion.button
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={() => {
+                                        handleLogout();
+                                        setMenuOpen(false);
+                                    }}
+                                    className="w-full py-5 bg-white text-red-600 rounded-[24px] degular-bold size18 flex items-center justify-center gap-3 border border-red-100 shadow-sm hover:bg-red-50 transition-colors"
+                                >
+                                    <FiLogOut size={22} /> End Session
+                                </motion.button>
+                            </div>
+                        </motion.div>
+                    </div>
                 )}
             </AnimatePresence>
-
-        </header>
+        </>
     );
 };
 

@@ -6,6 +6,7 @@ const {
     updateOrderStatus,
     getDashboardStats,
     updatePaymentStatus,
+    getSalesReports
 } = require("../controllers/orderController");
 
 const { protect, adminOnly } = require("../middleware/authMiddleware");
@@ -21,5 +22,6 @@ router.get("/getAllOrders", protect, adminOnly, getAllOrders);
 router.put("/updateOrderStatus/:id", protect, adminOnly, updateOrderStatus);
 router.put("/updatePaymentStatus/:id", protect, adminOnly, updatePaymentStatus);
 router.get("/getDashboardStats", protect, adminOnly, getDashboardStats);
+router.get("/getSalesReports", protect, adminOnly, getSalesReports);
 
 module.exports = router;

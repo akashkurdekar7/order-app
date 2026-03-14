@@ -136,6 +136,55 @@ exports.updatePaymentStatus = async (req, res) => {
     }
 };
 
+// ADMIN - SALES REPORTS
+exports.getSalesReports = async (req, res) => {
+    try {
+        const salesReports = await Order.aggregate([
+            {
+                $group: {
+                    _id: {
+                        user: "$user",
+                        month: { $dateToString: { format: "%Y-%m", date: "$createdAt" } }
+                    },
+                    totalSales: { $sum: "$totalAmount" },
+                    totalOrders: { $count: {} },
+                    totalBalance: {
+                        $sum: {
+                            $cond: [{ $eq: ["$paymentStatus", "Pending"] }, "$totalAmount", 0]
+                        }
+                    }
+                }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "_id.user",
+                    foreignField: "_id",
+                    as: "user"
+                }
+            },
+            { $unwind: "$user" },
+            {
+                $project: {
+                    _id: 1,
+                    month: "$_id.month",
+                    totalSales: 1,
+                    totalOrders: 1,
+                    totalBalance: 1,
+                    shopName: "$user.shopName",
+                    personName: "$user.personName",
+                    phone: "$user.phone"
+                }
+            },
+            { $sort: { month: -1, totalSales: -1 } }
+        ]);
+
+        res.json(salesReports);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // ADMIN DASHBOARD
 exports.getDashboardStats = async (req, res) => {
     try {
@@ -154,11 +203,24 @@ exports.getDashboardStats = async (req, res) => {
 
         const totalSales = totalSalesData[0]?.totalSales || 0;
 
+        const totalUnitsSoldData = await Order.aggregate([
+            { $unwind: "$items" },
+            {
+                $group: {
+                    _id: null,
+                    totalUnitsSold: { $sum: "$items.quantity" },
+                },
+            },
+        ]);
+
+        const totalUnitsSold = totalUnitsSoldData[0]?.totalUnitsSold || 0;
+
         res.json({
             totalOrders,
             totalUsers,
             totalProducts,
             totalSales,
+            totalUnitsSold,
         });
     } catch (error) {
         res.status(500).json({ message: error.message });

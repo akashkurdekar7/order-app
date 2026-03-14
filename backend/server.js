@@ -12,10 +12,12 @@ const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 
-app.use(cors({
-  origin: process.env.FRONTEND_API,
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  }),
+);
 // app.use(cors());
 app.use(express.json());
 

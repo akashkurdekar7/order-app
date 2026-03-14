@@ -1,18 +1,18 @@
-import { Outlet } from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import Navbar from "../components/Navbar";
 import ProtectedRoute from "../protectedRoute/ProtectedRoute";
 
 const UserLayout = () => {
-    return (
-        <ProtectedRoute role="user">
-            <div className="min-h-screen bg-gray-100">
-                <Navbar />
-                <main>
-                    <Outlet />
-                </main>
-            </div>
-        </ProtectedRoute>
-    );
+  return (
+    <ProtectedRoute role="user">
+      <div className="min-h-screen bg-slate-50/50">
+        <Navbar />
+        <main className="pt-28">
+          <Outlet />
+        </main>
+      </div>
+    </ProtectedRoute>
+  );
 };
 
 export default UserLayout;
