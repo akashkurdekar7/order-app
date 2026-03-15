@@ -22,8 +22,7 @@ body {
     sans-serif;
   overflow-x: hidden;
 }
-
-/* Custom Text Sizes - Refined for E-commerce */
+/* Default Text Sizes */
 .size10 {
   font-size: 0.625rem;
 }
@@ -56,6 +55,43 @@ body {
 }
 .size32 {
   font-size: 2rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .size10 {
+    font-size: 0.6rem;
+  }
+  .size11 {
+    font-size: 0.65rem;
+  }
+  .size12 {
+    font-size: 0.7rem;
+  }
+  .size13 {
+    font-size: 0.75rem;
+  }
+  .size14 {
+    font-size: 0.8rem;
+  }
+  .size16 {
+    font-size: 0.9rem;
+  }
+  .size18 {
+    font-size: 1rem;
+  }
+  .size20 {
+    font-size: 1.1rem;
+  }
+  .size24 {
+    font-size: 1.3rem;
+  }
+  .size28 {
+    font-size: 1.5rem;
+  }
+  .size32 {
+    font-size: 1.7rem;
+  }
 }
 
 /* Mobile Utilities */

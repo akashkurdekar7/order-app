@@ -63,7 +63,9 @@ const AdminOrders = () => {
         setSelectedOrder((prev) => ({...prev, status}));
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || t("Failed to update order status"));
+      toast.error(
+        error.response?.data?.message || t("Failed to update order status"),
+      );
     }
   };
 
@@ -372,7 +374,7 @@ const AdminOrders = () => {
                         {selectedOrder._id.slice(-6).toUpperCase()}
                       </h3>
                       <span
-                        className={`px-2.5 py-1 rounded-full border text-[10px] degular-semibold uppercase tracking-wider ${getStatusStyle(selectedOrder.status || "Processing")}`}>
+                        className={`px-2.5 py-1 rounded-full border size10 degular-semibold uppercase tracking-wider ${getStatusStyle(selectedOrder.status || "Processing")}`}>
                         {t(selectedOrder.status || "Processing")}
                       </span>
                     </div>

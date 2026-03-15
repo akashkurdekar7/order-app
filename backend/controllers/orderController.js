@@ -133,7 +133,7 @@ exports.updateOrderStatus = async (req, res) => {
         // ❌ prevent moving backwards
         if (newIndex < currentIndex) {
             return res.status(400).json({
-                message: "Cannot move order status backwards"
+                message: `Cannot revert status from "${order.status}" back to "${status}"`
             });
         }
 
