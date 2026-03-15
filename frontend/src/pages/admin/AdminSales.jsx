@@ -11,12 +11,12 @@ import {
 } from "react-icons/fi";
 import {FaIndianRupeeSign} from "react-icons/fa6";
 import {IoCloudDoneOutline} from "react-icons/io5";
-import { motion, AnimatePresence } from "framer-motion";
+import {motion, AnimatePresence} from "framer-motion";
 import toast from "react-hot-toast";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
-const StatCard = ({ title, value, subtext, icon: Icon, color, delay = 0 }) => {
-  const { t } = useTranslation();
+const StatCard = ({title, value, subtext, icon: Icon, color, delay = 0}) => {
+  const {t} = useTranslation();
   const colorMap = {
     emerald: {bg: "bg-amber-100", text: "text-amber-600"},
     indigo: {bg: "bg-indigo-100", text: "text-indigo-600"},
@@ -54,7 +54,7 @@ const StatCard = ({ title, value, subtext, icon: Icon, color, delay = 0 }) => {
 };
 
 const AdminSales = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [sales, setSales] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
@@ -200,7 +200,7 @@ const AdminSales = () => {
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
             <StatCard
               title={t("Total Revenue")}
               value={`₹${totalRevenue.toLocaleString()}`}
@@ -358,7 +358,7 @@ const AdminSales = () => {
                   </AnimatePresence>
                 ) : (
                   <tr>
-                    <td colSpan="4" className="py-24 text-center">
+                    <td colSpan="10" className="py-24 text-center">
                       <div className="w-16 h-16 rounded-3xl bg-slate-50 flex items-center justify-center mx-auto mb-4 text-slate-300">
                         <FiSearch size={32} />
                       </div>

@@ -17,11 +17,11 @@ import {
   FiCamera,
   FiChevronDown,
 } from "react-icons/fi";
-import { MdClose } from "react-icons/md";
-import { motion, AnimatePresence } from "framer-motion";
-import { useTranslation } from "react-i18next";
+import {MdClose} from "react-icons/md";
+import {motion, AnimatePresence} from "framer-motion";
+import {useTranslation} from "react-i18next";
 
-const StatCard = ({ icon: Icon, label, value, color, delay }) => (
+const StatCard = ({icon: Icon, label, value, color, delay}) => (
   <motion.div
     initial={{opacity: 0, y: 20}}
     animate={{opacity: 1, y: 0}}
@@ -42,7 +42,7 @@ const StatCard = ({ icon: Icon, label, value, color, delay }) => (
 );
 
 const AdminDashboard = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [stats, setStats] = useState({
     totalProducts: 0,
     totalUsers: 0,
@@ -211,7 +211,7 @@ const AdminDashboard = () => {
           </motion.button>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">
           <StatCard
             icon={FiTruck}
             label={t("Total Orders")}
@@ -242,9 +242,9 @@ const AdminDashboard = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
           {/* Products Management Card */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="xl:col-span-2 space-y-6">
             <div className="glass-effect rounded-[32px] overflow-hidden border border-slate-200/50">
               <div className="p-6 sm:p-8 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
@@ -351,7 +351,7 @@ const AdminDashboard = () => {
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="flex items-center justify-end gap-2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-all transform sm:translate-x-2 group-hover:translate-x-0">
+                          <div className="flex items-center justify-end gap-2 opacity-100 xl:opacity-0 group-hover:opacity-100 transition-all transform xl:translate-x-2 group-hover:translate-x-0">
                             <button
                               onClick={() => handleEditProduct(product)}
                               className="p-2 rounded-xl bg-white text-slate-400 hover:text-indigo-600 border border-slate-100 shadow-sm transition-all hover:border-indigo-100">
@@ -491,7 +491,9 @@ const AdminDashboard = () => {
                 ))}
                 {orders.length === 0 && (
                   <div className="py-12 text-center text-slate-400">
-                    <p className="degular-semibold">{t("No transactions found")}</p>
+                    <p className="degular-semibold">
+                      {t("No transactions found")}
+                    </p>
                   </div>
                 )}
               </div>

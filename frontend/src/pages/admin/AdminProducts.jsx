@@ -11,13 +11,13 @@ import {
   FiX,
   FiTrendingUp,
 } from "react-icons/fi";
-import { motion, AnimatePresence } from "framer-motion";
+import {motion, AnimatePresence} from "framer-motion";
 import toast from "react-hot-toast";
-import { useNavigate, Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import {useNavigate, Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
-const AdminProductCard = ({ product, onEdit, onDelete }) => {
-  const { t } = useTranslation();
+const AdminProductCard = ({product, onEdit, onDelete}) => {
+  const {t} = useTranslation();
   const isOutOfStock = product.stock === 0;
   const isLowStock = product.stock > 0 && product.stock <= 10;
 
@@ -62,7 +62,9 @@ const AdminProductCard = ({ product, onEdit, onDelete }) => {
         <div className="absolute md:top-3 top-1 md:right-3 right-1">
           <div className="bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest shadow-lg border border-white/10 flex items-center gap-1">
             <FiTrendingUp size={10} className="text-emerald-400" />
-            <span>{product.soldCount || 0} {t("Sold")}</span>
+            <span>
+              {product.soldCount || 0} {t("Sold")}
+            </span>
           </div>
         </div>
 
@@ -92,11 +94,11 @@ const AdminProductCard = ({ product, onEdit, onDelete }) => {
           </span>
         </div>
 
-        <p className="size12 text-slate-500 line-clamp-2 mb-4 leading-tight">
+        <p className="size12 text-slate-500 line-clamp-2 mb-1 leading-tight">
           {product.description ||
             "High-quality wholesale product available at competitive pricing for retailers."}
         </p>
-        <div className="mt-auto flex items-center justify-between pt-3 border-t border-slate-50">
+        <div className="mt-auto flex items-center justify-between pt-2 border-t border-slate-50">
           <span className="size11 degular-semibold text-slate-400 uppercase tracking-widest">
             {t("InStock")}
           </span>
@@ -121,7 +123,7 @@ const AdminProductCard = ({ product, onEdit, onDelete }) => {
 };
 
 const AdminProducts = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -295,7 +297,7 @@ const AdminProducts = () => {
         </header>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:mb-10 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 md:mb-10 mb-6">
           <motion.div
             initial={{opacity: 0, y: 20}}
             animate={{opacity: 1, y: 0}}
@@ -334,7 +336,7 @@ const AdminProducts = () => {
 
         {/* Grid View */}
         {isLoading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 xl:grid-cols-4 gap-6">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
               <div
                 key={i}
@@ -343,7 +345,7 @@ const AdminProducts = () => {
             ))}
           </div>
         ) : filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 xl:gap-8">
             {filteredProducts.map((product) => (
               <AdminProductCard
                 key={product._id}

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import {FiShoppingBag, FiArrowRight} from "react-icons/fi";
 
 function Home() {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [ordering, setOrdering] = useState(false);
@@ -81,7 +81,7 @@ function Home() {
 
   return (
     <div className="min-h-screen pb-32 md:pt-6 pt-2">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
         <header className="md:mb-10 mb-5 text-center sm:text-left">
           <motion.h2
             initial={{opacity: 0, x: -20}}
@@ -94,12 +94,14 @@ function Home() {
             animate={{opacity: 1, x: 0}}
             transition={{delay: 0.1}}
             className="size16 text-slate-500 max-w-lg">
-            {t("Premium wholesale selections tailored for your business needs.")}
+            {t(
+              "Premium wholesale selections tailored for your business needs.",
+            )}
           </motion.p>
         </header>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 xl:gap-8">
           <AnimatePresence>
             {products.map((product) => (
               <ProductCard
@@ -117,7 +119,9 @@ function Home() {
         {products.length === 0 && !ordering && (
           <div className="flex flex-col items-center justify-center py-20 opacity-40">
             <FiShoppingBag className="size40 mb-4" />
-            <p className="size18 degular-regular">{t("No products available yet.")}</p>
+            <p className="size18 degular-regular">
+              {t("No products available yet.")}
+            </p>
           </div>
         )}
       </div>

@@ -8,12 +8,12 @@ import {
   FiShoppingBag,
   FiUser,
 } from "react-icons/fi";
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 import toast from "react-hot-toast";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 const Users = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -59,7 +59,7 @@ const Users = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
           {users.map((user) => (
             <motion.div
               key={user._id}
@@ -113,7 +113,7 @@ const Users = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 pt-0 md:pt-4 border-t border-slate-50">
+                <div className="grid grid-cols-2 gap-3 pt-0 border-t border-slate-50">
                   <div className="bg-slate-50/80 p-3 rounded-2xl border border-slate-100">
                     <div className="flex items-center gap-1.5 text-slate-400 mb-1">
                       <FiShoppingBag size={12} />

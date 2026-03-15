@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate, useLocation, Link} from "react-router-dom";
-import {useTranslation} from 'react-i18next';
+import {useTranslation} from "react-i18next";
 import {motion, AnimatePresence} from "framer-motion";
 import {
   FiMenu,
@@ -20,10 +20,10 @@ const AdminNavbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [adminUser, setAdminUser] = useState(null);
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'kn' : 'en';
+    const newLang = i18n.language === "en" ? "kn" : "en";
     i18n.changeLanguage(newLang);
   };
 
@@ -60,7 +60,7 @@ const AdminNavbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-6 lg:px-8 py-4 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-6 xl:px-8 py-4 ${
           scrolled ? "mt-0" : "mt-2"
         }`}>
         <div
@@ -85,7 +85,7 @@ const AdminNavbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav className="hidden xl:flex items-center gap-2">
             <div className="flex items-center gap-1 bg-slate-50/50 p-1 rounded-2xl border border-slate-100/50 backdrop-blur-sm">
               {navItems.map((item) => {
                 const isActive =
@@ -121,11 +121,10 @@ const AdminNavbar = () => {
 
             {/* Language Toggle */}
             <motion.button
-              whileTap={{ scale: 0.95 }}
+              whileTap={{scale: 0.95}}
               onClick={toggleLanguage}
-              className="px-4 py-2.5 bg-slate-50 text-slate-700 rounded-xl size14 degular-semibold hover:bg-slate-100 transition-colors shadow-sm border border-slate-200 mr-2"
-            >
-              {i18n.language === 'en' ? 'ಕನ್ನಡ' : 'English'}
+              className="px-4 py-2.5 bg-slate-50 text-slate-700 rounded-xl size14 degular-semibold hover:bg-slate-100 transition-colors shadow-sm border border-slate-200 mr-2">
+              {i18n.language === "en" ? "ಕನ್ನಡ" : "English"}
             </motion.button>
 
             <motion.button
@@ -139,7 +138,7 @@ const AdminNavbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMenuOpen(true)}
-            className="lg:hidden w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all border border-slate-200">
+            className="xl:hidden w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all border border-slate-200">
             <FiMenu size={24} />
           </button>
         </div>
@@ -188,8 +187,8 @@ const AdminNavbar = () => {
               </div>
 
               {/* Mobile Menu Links */}
-              <div className="p-4 sm:p-6 flex-1 overflow-y-auto">
-                <div className="space-y-3">
+              <div className="px-4 py-0 sm:px-6 flex-1 overflow-y-auto">
+                <div className="space-y-2">
                   {navItems.map((item, idx) => {
                     const isActive =
                       location.pathname === item.path ||
@@ -204,7 +203,7 @@ const AdminNavbar = () => {
                         <Link
                           to={item.path}
                           onClick={() => setMenuOpen(false)}
-                          className={`w-full flex items-center justify-between md:p-5 p-3 rounded-[24px] transition-all ${
+                          className={`w-full flex items-center justify-between xl:p-5 p-3 rounded-[24px] transition-all ${
                             isActive
                               ? "bg-indigo-600 text-white shadow-lg shadow-indigo-100"
                               : "bg-slate-50/50 text-slate-600 hover:bg-slate-100"
@@ -228,11 +227,12 @@ const AdminNavbar = () => {
               {/* Mobile Menu Footer */}
               <div className="p-6 sm:p-8 bg-slate-50/30 border-t border-slate-50 space-y-3">
                 <motion.button
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={{scale: 0.98}}
                   onClick={toggleLanguage}
-                  className="w-full py-4 bg-white text-slate-700 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors"
-                >
-                  {i18n.language === 'en' ? 'ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ' : 'Switch to English'}
+                  className="w-full py-3 bg-white text-slate-700 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors">
+                  {i18n.language === "en"
+                    ? "ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ"
+                    : "Switch to English"}
                 </motion.button>
 
                 <motion.button
@@ -241,7 +241,7 @@ const AdminNavbar = () => {
                     handleLogout();
                     setMenuOpen(false);
                   }}
-                  className="w-full py-5 bg-white text-red-600 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-red-100 shadow-sm hover:bg-red-50 transition-colors">
+                  className="w-full py-3 bg-white text-red-600 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-red-100 shadow-sm hover:bg-red-50 transition-colors">
                   <FiLogOut size={22} /> {t("Log out")}
                 </motion.button>
               </div>

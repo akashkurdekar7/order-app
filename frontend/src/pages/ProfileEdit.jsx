@@ -13,7 +13,7 @@ import {
 } from "react-icons/fi";
 
 const ProfileEdit = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [profile, setProfile] = useState({
     shopName: "",
     personName: "",
@@ -95,7 +95,7 @@ const ProfileEdit = () => {
       </div>
 
       <div className="max-w-2xl mx-auto px-4 relative z-10">
-        <header className="md:mb-10 mb-6 text-center sm:text-left">
+        <header className=" mb-6 text-center sm:text-left">
           <motion.div
             initial={{opacity: 0, y: 10}}
             animate={{opacity: 1, y: 0}}
@@ -106,13 +106,13 @@ const ProfileEdit = () => {
               {t("Account Settings")}
             </span>
           </motion.div>
-          <motion.h2
+          {/* <motion.h2
             initial={{opacity: 0, y: 10}}
             animate={{opacity: 1, y: 0}}
             transition={{delay: 0.2}}
             className="size32 degular-semibold text-slate-800 mb-0">
             {profile.personName}
-          </motion.h2>
+          </motion.h2> */}
           {/* <motion.p
             initial={{opacity: 0, y: 10}}
             animate={{opacity: 1, y: 0}}
@@ -126,8 +126,8 @@ const ProfileEdit = () => {
           initial={{opacity: 0, scale: 0.98, y: 20}}
           animate={{opacity: 1, scale: 1, y: 0}}
           transition={{delay: 0.4}}
-          className="glass-effect rounded-[40px] p-6 sm:p-10 border border-white/60 shadow-xl shadow-slate-200/50">
-          <form onSubmit={updateProfile} className="space-y-8">
+          className="glass-effect rounded-[40px] p-4 sm:p-6 border border-white/60 shadow-xl shadow-slate-200/50">
+          <form onSubmit={updateProfile} className="space-y-4">
             {/* Profile Photo Section */}
             <div className="flex flex-col items-center sm:items-start mb-4">
               <div className="relative group">
@@ -162,7 +162,8 @@ const ProfileEdit = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
               <div className="space-y-2">
                 <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
-                  <FiShoppingBag size={14} className="text-indigo-500" /> {t("Shop Name")}
+                  <FiShoppingBag size={14} className="text-indigo-500" />{" "}
+                  {t("Shop Name")}
                 </label>
                 <input
                   name="shopName"
@@ -175,7 +176,8 @@ const ProfileEdit = () => {
 
               <div className="space-y-2">
                 <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
-                  <FiUser size={14} className="text-indigo-500" /> {t("Owner Name")}
+                  <FiUser size={14} className="text-indigo-500" />{" "}
+                  {t("Owner Name")}
                 </label>
                 <input
                   name="personName"
@@ -188,7 +190,8 @@ const ProfileEdit = () => {
 
               <div className="space-y-2">
                 <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
-                  <FiPhone size={14} className="text-indigo-500" /> {t("Phone Number")}
+                  <FiPhone size={14} className="text-indigo-500" />{" "}
+                  {t("Phone Number")}
                 </label>
                 <input
                   name="phone"
@@ -215,7 +218,8 @@ const ProfileEdit = () => {
 
             <div className="space-y-2">
               <label className="flex items-center gap-2 degular-semibold size12 text-slate-400 uppercase tracking-widest ml-1">
-                <FiMapPin size={14} className="text-indigo-500" /> {t("Merchant Location")}
+                <FiMapPin size={14} className="text-indigo-500" />{" "}
+                {t("Merchant Location")}
               </label>
               <textarea
                 name="location"
@@ -227,7 +231,7 @@ const ProfileEdit = () => {
               />
             </div>
 
-            <div className="md:pt-6 pt-0">
+            <div className="md:pt-4 pt-0">
               <motion.button
                 whileHover={{y: -2}}
                 whileTap={{scale: 0.98}}

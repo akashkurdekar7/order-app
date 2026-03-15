@@ -15,7 +15,7 @@ import {
 } from "react-icons/fi";
 
 function MyOrders() {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -70,7 +70,7 @@ function MyOrders() {
 
   return (
     <div className="min-h-screen pb-32 md:pt-6 pt-2">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
         <header className="mb-8 sm:mb-12 text-center sm:text-left">
           <motion.h2
             initial={{opacity: 0, y: -10}}
@@ -103,7 +103,7 @@ function MyOrders() {
             </p>
           </motion.div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
             <AnimatePresence>
               {orders.map((order, index) => (
                 <motion.div
@@ -177,7 +177,8 @@ function MyOrders() {
                               {item.product?.name || t("Deleted Product")}
                             </span>
                             <span className="size11 sm:size12 text-slate-500">
-                              {t("Qty: ")}{item.quantity} x {item.product?.price}
+                              {t("Qty: ")}
+                              {item.quantity} x {item.product?.price}
                             </span>
                           </div>
                           <span className="size18 sm:size14 degular-semibold text-indigo-600 shrink-0">

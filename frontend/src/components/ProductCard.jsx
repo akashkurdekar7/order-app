@@ -4,7 +4,7 @@ import {FiPlus, FiMinus} from "react-icons/fi";
 import {useTranslation} from "react-i18next";
 
 const ProductCard = ({product, quantity, onIncrease, onDecrease}) => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const isOutOfStock = product.stock === 0;
   const imageUrl = product.image
     ? `${import.meta.env.VITE_BASE_URL}${product.image}`
@@ -31,9 +31,9 @@ const ProductCard = ({product, quantity, onIncrease, onDecrease}) => {
       </div>
 
       {/* Info Section */}
-      <div className="flex flex-col grow">
+      <div className="flex flex-col grow justify-between">
         <div className="grid grid-cols-1 md:grid-cols-2 justify-between items-start mb-1 gap-1">
-          <h3 className="size28 degular-semibold text-slate-800">
+          <h3 className="size24 degular-semibold text-slate-800">
             {product.name}
           </h3>
           <span className="size20 degular-semibold text-primary shrink-0 text-left md:text-right">

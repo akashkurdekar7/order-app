@@ -1,6 +1,6 @@
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import {useState, useEffect} from "react";
-import {useTranslation} from 'react-i18next';
+import {useTranslation} from "react-i18next";
 import {motion, AnimatePresence} from "framer-motion";
 import API from "../api/axios";
 import toast from "react-hot-toast";
@@ -21,10 +21,10 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [profile, setProfile] = useState(null);
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'kn' : 'en';
+    const newLang = i18n.language === "en" ? "kn" : "en";
     i18n.changeLanguage(newLang);
   };
 
@@ -75,7 +75,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-6 lg:px-8 py-4 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 sm:px-6 xl:px-8 py-4 ${
           scrolled ? "mt-0" : "mt-2"
         }`}>
         <div
@@ -139,11 +139,10 @@ const Navbar = () => {
 
             {/* Language Toggle */}
             <motion.button
-              whileTap={{ scale: 0.95 }}
+              whileTap={{scale: 0.95}}
               onClick={toggleLanguage}
-              className="px-4 py-2.5 bg-slate-50 text-slate-700 rounded-xl size14 degular-semibold hover:bg-slate-100 transition-colors shadow-sm border border-slate-200 cursor-pointer mr-2"
-            >
-              {i18n.language === 'en' ? 'ಕನ್ನಡ' : 'English'}
+              className="px-4 py-2.5 bg-slate-50 text-slate-700 rounded-xl size14 degular-semibold hover:bg-slate-100 transition-colors shadow-sm border border-slate-200 cursor-pointer mr-2">
+              {i18n.language === "en" ? "ಕನ್ನಡ" : "English"}
             </motion.button>
 
             <motion.button
@@ -255,11 +254,12 @@ const Navbar = () => {
               {/* Mobile Menu Footer */}
               <div className="p-6 sm:p-8 bg-slate-50/30 border-t border-slate-50 space-y-3">
                 <motion.button
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={{scale: 0.98}}
                   onClick={toggleLanguage}
-                  className="w-full py-4 bg-white text-slate-700 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors cursor-pointer"
-                >
-                  {i18n.language === 'en' ? 'ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ' : 'Switch to English'}
+                  className="w-full py-4 bg-white text-slate-700 rounded-[24px] degular-semibold size18 flex items-center justify-center gap-3 border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors cursor-pointer">
+                  {i18n.language === "en"
+                    ? "ಕನ್ನಡಕ್ಕೆ ಬದಲಾಯಿಸಿ"
+                    : "Switch to English"}
                 </motion.button>
 
                 <motion.button
