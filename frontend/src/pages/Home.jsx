@@ -12,10 +12,32 @@ function Home() {
   const [cart, setCart] = useState({});
   const [ordering, setOrdering] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("Cash");
+  const [userDetails, setUserDetails] = useState(null);
+  const [adminPhone, setAdminPhone] = useState("");
 
   useEffect(() => {
     fetchProducts();
+    fetchUserDetails();
+    fetchAdminContact();
   }, []);
+
+  const fetchAdminContact = async () => {
+    try {
+      const res = await API.get("/api/auth/adminContact");
+      setAdminPhone(res.data.phone);
+    } catch (error) {
+      console.error("Failed to fetch admin contact", error);
+    }
+  };
+
+  const fetchUserDetails = async () => {
+    try {
+      const res = await API.get("/api/auth/userDetails");
+      setUserDetails(res.data);
+    } catch (error) {
+      console.error("Failed to fetch user details", error);
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -68,9 +90,39 @@ function Home() {
 
     try {
       setOrdering(true);
-      await API.post("/api/orders/createOrder", {items, paymentMethod});
+      const res = await API.post("/api/orders/createOrder", {
+        items,
+        paymentMethod,
+      });
       setOrdering(false);
       toast.success(t("Order placed successfully"));
+
+      // WhatsApp Redirection
+      const orderId = res.data._id.slice(-6).toUpperCase();
+      
+      let message = `*New Order!* 🚀\n\n`;
+      message += `*Order ID:* #${orderId}\n`;
+      message += `*Shop:* ${userDetails?.shopName || t("Not Provided")}\n`;
+      message += `*Owner:* ${userDetails?.personName || t("Not Provided")}\n\n`;
+      message += `*Order Items:*\n`;
+      
+      items.forEach((item) => {
+        const product = products.find((p) => p._id === item.product);
+        if (product) {
+          message += `- ${product.name} x ${item.quantity}\n`;
+        }
+      });
+      
+      message += `\n*Total Amount:* ₹${calculateTotal()}\n`;
+      message += `*Payment Method:* ${t(paymentMethod)}\n\n`;
+      message += `Please confirm the order. Thanks!`;
+
+      if (adminPhone) {
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/91${adminPhone}?text=${encodedMessage}`;
+        window.open(whatsappUrl, "_blank");
+      }
+
       setCart({});
       fetchProducts();
     } catch (error) {

@@ -274,6 +274,18 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
+exports.getAdminContact = async (req, res) => {
+  try {
+    const admin = await User.findOne({role: "admin"}).select("phone");
+    if (!admin) {
+      return res.status(404).json({message: "Admin contact not found"});
+    }
+    res.json({phone: admin.phone});
+  } catch (error) {
+    res.status(500).json({message: "Server error"});
+  }
+};
+
 exports.getUserDetails = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
