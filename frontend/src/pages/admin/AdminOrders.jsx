@@ -63,7 +63,7 @@ const AdminOrders = () => {
         setSelectedOrder((prev) => ({...prev, status}));
       }
     } catch (error) {
-      toast.error("Failed to update order status");
+      toast.error(error.response?.data?.message || t("Failed to update order status"));
     }
   };
 
