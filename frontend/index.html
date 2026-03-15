@@ -1,19 +1,59 @@
 <!doctype html>
+
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#4f46e5" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>frontend</title>
-</head>
+    <!-- Favicon -->
 
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
-</body>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
 
+    <!-- Mobile Responsive -->
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- Theme -->
+
+    <meta name="theme-color" content="#4f46e5" />
+
+    <!-- PWA Support -->
+
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Order Management" />
+
+    <!-- SEO -->
+
+    <meta
+      name="description"
+      content="A simple order management system for suppliers and shop owners to track orders and payments easily." />
+
+    <!-- Social Sharing -->
+
+    <meta property="og:title" content="Order Management App" />
+    <meta
+      property="og:description"
+      content="Track shop orders, deliveries, and payments easily." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://order-app-olive.vercel.app/" />
+
+    <!-- Prevent Auto Zoom on Inputs -->
+
+    <meta name="format-detection" content="telephone=no" />
+
+    <title>Order Management</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- React Entry -->
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
