@@ -166,7 +166,7 @@ exports.loginUser = async (req, res) => {
 
     /* ---------------- HARD CODED USER LOGIN ---------------- */
 
-    if (phone === "8867616139" && password === "akash123") {
+    if (phone === "8867616139" && password === "user123") {
       let normalUser = await User.findOne({phone: "8867616139"}).select(
         "+password",
       );
