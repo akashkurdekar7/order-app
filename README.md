@@ -6,16 +6,30 @@ A comprehensive B2B Wholesale Management System built with the MERN stack. This 
 
 ## 📸 Screenshots
 
-> [!TIP]
-> Add images of your application here to make it visually appealing!
+### 👤 User Interface
+<div align="center">
+  <img src="./frontend/public/screenshots/register.png" width="45%" alt="Registration" />
+  <img src="./frontend/public/screenshots/login.png" width="45%" alt="Login" />
+</div>
 
-| User Dashboard | Admin Console |
-| :---: | :---: |
-| ![User Dashboard](https://via.placeholder.com/400x250?text=User+Dashboard+Screenshot) | ![Admin Console](https://via.placeholder.com/400x250?text=Admin+Console+Screenshot) |
+<div align="center">
+  <img src="./frontend/public/screenshots/product.png" width="45%" alt="Product Feed" />
+  <img src="./frontend/public/screenshots/profile.png" width="45%" alt="Profile Management" />
+</div>
 
-| Multilingual Toggle | Order Tracking |
-| :---: | :---: |
-| ![Language Support](https://via.placeholder.com/400x250?text=Kannada+Support+Screenshot) | ![Order History](https://via.placeholder.com/400x250?text=Order+Tracking+Screenshot) |
+<div align="center">
+  <img src="./frontend/public/screenshots/orders.png" width="90%" alt="Order History" />
+</div>
+
+### 🛠️ Admin Dashboard
+<div align="center">
+  <img src="./frontend/public/screenshots/dashboard.png" width="90%" alt="Admin Overview" />
+</div>
+
+<div align="center">
+  <img src="./frontend/public/screenshots/inventory.png" width="45%" alt="Inventory Management" />
+  <img src="./frontend/public/screenshots/sales.png" width="45%" alt="Sales Intelligence" />
+</div>
 
 ---
 
@@ -60,15 +74,15 @@ order-app/
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd order_app
+   git clone https://github.com/akashkurdekar7/order-app.git
+   cd order-app
    ```
 
 2. Setup Backend:
    ```bash
    cd backend
    npm install
-   # Create a .env file based on the environment variables needed
+   # Create a .env file
    npm run dev
    ```
 
@@ -86,30 +100,6 @@ Ensure you have a `.env` file in the `backend/` directory with the following:
 - `PORT`: Server port (default: 9858)
 - `MONGODB_URI`: Your MongoDB connection string
 - `JWT_SECRET`: Secret key for authentication
-## 📸 Application Screenshots
-
-### Authentication
-| Register | Login |
-|---|---|
-| ![](frontend/public/screenshots/register.png) | ![](frontend/public/screenshots/login.png) |
-
-### User Panel
-| Product Catalog | Profile |
-|---|---|
-| ![](frontend/public/screenshots/product.png) | ![](frontend/public/screenshots/profile.png) |
-
-| Orders |
-|---|
-| ![](frontend/public/screenshots/orders.png) |
-
-### Admin Panel
-| Dashboard | Inventory |
-|---|---|
-| ![](frontend/public/screenshots/dashboard.png) | ![](frontend/public/screenshots/inventory.png) |
-
-| Customers | Sales Analytics |
-|---|---|
-| ![](frontend/public/screenshots/customers.png) | ![](frontend/public/screenshots/sales.png) |
 ## 🔗 Links
 
 - **GitHub Repository**: [https://github.com/akashkurdekar7/order-app.git](https://github.com/akashkurdekar7/order-app.git)
