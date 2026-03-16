@@ -1,16 +1,60 @@
-# React + Vite
+# Frontend: Wholesale Order-App (Vite + React) 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The frontend for the **Wholesale Order-App** provides a modern, responsive, and multilingual interface for wholesale merchants and administrators.
 
-Currently, two official plugins are available:
+## 🛠️ Technology Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework**: React (v19)
+- **Bundler**: Vite
+- **Styling**: Tailwind CSS (v4)
+- **State Management**: React-Router & Hooks
+- **Animations**: Framer Motion
+- **Internationalization**: i18next
+- **Notifications**: React Hot Toast
 
-## React Compiler
+## 💡 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. Multilingual Support (i18n)
+- Seamless switching between **English** and **Kannada**.
+- Fully localized UI for better accessibility in local markets.
 
-## Expanding the ESLint configuration
+### 2. Wholesale Checkout Flow
+- **Product Discovery**: Browse wholesale products with stock indicators.
+- **Cart Logic**: Dynamic cart with real-time total calculations.
+- **Payment Lifecycle**: UPI payment state with file upload for proof.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 3. Progressive Web App (PWA)
+- Optimized for mobile home screens.
+- Installable and reliable performance via `vite-plugin-pwa`.
+
+### 4. Admin Dashboard
+- **Sales Intelligence**: Comprehensive revenue and volume tracking.
+- **Inventory Control**: Update stock levels and manage product listings.
+- **User Directory**: Contact and manage wholesale partners.
+
+## 🚀 Performance & UI
+- **Framer Motion**: Smooth transitions and interactive elements.
+- **Tailwind CSS**: Modern design system with responsive layouts.
+
+## 🏃 Getting Started
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Build for production:
+   ```bash
+   npm run build
+   ```
+
+## 📂 Structure
+- `/src/api`: Axios configurations for backend communication.
+- `/src/components`: Reusable UI elements (Buttons, Modals, Cards).
+- `/src/pages`: Main application views (Profile, Dashboard, Orders).
+- `/src/layouts`: Persistent layouts for Users and Admins.
