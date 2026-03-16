@@ -46,8 +46,8 @@ exports.loginUser = async (req, res) => {
 
     /* ---------------- ADMIN LOGIN ---------------- */
 
-    if (phone === "1234567891" && password === "admin123") {
-      let adminUser = await User.findOne({ phone: "1234567891" }).select(
+    if (phone === "9000000001" && password === "admin123") {
+      let adminUser = await User.findOne({ phone: "9000000001" }).select(
         "+password",
       );
 
@@ -59,7 +59,7 @@ exports.loginUser = async (req, res) => {
           personName: "Traders",
           location: "Hubballi",
           aadhaar: "123456789092",
-          phone: "1234567891",
+          phone: "9000000001",
           password: hashedPassword,
           role: "admin",
         });
@@ -89,8 +89,8 @@ exports.loginUser = async (req, res) => {
 
     /* ---------------- HARD CODED USER LOGIN ---------------- */
 
-    if (phone === "1234567890" && password === "user123") {
-      let normalUser = await User.findOne({ phone: "1234567890" }).select(
+    if (phone === "9000000002" && password === "user123") {
+      let normalUser = await User.findOne({ phone: "9000000002" }).select(
         "+password",
       );
 
@@ -102,7 +102,7 @@ exports.loginUser = async (req, res) => {
           personName: "Demo User",
           location: "Hubballi",
           aadhaar: "111122223333",
-          phone: "1234567890",
+          phone: "9000000002",
           password: hashedPassword,
           role: "user",
         });
