@@ -6,11 +6,11 @@ const jwt = require("jsonwebtoken");
 // REGISTER
 exports.registerUser = async (req, res) => {
   try {
-    const {shopName, personName, aadhaar, location, phone, password} = req.body;
+    const { shopName, personName, aadhaar, location, phone, password } = req.body;
 
-    const userExists = await User.findOne({phone}).select("+password");
+    const userExists = await User.findOne({ phone }).select("+password");
     if (userExists) {
-      return res.status(400).json({message: "User already exists"});
+      return res.status(400).json({ message: "User already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -36,95 +36,18 @@ exports.registerUser = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({message: "Server error"});
+    res.status(500).json({ message: "Server error" });
   }
 };
 
-// LOGIN
-// exports.loginUser = async (req, res) => {
-//   try {
-//     const {phone, password} = req.body;
-
-//     // Hardcoded Admin Logic
-//     if (phone === "9916390580" && password === "admin123") {
-//       let adminUser = await User.findOne({phone: "9916390580"}).select(
-//         "+password",
-//       );
-//       if (!adminUser) {
-//         const hashedPassword = await bcrypt.hash(password, 10);
-//         adminUser = await User.create({
-//           shopName: "Mane Traders",
-//           personName: "Samarth Mane",
-//           location: "Maratha Galli",
-//           aadhaar: "123456789092",
-//           phone: "9916390580",
-//           password: hashedPassword,
-//           role: "admin",
-//         });
-//       } else if (adminUser.role !== "admin") {
-//         adminUser.role = "admin";
-//         await adminUser.save();
-//       }
-
-//       const token = jwt.sign(
-//         {id: adminUser._id, role: adminUser.role},
-//         process.env.JWT_SECRET,
-//         {expiresIn: "7d"},
-//       );
-
-//       return res.json({
-//         message: "Admin login successful",
-//         token,
-//         user: {
-//           _id: adminUser._id,
-//           shopName: adminUser.shopName,
-//           personName: adminUser.personName,
-//           phone: adminUser.phone,
-//           role: adminUser.role,
-//         },
-//       });
-//     }
-
-//     const user = await User.findOne({phone}).select("+password");
-//     if (!user) {
-//       return res.status(400).json({message: "Invalid credentials"});
-//     }
-
-//     const isMatch = await bcrypt.compare(password, user.password);
-//     if (!isMatch) {
-//       return res.status(400).json({message: "Invalid credentials"});
-//     }
-
-//     const token = jwt.sign(
-//       {id: user._id, role: user.role},
-//       process.env.JWT_SECRET,
-//       {expiresIn: "7d"},
-//     );
-
-//     res.json({
-//       message: "Login successful",
-//       token,
-//       user: {
-//         _id: user._id,
-//         shopName: user.shopName,
-//         personName: user.personName,
-//         phone: user.phone,
-//         role: user.role,
-//       },
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({message: "Server error"});
-//   }
-// };
 exports.loginUser = async (req, res) => {
   try {
-    const {phone, password} = req.body;
+    const { phone, password } = req.body;
 
     /* ---------------- ADMIN LOGIN ---------------- */
 
-    if (phone === "9916390580" && password === "admin123") {
-      let adminUser = await User.findOne({phone: "9916390580"}).select(
+    if (phone === "1234567891" && password === "admin123") {
+      let adminUser = await User.findOne({ phone: "1234567891" }).select(
         "+password",
       );
 
@@ -132,11 +55,11 @@ exports.loginUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         adminUser = await User.create({
-          shopName: "Mane Traders",
-          personName: "Samarth Mane",
-          location: "Maratha Galli",
+          shopName: "Admin",
+          personName: "Traders",
+          location: "Hubballi",
           aadhaar: "123456789092",
-          phone: "9916390580",
+          phone: "1234567891",
           password: hashedPassword,
           role: "admin",
         });
@@ -146,9 +69,9 @@ exports.loginUser = async (req, res) => {
       }
 
       const token = jwt.sign(
-        {id: adminUser._id, role: adminUser.role},
+        { id: adminUser._id, role: adminUser.role },
         process.env.JWT_SECRET,
-        {expiresIn: "7d"},
+        { expiresIn: "7d" },
       );
 
       return res.json({
@@ -166,8 +89,8 @@ exports.loginUser = async (req, res) => {
 
     /* ---------------- HARD CODED USER LOGIN ---------------- */
 
-    if (phone === "8867616139" && password === "user123") {
-      let normalUser = await User.findOne({phone: "8867616139"}).select(
+    if (phone === "1234567890" && password === "user123") {
+      let normalUser = await User.findOne({ phone: "1234567890" }).select(
         "+password",
       );
 
@@ -175,20 +98,20 @@ exports.loginUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         normalUser = await User.create({
-          shopName: "Akash",
+          shopName: "Demo Shop",
           personName: "Demo User",
-          location: "Bangalore",
+          location: "Hubballi",
           aadhaar: "111122223333",
-          phone: "8867616139",
+          phone: "1234567890",
           password: hashedPassword,
           role: "user",
         });
       }
 
       const token = jwt.sign(
-        {id: normalUser._id, role: normalUser.role},
+        { id: normalUser._id, role: normalUser.role },
         process.env.JWT_SECRET,
-        {expiresIn: "7d"},
+        { expiresIn: "7d" },
       );
 
       return res.json({
@@ -206,22 +129,22 @@ exports.loginUser = async (req, res) => {
 
     /* ---------------- NORMAL DATABASE USER LOGIN ---------------- */
 
-    const user = await User.findOne({phone}).select("+password");
+    const user = await User.findOne({ phone }).select("+password");
 
     if (!user) {
-      return res.status(400).json({message: "Invalid credentials"});
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(400).json({message: "Invalid credentials"});
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
     const token = jwt.sign(
-      {id: user._id, role: user.role},
+      { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      {expiresIn: "7d"},
+      { expiresIn: "7d" },
     );
 
     res.json({
@@ -237,7 +160,7 @@ exports.loginUser = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({message: "Server error"});
+    res.status(500).json({ message: "Server error" });
   }
 };
 exports.updateProfile = async (req, res) => {
@@ -245,7 +168,7 @@ exports.updateProfile = async (req, res) => {
     const user = await User.findById(req.user.id);
 
     if (!user) {
-      return res.status(404).json({message: "User not found"});
+      return res.status(404).json({ message: "User not found" });
     }
 
     user.shopName = req.body.shopName || user.shopName;
@@ -270,19 +193,19 @@ exports.updateProfile = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Server error"});
+    res.status(500).json({ message: "Server error" });
   }
 };
 
 exports.getAdminContact = async (req, res) => {
   try {
-    const admin = await User.findOne({role: "admin"}).select("phone");
+    const admin = await User.findOne({ role: "admin" }).select("phone");
     if (!admin) {
-      return res.status(404).json({message: "Admin contact not found"});
+      return res.status(404).json({ message: "Admin contact not found" });
     }
-    res.json({phone: admin.phone});
+    res.json({ phone: admin.phone });
   } catch (error) {
-    res.status(500).json({message: "Server error"});
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -291,12 +214,12 @@ exports.getUserDetails = async (req, res) => {
     const user = await User.findById(req.user.id).select("-password");
 
     if (!user) {
-      return res.status(404).json({message: "User not found"});
+      return res.status(404).json({ message: "User not found" });
     }
 
     res.json(user);
   } catch (error) {
-    res.status(500).json({message: "Server error"});
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -304,7 +227,7 @@ exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.aggregate([
       {
-        $match: {role: "user"},
+        $match: { role: "user" },
       },
       {
         $lookup: {
@@ -331,7 +254,7 @@ exports.getAllUsers = async (req, res) => {
                   $filter: {
                     input: "$userOrders",
                     as: "order",
-                    cond: {$eq: ["$$order.paymentStatus", "Pending"]},
+                    cond: { $eq: ["$$order.paymentStatus", "Pending"] },
                   },
                 },
                 as: "pendingOrder",
@@ -339,7 +262,7 @@ exports.getAllUsers = async (req, res) => {
               },
             },
           },
-          orderCount: {$size: "$userOrders"},
+          orderCount: { $size: "$userOrders" },
         },
       },
       {
@@ -351,6 +274,6 @@ exports.getAllUsers = async (req, res) => {
     res.json(users);
   } catch (error) {
     console.log(error);
-    res.status(500).json({message: "Server error"});
+    res.status(500).json({ message: "Server error" });
   }
 };

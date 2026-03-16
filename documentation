@@ -19,8 +19,8 @@ apis
 http://localhost:9858/api/auth/register
 
 {
-  "shopName": "Samarth Mane",
-  "personName": "Mane Traders",
+  "shopName": "Admin",
+  "personName": "Traders",
   "aadhaar": "808875647410",
   "location": "Hubballi",
   "phone": "9916390580",
