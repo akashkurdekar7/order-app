@@ -100,7 +100,7 @@ dashboard** for managing the entire business workflow.
 
 ------------------------------------------------------------------------
 # Screenshots
-### Dashboard:
+### Admin:
 <div align="center">
 <img src="frontend/public/screenshots/dashboard.png" width="800"/>
 </div>
@@ -116,6 +116,7 @@ dashboard** for managing the entire business workflow.
 <div align="center">
 <img src="frontend/public/screenshots/sales.png" width="800"/>
 </div>
+
 ### User:
 <div align="center">
 <img src="frontend/public/screenshots/product.png" width="800"/>
