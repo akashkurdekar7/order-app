@@ -14,20 +14,20 @@ A comprehensive B2B Wholesale Management System built with the MERN stack. This 
 
 <div align="center">
   <img src="./frontend/public/screenshots/profile.png" width="45%" alt="Profile Management" />
+  <img src="./frontend/public/screenshots/customer-order-list.png" width="45%" alt="Product Feed" />
 </div>
 <div align="center">
   <img src="./frontend/public/screenshots/product.png" width="45%" alt="Product Feed" />
-  <img src="./frontend/public/screenshots/orders.png" width="90%" alt="Order History" />
 </div>
 
 ### 🛠️ Admin Dashboard
 <div align="center">
-  <img src="./frontend/public/screenshots/dashboard.png" width="90%" alt="Admin Overview" />
-  <img src="./frontend/public/screenshots/customers.png" width="90%" alt="Admin Overview" />
+  <img src="./frontend/public/screenshots/dashboard.png" width="45%" alt="Admin Overview" />
+  <img src="./frontend/public/screenshots/orders.png" width="45%" alt="Order History" />
 </div>
 
 <div align="center">
-  <img src="./frontend/public/screenshots/customer-order-list.png" width="45%" alt="Product Feed" />
+  <img src="./frontend/public/screenshots/customers.png" width="45%" alt="Admin Overview" />
   <img src="./frontend/public/screenshots/inventory.png" width="45%" alt="Inventory Management" />
   <img src="./frontend/public/screenshots/sales.png" width="45%" alt="Sales Intelligence" />
 </div>
