@@ -116,6 +116,16 @@ dashboard** for managing the entire business workflow.
 <div align="center">
 <img src="frontend/public/screenshots/sales.png" width="800"/>
 </div>
+### User:
+<div align="center">
+<img src="frontend/public/screenshots/product.png" width="800"/>
+</div>
+<div align="center">
+<img src="frontend/public/screenshots/track-orders.png" width="800"/>
+</div>
+<div align="center">
+<img src="frontend/public/screenshots/profile.png" width="800"/>
+</div>
 
 # Technology Stack
 
