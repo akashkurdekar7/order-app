@@ -1,153 +1,153 @@
-# Wholesale Order-App (MERN) 🚀
+# Wholesale Order Management System
 
-A **B2B Wholesale Management System** built using the MERN stack.
-This application digitizes traditional wholesale order workflows, manages inventory, and provides analytics for merchants to efficiently handle orders and customers.
-
----
-
-# 📸 Screenshots
-
-## 👤 User Interface
-
-<div align="center">
-  <img src="./frontend/public/screenshots/register.png" width="45%" alt="User Registration"/>
-  <img src="./frontend/public/screenshots/login.png" width="45%" alt="User Login"/>
-</div>
-
-<div align="center">
-  <img src="./frontend/public/screenshots/profile.png" width="45%" alt="User Profile"/>
-  <img src="./frontend/public/screenshots/customer-order-list.png" width="45%" alt="Customer Orders"/>
-</div>
-
-<div align="center">
-  <img src="./frontend/public/screenshots/product.png" width="45%" alt="Product Catalog"/>
-</div>
+A full-stack **B2B wholesale order management platform** built with the MERN stack.
+The system helps wholesale merchants manage products, customers, orders, and inventory through a centralized dashboard.
 
 ---
 
-## 🛠️ Admin Dashboard
+## Live Application
+
+Frontend
+https://order-app-olive.vercel.app/
+
+Backend API
+https://order-backend-c5em.onrender.com/
+
+---
+
+## Screenshots
+
+### User Interface
 
 <div align="center">
-  <img src="./frontend/public/screenshots/dashboard.png" width="45%" alt="Admin Dashboard"/>
-  <img src="./frontend/public/screenshots/orders.png" width="45%" alt="Order Management"/>
+<img src="./frontend/public/screenshots/register.png" width="45%">
+<img src="./frontend/public/screenshots/login.png" width="45%">
 </div>
 
 <div align="center">
-  <img src="./frontend/public/screenshots/customers.png" width="45%" alt="Customer Management"/>
-  <img src="./frontend/public/screenshots/inventory.png" width="45%" alt="Inventory Management"/>
+<img src="./frontend/public/screenshots/profile.png" width="45%">
+<img src="./frontend/public/screenshots/customer-order-list.png" width="45%">
 </div>
 
 <div align="center">
-  <img src="./frontend/public/screenshots/sales.png" width="45%" alt="Sales Analytics"/>
+<img src="./frontend/public/screenshots/product.png" width="45%">
+</div>
+
+### Admin Dashboard
+
+<div align="center">
+<img src="./frontend/public/screenshots/dashboard.png" width="45%">
+<img src="./frontend/public/screenshots/orders.png" width="45%">
+</div>
+
+<div align="center">
+<img src="./frontend/public/screenshots/customers.png" width="45%">
+<img src="./frontend/public/screenshots/inventory.png" width="45%">
+</div>
+
+<div align="center">
+<img src="./frontend/public/screenshots/sales.png" width="45%">
 </div>
 
 ---
 
-# 🌟 Key Features
+## Features
 
-* **Full MERN Stack** – MongoDB, Express.js, React, and Node.js
-* **Multilingual Support** – English and Kannada using `i18next`
-* **Wholesale Business Logic** – Designed specifically for B2B wholesale workflows
-* **Inventory Management** – Track product stock and manage inventory in real time
-* **Order Lifecycle Tracking** – Monitor orders from processing to delivery
-* **Payment Verification** – Upload UPI payment proof with admin approval
-* **Admin Dashboard** – Manage customers, products, and sales insights
-* **Progressive Web App (PWA)** – Mobile-friendly and installable
-
----
-
-# ⚡ Tech Stack
-
-## Frontend
-
-* React (Vite)
-* Tailwind CSS
-* Axios
-* i18next
-
-## Backend
-
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT Authentication
-* bcrypt.js
-
-## Deployment
-
-* Vercel (Frontend)
-* MongoDB Atlas
+* User authentication with JWT
+* Product catalog management
+* Customer management system
+* Inventory tracking
+* Order lifecycle management
+* UPI payment proof upload and verification
+* Admin dashboard with analytics
+* Multilingual support using i18next
+* Responsive UI
 
 ---
 
-# 📁 Project Structure
+## Technology Stack
+
+### Frontend
+
+React (Vite)
+Tailwind CSS
+Axios
+i18next
+
+### Backend
+
+Node.js
+Express.js
+MongoDB
+Mongoose
+JWT Authentication
+bcrypt.js
+
+### Deployment
+
+Frontend: Vercel
+Backend: Render
+Database: MongoDB Atlas
+
+---
+
+## Project Structure
 
 ```
-order-app/
+order-app
 │
-├── backend/            # Express.js API & server
-│   ├── config/         # Database configuration
-│   ├── controllers/    # Business logic
-│   ├── models/         # Mongoose schemas
-│   ├── routes/         # API routes
-│   └── uploads/        # Payment screenshots
+├── backend
+│   ├── config
+│   ├── controllers
+│   ├── models
+│   ├── routes
+│   └── uploads
 │
-├── frontend/           # React client (Vite)
-│   ├── src/
-│   │   ├── api/        # Axios API calls
-│   │   ├── components/ # Reusable UI components
-│   │   ├── pages/      # User & Admin views
-│   │   └── i18n.js     # Multilingual configuration
+├── frontend
+│   ├── src
+│   │   ├── api
+│   │   ├── components
+│   │   ├── pages
+│   │   └── i18n.js
 │
-└── documentation       # API notes & references
+└── documentation
 ```
 
 ---
 
-# 🛠️ Getting Started
+## Local Development
 
-## Prerequisites
-
-* Node.js (v18+)
-* MongoDB (Local or Atlas)
-* npm or yarn
-
----
-
-## Installation
-
-### 1️⃣ Clone Repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/akashkurdekar7/order-app.git
 cd order-app
 ```
 
-### 2️⃣ Backend Setup
+### Backend setup
 
 ```bash
 cd backend
 npm install
 ```
 
-Create `.env` file inside **backend** folder:
+Create `.env`
 
 ```
 PORT=9858
 MONGODB_URI=your_mongodb_connection
-JWT_SECRET=your_secret_key
+JWT_SECRET=your_secret
 ```
 
-Run backend server:
+Run backend
 
-```bash
+```
 npm run dev
 ```
 
-### 3️⃣ Frontend Setup
+### Frontend setup
 
-```bash
+```
 cd ../frontend
 npm install
 npm run dev
@@ -155,39 +155,28 @@ npm run dev
 
 ---
 
-# 🔐 Environment Variables
+## Environment Variables
 
-Create `.env` inside **backend folder**.
+Backend requires:
 
-| Variable    | Description                   |
-| ----------- | ----------------------------- |
-| PORT        | Backend server port           |
-| MONGODB_URI | MongoDB database connection   |
-| JWT_SECRET  | Secret key for authentication |
+PORT
+MONGODB_URI
+JWT_SECRET
 
 ---
 
-# 🔗 Links
+## Author
 
-**GitHub Repository**
-https://github.com/akashkurdekar7/order-app
+Akash Kurdekar
 
-**Live Demo**
-https://order-app-olive.vercel.app/
-
----
-
-# 📞 Contact
-
-**GitHub**
+GitHub
 https://github.com/akashkurdekar7
 
-**LinkedIn**
+LinkedIn
 https://www.linkedin.com/in/akashkurdekar/
 
 ---
 
-# 📄 License
+## License
 
-This project is licensed under the **MIT License**.
-See the `LICENSE` file for more details.
+This project is licensed under the MIT License.
