@@ -1,3 +1,7 @@
+![MERN](https://img.shields.io/badge/stack-MERN-green)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Frontend](https://img.shields.io/badge/frontend-React-blue)
+![Backend](https://img.shields.io/badge/backend-Node.js-green)
 # Wholesale Order Management System
 
 A full-stack **B2B Wholesale Order Management Platform** built using the
@@ -15,6 +19,14 @@ https://order-app-olive.vercel.app/
 
 **Backend API**\
 https://order-backend-c5em.onrender.com/
+
+## Admin Access
+**Phone:** 1234567890  
+**Password:** admin123  
+
+## Customer Access
+**Phone:** 1234567891  
+**Password:** user123
 
 ------------------------------------------------------------------------
 
