@@ -13,8 +13,11 @@ A comprehensive B2B Wholesale Management System built with the MERN stack. This 
 </div>
 
 <div align="center">
-  <img src="./frontend/public/screenshots/product.png" width="45%" alt="Product Feed" />
+  <img src="./frontend/public/screenshots/customer-order-list.png" width="45%" alt="Product Feed" />
   <img src="./frontend/public/screenshots/profile.png" width="45%" alt="Profile Management" />
+</div>
+<div align="center">
+  <img src="./frontend/public/screenshots/product.png" width="45%" alt="Product Feed" />
 </div>
 
 <div align="center">
@@ -24,6 +27,7 @@ A comprehensive B2B Wholesale Management System built with the MERN stack. This 
 ### 🛠️ Admin Dashboard
 <div align="center">
   <img src="./frontend/public/screenshots/dashboard.png" width="90%" alt="Admin Overview" />
+  <img src="./frontend/public/screenshots/customers.png" width="90%" alt="Admin Overview" />
 </div>
 
 <div align="center">
@@ -103,12 +107,12 @@ Ensure you have a `.env` file in the `backend/` directory with the following:
 ## 🔗 Links
 
 - **GitHub Repository**: [https://github.com/akashkurdekar7/order-app.git](https://github.com/akashkurdekar7/order-app.git)
-- **Live Demo**: *Coming Soon*
+- **Live Demo**:[ *Coming Soon*](https://order-app-olive.vercel.app/)
 
 ## 📞 Contact
 
 - **GitHub**: [@akashkurdekar7](https://github.com/akashkurdekar7)
-- **LinkedIn**: [Akash Kurdekar](https://www.linkedin.com/in/akash-kurdekar/)
+- **LinkedIn**: [Akash Kurdekar](https://www.linkedin.com/in/akashkurdekar/)
 
 ## 📄 License
 
