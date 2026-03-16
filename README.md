@@ -13,14 +13,10 @@ A comprehensive B2B Wholesale Management System built with the MERN stack. This 
 </div>
 
 <div align="center">
-  <img src="./frontend/public/screenshots/customer-order-list.png" width="45%" alt="Product Feed" />
   <img src="./frontend/public/screenshots/profile.png" width="45%" alt="Profile Management" />
 </div>
 <div align="center">
   <img src="./frontend/public/screenshots/product.png" width="45%" alt="Product Feed" />
-</div>
-
-<div align="center">
   <img src="./frontend/public/screenshots/orders.png" width="90%" alt="Order History" />
 </div>
 
@@ -31,6 +27,7 @@ A comprehensive B2B Wholesale Management System built with the MERN stack. This 
 </div>
 
 <div align="center">
+  <img src="./frontend/public/screenshots/customer-order-list.png" width="45%" alt="Product Feed" />
   <img src="./frontend/public/screenshots/inventory.png" width="45%" alt="Inventory Management" />
   <img src="./frontend/public/screenshots/sales.png" width="45%" alt="Sales Intelligence" />
 </div>
