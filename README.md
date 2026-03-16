@@ -21,11 +21,11 @@ https://order-app-olive.vercel.app/
 https://order-backend-c5em.onrender.com/
 
 ## Admin Access
-**Phone:** 1234567890  
+**Phone:** 9000000001  
 **Password:** admin123  
 
 ## Customer Access
-**Phone:** 1234567891  
+**Phone:** 9000000002  
 **Password:** user123
 
 ------------------------------------------------------------------------
@@ -99,6 +99,23 @@ dashboard** for managing the entire business workflow.
 -   Multilingual support with i18next
 
 ------------------------------------------------------------------------
+# Screenshots
+### Dashboard:
+<div align="center">
+<img src="frontend/public/screenshots/dashboard.png" width="800"/>
+</div>
+<div align="center">
+<img src="frontend/public/screenshots/orders.png" width="800"/>
+</div>
+<div align="center">
+<img src="frontend/public/screenshots/customers.png" width="800"/>
+</div>
+<div align="center">
+<img src="frontend/public/screenshots/inventory.png" width="800"/>
+</div>
+<div align="center">
+<img src="frontend/public/screenshots/sales.png" width="800"/>
+</div>
 
 # Technology Stack
 
