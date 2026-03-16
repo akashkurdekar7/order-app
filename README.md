@@ -1,276 +1,259 @@
-Wholesale Order Management System
+# Wholesale Order Management System
 
-A full-stack B2B Wholesale Order Management Platform built using the MERN Stack.
+A full-stack **B2B Wholesale Order Management Platform** built using the
+**MERN Stack**.
 
-The system enables wholesale merchants to manage products, customers, orders, inventory, and payments through a centralized admin dashboard.
+The system enables wholesale merchants to manage **products, customers,
+orders, inventory, and payments** through a centralized admin dashboard.
 
-It streamlines the wholesale workflow and provides analytics for better business decisions.
+------------------------------------------------------------------------
 
-Live Application
+## Live Application
 
-Frontend
+**Frontend**\
 https://order-app-olive.vercel.app/
 
-Backend API
+**Backend API**\
 https://order-backend-c5em.onrender.com/
 
-Table of Contents
+------------------------------------------------------------------------
 
-Overview
+# Table of Contents
 
-Features
+-   Overview
+-   Features
+-   Screenshots
+-   Technology Stack
+-   Architecture
+-   Project Structure
+-   Installation
+-   Environment Variables
+-   API Overview
+-   Deployment
+-   Future Improvements
+-   Author
+-   License
 
-Screenshots
+------------------------------------------------------------------------
 
-Technology Stack
+# Overview
 
-Architecture
+The **Wholesale Order Management System** helps businesses manage
+wholesale orders, products, customers, and inventory efficiently.
 
-Project Structure
+It includes a **customer interface** for placing orders and an **admin
+dashboard** for managing the entire business workflow.
 
-Installation
+------------------------------------------------------------------------
 
-Environment Variables
+# Features
 
-API Overview
+## Authentication & Security
 
-Deployment
+-   JWT-based authentication
+-   Password hashing with bcrypt
+-   Secure API endpoints
 
-Future Improvements
+## Product Management
 
-Author
+-   Add / update / delete products
+-   Product catalog browsing
+-   Inventory tracking
 
-License
+## Order Management
 
-Overview
+-   Create and track wholesale orders
+-   Order history management
 
-The Wholesale Order Management System is designed for businesses handling bulk orders.
+## Customer Management
 
-The platform helps merchants:
+-   Customer profiles
+-   Order tracking per customer
 
-Manage product catalogs
+## Payment Handling
 
-Track inventory levels
+-   UPI payment proof upload
+-   Admin verification
 
-Handle customer accounts
+## Admin Dashboard
 
-Process wholesale orders
+-   Sales analytics
+-   Inventory monitoring
+-   Customer management
 
-Verify payments
+## User Experience
 
-Monitor sales analytics
+-   Responsive UI
+-   Multilingual support with i18next
 
-The system includes a customer interface and an admin dashboard.
+------------------------------------------------------------------------
 
-Features
-Authentication & Security
+# Technology Stack
 
-JWT based authentication
+## Frontend
 
-Password hashing using bcrypt
+-   React (Vite)
+-   Tailwind CSS
+-   Axios
+-   i18next
 
-Secure API endpoints
+## Backend
 
-Role based access
+-   Node.js
+-   Express.js
+-   MongoDB
+-   Mongoose
+-   JWT Authentication
+-   bcrypt.js
 
-Product Management
+## Deployment
 
-Add / edit / delete products
+-   Frontend: Vercel
+-   Backend: Render
+-   Database: MongoDB Atlas
 
-Manage product inventory
+------------------------------------------------------------------------
 
-Product catalog browsing
+# Architecture
 
-Order Management
-
-Place wholesale orders
-
-Track order lifecycle
-
-Order history management
-
-Customer Management
-
-Customer profile management
-
-Customer order tracking
-
-Payment Handling
-
-UPI payment proof upload
-
-Admin verification system
-
-Admin Dashboard
-
-Sales analytics
-
-Customer management
-
-Inventory tracking
-
-Order management panel
-
-User Experience
-
-Fully responsive UI
-
-Multilingual support via i18next
-
-Screenshots
-User Interface
-<div align="center"> <img src="./frontend/public/screenshots/register.png" width="45%"> <img src="./frontend/public/screenshots/login.png" width="45%"> </div> <div align="center"> <img src="./frontend/public/screenshots/profile.png" width="45%"> <img src="./frontend/public/screenshots/customer-order-list.png" width="45%"> </div> <div align="center"> <img src="./frontend/public/screenshots/product.png" width="45%"> </div>
-Admin Dashboard
-<div align="center"> <img src="./frontend/public/screenshots/dashboard.png" width="45%"> <img src="./frontend/public/screenshots/orders.png" width="45%"> </div> <div align="center"> <img src="./frontend/public/screenshots/customers.png" width="45%"> <img src="./frontend/public/screenshots/inventory.png" width="45%"> </div> <div align="center"> <img src="./frontend/public/screenshots/sales.png" width="45%"> </div>
-Technology Stack
-Frontend
-
-React (Vite)
-
-Tailwind CSS
-
-Axios
-
-i18next (Multilingual support)
-
-Backend
-
-Node.js
-
-Express.js
-
-MongoDB
-
-Mongoose
-
-JWT Authentication
-
-bcrypt.js
-
-Deployment
-
-Frontend: Vercel
-
-Backend: Render
-
-Database: MongoDB Atlas
-
-Architecture
-Client (React + Vite)
-        |
-        | REST API
-        |
-Backend (Node.js + Express)
-        |
-Database (MongoDB Atlas)
-
-The frontend communicates with the backend using REST APIs.
-Authentication is handled using JWT tokens, and data persistence is managed via MongoDB Atlas.
-
-Project Structure
-order-app
-│
-├── backend
-│   ├── config
-│   ├── controllers
-│   ├── models
-│   ├── routes
-│   └── uploads
-│
-├── frontend
-│   ├── src
-│   │   ├── api
-│   │   ├── components
-│   │   ├── pages
-│   │   └── i18n.js
-│
-└── documentation
-Installation
-Clone Repository
+Client (React + Vite) → REST API → Backend (Node.js + Express) → MongoDB
+Atlas
+
+------------------------------------------------------------------------
+
+# Project Structure
+
+    order-app
+    │
+    ├── backend
+    │   ├── config
+    │   ├── controllers
+    │   ├── models
+    │   ├── routes
+    │   └── uploads
+    │
+    ├── frontend
+    │   ├── src
+    │   │   ├── api
+    │   │   ├── components
+    │   │   ├── pages
+    │   │   └── i18n.js
+    │
+    └── documentation
+
+------------------------------------------------------------------------
+
+# Installation
+
+## Clone Repository
+
+``` bash
 git clone https://github.com/akashkurdekar7/order-app.git
 cd order-app
-Backend Setup
+```
+
+------------------------------------------------------------------------
+
+# Backend Setup
+
+``` bash
 cd backend
 npm install
+```
 
-Create .env file
+Create `.env` file
 
-PORT=9858
-MONGODB_URI=your_mongodb_connection
-JWT_SECRET=your_secret
+    PORT=9858
+    MONGODB_URI=your_mongodb_connection
+    JWT_SECRET=your_secret
 
-Start the backend server
+Run backend
 
+``` bash
 npm run dev
-Frontend Setup
+```
+
+------------------------------------------------------------------------
+
+# Frontend Setup
+
+``` bash
 cd frontend
 npm install
 npm run dev
+```
 
-The frontend will run on:
+Frontend runs on:
 
-http://localhost:5173
-Environment Variables
+    http://localhost:5173
 
-Backend requires the following variables:
+------------------------------------------------------------------------
 
-PORT
-MONGODB_URI
-JWT_SECRET
-API Overview
+# Environment Variables
 
-Example endpoints:
+Backend requires:
 
-Authentication
-POST /api/auth/register
-POST /api/auth/login
-Products
-GET /api/products
-POST /api/products
-PUT /api/products/:id
-DELETE /api/products/:id
-Orders
-POST /api/orders
-GET /api/orders
-Customers
-GET /api/customers
-Deployment
-Frontend
+    PORT
+    MONGODB_URI
+    JWT_SECRET
 
-Deployed using Vercel
+------------------------------------------------------------------------
 
-Backend
+# API Overview
 
-Deployed using Render
+## Authentication
 
-Database
+    POST /api/auth/register
+    POST /api/auth/login
 
-Hosted on MongoDB Atlas
+## Products
 
-Future Improvements
+    GET /api/products
+    POST /api/products
+    PUT /api/products/:id
+    DELETE /api/products/:id
 
-Online payment gateway integration
+## Orders
 
-Real-time order updates
+    POST /api/orders
+    GET /api/orders
 
-Advanced analytics dashboard
+## Customers
 
-Email/SMS notifications
+    GET /api/customers
 
-Role-based admin permissions
+------------------------------------------------------------------------
 
-Mobile application
+# Deployment
 
-Author
+Frontend deployed on **Vercel**\
+Backend deployed on **Render**\
+Database hosted on **MongoDB Atlas**
 
-Akash Kurdekar
+------------------------------------------------------------------------
 
-GitHub
+# Future Improvements
+
+-   Payment gateway integration
+-   Real-time order tracking
+-   Email notifications
+-   Advanced analytics dashboard
+-   Mobile application
+
+------------------------------------------------------------------------
+
+# Author
+
+**Akash Kurdekar**
+
+GitHub\
 https://github.com/akashkurdekar7
 
-LinkedIn
+LinkedIn\
 https://www.linkedin.com/in/akashkurdekar/
 
-License
+------------------------------------------------------------------------
 
-This project is licensed under the MIT License.
+# License
+
+Licensed under the **MIT License**.
