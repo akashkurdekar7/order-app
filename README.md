@@ -86,18 +86,40 @@ Ensure you have a `.env` file in the `backend/` directory with the following:
 - `PORT`: Server port (default: 9858)
 - `MONGODB_URI`: Your MongoDB connection string
 - `JWT_SECRET`: Secret key for authentication
+## 📸 Application Screenshots
 
-## 📜 API Documentation
+### Authentication
+| Register | Login |
+|---|---|
+| ![](frontend/public/screenshots/register.png) | ![](frontend/public/screenshots/login.png) |
 
-Details about endpoints can be found in the [Backend README](backend/README.md) or the [Documentation](documentation) file.
+### User Panel
+| Product Catalog | Profile |
+|---|---|
+| ![](frontend/public/screenshots/product.png) | ![](frontend/public/screenshots/profile.png) |
 
-## 📬 Contact & Support
+| Orders |
+|---|
+| ![](frontend/public/screenshots/orders.png) |
 
-**Akash Kurdekar**
+### Admin Panel
+| Dashboard | Inventory |
+|---|---|
+| ![](frontend/public/screenshots/dashboard.png) | ![](frontend/public/screenshots/inventory.png) |
+
+| Customers | Sales Analytics |
+|---|---|
+| ![](frontend/public/screenshots/customers.png) | ![](frontend/public/screenshots/sales.png) |
+## 🔗 Links
+
+- **GitHub Repository**: [https://github.com/akashkurdekar7/order-app.git](https://github.com/akashkurdekar7/order-app.git)
+- **Live Demo**: *Coming Soon*
+
+## 📞 Contact
+
 - **GitHub**: [@akashkurdekar7](https://github.com/akashkurdekar7)
-- **LinkedIn**: [Your LinkedIn Profile Link]
-- **Project Link**: [https://github.com/akashkurdekar7/order-app](https://github.com/akashkurdekar7/order-app)
+- **LinkedIn**: [Akash Kurdekar](https://www.linkedin.com/in/akash-kurdekar/)
 
-## 📜 License
+## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
