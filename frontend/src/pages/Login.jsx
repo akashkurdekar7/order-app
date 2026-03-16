@@ -1,15 +1,15 @@
-import {useState} from "react";
+import { useState } from "react";
 import API from "../api/axios";
-import {useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import {motion} from "framer-motion";
-import {useTranslation} from "react-i18next";
+import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import registerImg from "../assets/register.jpg";
-import {FiEye, FiEyeOff} from "react-icons/fi";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const Login = () => {
-  const {t, i18n} = useTranslation();
-  const [form, setForm] = useState({phone: "", password: ""});
+  const { t, i18n } = useTranslation();
+  const [form, setForm] = useState({ phone: "", password: "" });
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,8 +46,8 @@ const Login = () => {
   };
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat p-4 relative"
-      style={{backgroundImage: `url(${registerImg})`}}>
+      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat p-4 relative gap-10"
+      style={{ backgroundImage: `url(${registerImg})` }}>
       <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]"></div>
 
       {/* Language Toggle */}
@@ -57,7 +57,7 @@ const Login = () => {
           {t("Change Language")}
         </p>
         <motion.button
-          whileTap={{scale: 0.95}}
+          whileTap={{ scale: 0.95 }}
           onClick={() =>
             i18n.changeLanguage(i18n.language === "en" ? "kn" : "en")
           }
@@ -67,8 +67,22 @@ const Login = () => {
       </div>
 
       <motion.div
-        initial={{opacity: 0, y: 20}}
-        animate={{opacity: 1, y: 0}}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="glass-effect w-max rounded-3xl p-4 relative z-10">
+        <h4 className="text-slate-900 degular-semibold size16 mb-2">
+          Admin details:
+        </h4>
+        <p className="text-slate-900 degular-regular size14">
+          Phone: 9000000001
+        </p>
+        <p className="text-slate-900 degular-regular size14">
+          Password: admin123
+        </p>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         className="glass-effect w-full max-w-md rounded-3xl p-8 sm:p-10 relative z-10">
         <div className="text-center mb-10">
           {/* <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-xl shadow-indigo-500/30 mx-auto mb-6">
@@ -91,7 +105,7 @@ const Login = () => {
               type="tel"
               placeholder={t("e.g. 9876543210")}
               className="w-full px-5 py-4 bg-white/50 border border-white/20 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all degular-regular text-slate-900"
-              onChange={(e) => setForm({...form, phone: e.target.value})}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
             />
           </div>
 
@@ -104,7 +118,7 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
                 className="w-full px-5 py-4 bg-white/50 border border-white/20 rounded-2xl focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all degular-regular text-slate-900"
-                onChange={(e) => setForm({...form, password: e.target.value})}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
               />
               {showPassword ? (
                 <FiEye
@@ -137,6 +151,20 @@ const Login = () => {
             </Link>
           </p>
         </div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="glass-effect w-max rounded-3xl p-4 relative z-10">
+        <h4 className="text-slate-900 degular-semibold size16 mb-2">
+          User details:
+        </h4>
+        <p className="text-slate-900 degular-regular size14">
+          Phone: 9000000002
+        </p>
+        <p className="text-slate-900 degular-regular size14">
+          Password: user123
+        </p>
       </motion.div>
     </div>
   );
